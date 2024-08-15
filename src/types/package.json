@@ -1,0 +1,14 @@
+{
+    "name": "@shared/types",
+    "version": "0.0.1",
+    "main": "index.ts",
+    "type": "module",
+    "types": "index.ts",
+    "license": "UNLICENSED",
+    "sideEffects": false,
+    "scripts": {
+        "lint": "echo Not implemented",
+        "lint:fix": "echo Not implemented",
+        "build": "tsc --build --verbose --pretty && tsc-alias -p tsconfig.json"
+    }
+}
