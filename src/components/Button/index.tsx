@@ -1,17 +1,31 @@
-import { ComponentProps } from 'react';
+import { VariantProps } from 'class-variance-authority';
+import Link from 'next/link';
+import { ReactElement } from 'react';
 
-type ButtonProps = ComponentProps<'button'>;
+import { buttonVariants } from './styles';
 
-export function Button({ children, className, onClick }: ButtonProps) {
+export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+
+export type ButtonProps = {
+  children: ReactElement;
+  className?: string;
+  onClick?: () => void;
+  href?: string;
+} & ButtonVariantProps;
+
+export default function Button({
+  children,
+  onClick,
+  className,
+  variant,
+  status = 'enabled',
+  href
+}: ButtonProps) {
+  const Component = href ? Link : 'button';
+
   return (
-    <button
-      className={`rounded-sm bg-portage px-4 py-2 font-medium text-white transition hover:bg-opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-portage focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-95${
-        className ? ` ${className}` : ''
-      }`}
-      onClick={onClick}
-      type="button"
-    >
+    <Component className={buttonVariants({ variant, className, status })} onClick={onClick} href={href || ''}>
       {children}
-    </button>
+    </Component>
   );
 }

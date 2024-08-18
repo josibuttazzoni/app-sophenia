@@ -4,7 +4,7 @@ module.exports = {
   locales: ['ar', 'en'],
   defaultLocale: 'ar',
   pages: {
-    '*': ['common']
+    '*': ['common', 'login']
   },
   loadLocaleFrom: (lang, ns) =>
     new Promise(resolve => resolve(require(`./src/translations/${lang}/${ns}.json`)))

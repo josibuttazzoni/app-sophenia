@@ -1,1 +1,1 @@
-export const TRANSLATIONS_NAMESPACES = { COMMON: 'common' };
+export const TRANSLATIONS_NAMESPACES = { COMMON: 'common', LOGIN: 'login' };
