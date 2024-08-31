@@ -21,7 +21,8 @@ const config = {
       colors: {
         disco: '#821744',
         'oxford-blue': '#374151',
-        'maroon-flush': '#A42259'
+        'maroon-flush': '#A42259',
+        'pale-sky': '#6B7280'
       },
       keyframes: {
         'accordion-down': {
