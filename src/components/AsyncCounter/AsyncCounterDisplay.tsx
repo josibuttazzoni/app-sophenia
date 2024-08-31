@@ -6,7 +6,7 @@ export function AsyncCounterDisplay() {
   return (
     <p>
       The count is:{' '}
-      <span className="text-lg font-semibold text-portage">
+      <span className="text-portage text-lg font-semibold">
         <span key={count}>{count}</span>
       </span>
     </p>
