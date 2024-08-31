@@ -1,6 +1,6 @@
 import { useCounterContext } from '#lib/providers/CounterContext';
 
-import { Button } from '../Button';
+import Button from '../Button';
 
 export function CounterActions() {
   const { decrement, increment, reset, setCount } = useCounterContext(

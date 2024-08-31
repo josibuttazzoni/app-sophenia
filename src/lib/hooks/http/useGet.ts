@@ -1,6 +1,6 @@
-import { ApiEndpoint, ApiError } from '@shared/types/common';
 import { QueryKey, UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
+import { ApiEndpoint, ApiError } from 'src/types';
 
 import api from '#config/api';
 import { ApiAuthOptions } from '#lib/types/hooks';

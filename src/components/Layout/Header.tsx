@@ -2,7 +2,7 @@ import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 
 import logo from '#assets/logo.svg';
-import { Button } from '#components/Button';
+import Button from '#components/Button';
 import { useLoggedUser } from '#lib/hooks/user/query/useLoggedUser';
 
 import { HeaderUser } from './components/HeaderUser';

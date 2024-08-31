@@ -1,13 +1,13 @@
 import { VariantProps } from 'class-variance-authority';
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 import { buttonVariants } from './styles';
 
 export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 
 export type ButtonProps = {
-  children: ReactElement;
+  children: ReactNode;
   className?: string;
   onClick?: () => void;
   href?: string;

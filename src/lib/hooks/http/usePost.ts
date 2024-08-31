@@ -1,6 +1,6 @@
-import { ApiEndpoint, ApiError } from '@shared/types/common';
 import { QueryKey, UseMutationOptions } from '@tanstack/react-query';
 import { ApiErrorResponse } from 'apisauce';
+import { ApiEndpoint, ApiError } from 'src/types';
 
 import { ApiAuthOptions } from '#lib/types/hooks';
 
