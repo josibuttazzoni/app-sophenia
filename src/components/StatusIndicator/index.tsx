@@ -1,7 +1,6 @@
-
+import { ApiHealth } from 'src/types';
 
 import { useHealth } from '#lib/api/health';
-import { ApiHealth } from 'src/types';
 
 export function StatusIndicator() {
   const { data } = useHealth();

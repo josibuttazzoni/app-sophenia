@@ -1,1 +1,1 @@
-export const USER_ONBOARD_EVENT = 'USER_ONBOARD'
+export const USER_ONBOARD_EVENT = 'USER_ONBOARD';

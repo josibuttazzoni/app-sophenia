@@ -1,5 +1,5 @@
-import { ApiOnboardEndpoint } from 'src/types';
 import { useQueryClient } from '@tanstack/react-query';
+import { ApiOnboardEndpoint } from 'src/types';
 
 import { usePost } from '#lib/hooks/http/usePost';
 

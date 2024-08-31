@@ -16,7 +16,7 @@ function App({ Component, pageProps }: AppProps) {
     <QueryProvider>
       <SessionProvider session={pageProps.session}>
         <main
-          className={`${montserrat.className} bg-neutral-200 text-oxford-blue flex h-screen min-h-screen w-full flex-col items-center gap-4`}
+          className={`${montserrat.className} flex h-screen min-h-screen w-full flex-col items-center gap-4 bg-neutral-200 text-oxford-blue`}
         >
           <Component {...pageProps} />
         </main>
