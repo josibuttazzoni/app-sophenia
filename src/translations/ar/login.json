@@ -3,5 +3,5 @@
   "email": "Email",
   "password": "Contraseña",
   "placeholder": "Ingresa tu {{field}}",
-  "forgetPassword": "Olvidaste tu contraeña?"
+  "forgetPassword": "¿Olvidaste tu contraseña?"
 }
