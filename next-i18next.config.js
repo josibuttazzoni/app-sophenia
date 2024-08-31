@@ -3,11 +3,11 @@ const path = require('path');
 
 const i18nConfig = {
   i18n: {
-    defaultLocale: 'en',
+    defaultLocale: 'ar',
     locales: ['en', 'ar']
   },
   fallbackLng: {
-    default: ['en']
+    default: ['ar']
   },
   // localeStructure: '{ns}/{lng}',
   localePath: typeof window === 'undefined' ? path.resolve('./src/translations') : '/translations',
