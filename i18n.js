@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('next-translate').I18nConfig} */
 module.exports = {
-  locales: ['ar', 'en'],
+  locales: ['ar'],
   defaultLocale: 'ar',
   pages: {
     '*': ['common', 'login']

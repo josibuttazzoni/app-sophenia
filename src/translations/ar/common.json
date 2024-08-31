@@ -3,5 +3,9 @@
   "title": "Turning great ideas into <b>valuable</b> solutions",
   "footer": "To get started read the <b>README.md</b> file from the repository.",
   "backend": "Backend",
-  "database": "Database"
+  "database": "Database",
+  "tasks": "Tareas",
+  "board": "Tablero",
+  "workers": "Operarios",
+  "history": "Historial de OTs"
 }
