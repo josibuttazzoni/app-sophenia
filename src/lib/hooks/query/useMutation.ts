@@ -1,8 +1,8 @@
 import * as amplitude from '@amplitude/analytics-browser';
-import { AMPLITUDE_SESSION_HEADER_KEY, ApiEndpoint, ApiError } from '@shared/types/common';
 import { QueryKey, UseMutationOptions, useMutation } from '@tanstack/react-query';
 import { ApiErrorResponse } from 'apisauce';
 import { useSession } from 'next-auth/react';
+import { AMPLITUDE_SESSION_HEADER_KEY, ApiEndpoint, ApiError } from 'src/types';
 
 import api from '#config/api';
 import { ApiAuthOptions } from '#lib/types/hooks';

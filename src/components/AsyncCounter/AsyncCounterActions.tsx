@@ -1,6 +1,6 @@
 import { useAsyncCounterStore } from '#lib/stores/counter/useAsyncCounterStore';
 
-import { Button } from '../Button';
+import Button from '../Button';
 
 export function AsyncCounterActions() {
   const { decrement, increment, reset, setCount } = useAsyncCounterStore(
