@@ -1,7 +1,9 @@
 import useTranslation from 'next-translate/useTranslation';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 
-import TextLogo from '#assets/textLogo.svg';
+import sophenia from '#assets/sophenia.png';
+import BrandTagline from '#components/BrandTagline';
 import { Button } from '#components/ui/button';
 import { Form, FormField } from '#components/ui/form';
 import { Input } from '#components/ui/input';
@@ -13,8 +15,8 @@ export default function Login() {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="flex h-fit w-96 flex-col items-center gap-y-6 rounded-lg bg-white p-6">
-        <TextLogo />
-        {t('login')}
+        <Image src={sophenia} alt="Sophenia Logo" width={200} height={200} />
+        <h1 className="text-2xl">{t('login')}</h1>
         <Form {...form}>
           <FormField
             {...form}
@@ -35,10 +37,14 @@ export default function Login() {
               />
             )}
           />
-          <Button type="submit" variant="primary">
+          <Button variant="link" className="-px-4 text-pale-sky -mt-4 self-start">
+            {t('forgetPassword')}
+          </Button>
+          <Button type="submit" variant="primary" className="w-full">
             {t('login')}
           </Button>
         </Form>
+        <BrandTagline variant="dark" />
       </div>
     </div>
   );
