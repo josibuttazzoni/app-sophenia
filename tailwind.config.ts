@@ -20,7 +20,8 @@ const config = {
     extend: {
       colors: {
         disco: '#821744',
-        'oxford-blue': '#374151'
+        'oxford-blue': '#374151',
+        'pale-sky': '#6B7280'
       },
       keyframes: {
         'accordion-down': {
