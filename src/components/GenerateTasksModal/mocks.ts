@@ -12,11 +12,18 @@ export const EMPLOYEES_MOCK = [
   'Eugenia de Aramburu'
 ];
 
+const WEATHER_TYPES = {
+  SUNNY: 'sunny',
+  RAINY: 'rainy',
+  SUN_CLOUDY: 'sunCloudy',
+  CLOUDY: 'cloudy'
+};
+
 export const WEATHER_ICONS = {
-  sunny: Sunny,
-  sunCloudy: SunCloudy,
-  rainy: Rainy,
-  cloudy: Cloudy
+  [WEATHER_TYPES.SUNNY]: Sunny,
+  [WEATHER_TYPES.SUN_CLOUDY]: SunCloudy,
+  [WEATHER_TYPES.RAINY]: Rainy,
+  [WEATHER_TYPES.CLOUDY]: Cloudy
 };
 
 export const WEATHER_MOCK = [
@@ -24,30 +31,30 @@ export const WEATHER_MOCK = [
     day: 'lunes',
     min: 9,
     max: 22,
-    weather: 'sunny'
+    weather: WEATHER_TYPES.SUNNY
   },
   {
     day: 'martes',
     min: 4,
     max: 18,
-    weather: 'sunny'
+    weather: WEATHER_TYPES.SUNNY
   },
   {
     day: 'miercoles',
     min: 6,
     max: 24,
-    weather: 'sunCloudy'
+    weather: WEATHER_TYPES.CLOUDY
   },
   {
     day: 'jueves',
     min: 9,
     max: 23,
-    weather: 'rainy'
+    weather: WEATHER_TYPES.SUN_CLOUDY
   },
   {
     day: 'viernes',
     min: 8,
     max: 20,
-    weather: 'cloudy'
+    weather: WEATHER_TYPES.RAINY
   }
 ];
