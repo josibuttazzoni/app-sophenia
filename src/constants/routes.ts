@@ -2,6 +2,6 @@ export const ROUTES = {
   LOGIN: '/login',
   HOME: '/',
   BOARD: '/board',
-  WORKERS: '/workers',
+  EMPLOYEES: '/employees',
   HISTORY: '/history'
 } as const;

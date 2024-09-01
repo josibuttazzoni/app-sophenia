@@ -1,6 +1,6 @@
 export const SIDEBAR_TABS = {
   TASKS: 'tasks',
-  WORKERS: 'workers',
+  EMPLOYEES: 'employees',
   BOARD: 'board',
   HISTORY: 'history'
 };

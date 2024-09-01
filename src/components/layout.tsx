@@ -1,16 +1,12 @@
 import { ReactNode, useState } from 'react';
 
 import { Sidebar } from './Sidebar';
-import { SIDEBAR_TABS } from './Sidebar/constants';
 
-export default function Layout({ children }: { children: ReactNode }) {
-  const [selectedTab, setSelectedTab] = useState(SIDEBAR_TABS.TASKS);
-
+export default function Layout({ children, selectedTab }: { children: ReactNode; selectedTab: string }) {
   return (
-    <>
-      <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-
-      {children}
-    </>
+    <div className="flex h-full w-full">
+      <Sidebar selectedTab={selectedTab} />
+      <div className="flex h-full w-full flex-col gap-y-8 px-8 py-12">{children}</div>
+    </div>
   );
 }
