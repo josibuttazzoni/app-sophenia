@@ -43,7 +43,7 @@ export default function GenerateTasksModal() {
             const Icon = WEATHER_ICONS[weather];
 
             return (
-              <div className="bg-claret flex flex-col items-center rounded-full bg-opacity-15 px-2 py-3 text-disco shadow-md">
+              <div className="bg-claret flex w-14 flex-col items-center rounded-full bg-opacity-15 py-3 text-disco shadow-md">
                 {day.slice(0, 1).toUpperCase()}
                 <div className="flex h-10 items-center">
                   <Icon />
@@ -59,7 +59,7 @@ export default function GenerateTasksModal() {
         <Input />
       </div>
       <div className="flex w-full justify-end">
-        <Button>{t('generate')}</Button>
+        <Button className="px-12">{t('generate')}</Button>
       </div>
     </div>
   );
