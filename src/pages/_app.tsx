@@ -15,9 +15,12 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <QueryProvider>
       <SessionProvider session={pageProps.session}>
-        <main
-          className={`${montserrat.className} flex h-screen min-h-screen w-full flex-col items-center gap-4 bg-neutral-200 text-oxford-blue`}
-        >
+        <style jsx global>{`
+          html {
+            font-family: ${montserrat.style.fontFamily};
+          }
+        `}</style>
+        <main className="flex h-screen min-h-screen w-full flex-col items-center gap-4 bg-neutral-200 text-oxford-blue">
           <Component {...pageProps} />
         </main>
       </SessionProvider>

@@ -4,7 +4,7 @@ const path = require('path');
 const i18nConfig = {
   i18n: {
     defaultLocale: 'ar',
-    locales: ['en', 'ar']
+    locales: ['ar']
   },
   fallbackLng: {
     default: ['ar']

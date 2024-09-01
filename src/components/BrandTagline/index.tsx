@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 
 import Logo from '#assets/logo.svg';
-import WhiteLogo from '#assets/whiteLogo.svg';
+import WhiteLogo from '#assets/white-logo.svg';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
 import { taglineVariants } from './styles';

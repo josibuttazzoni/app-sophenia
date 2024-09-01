@@ -1,0 +1,13 @@
+{
+  "tasks": "Tareas",
+  "generateTasks": "Generar tareas",
+  "generateOT": "Generar OT",
+  "emptyState": "No se encontraron nuevas tareas generadas",
+  "availableEmployees": "Empleados disponibles",
+  "weekWeather": "Clima para la semana",
+  "weeklyGoal": "Objetivo semanal",
+  "generate": "Generar",
+  "editTasks": "Editar tareas",
+  "addTask": "Agregar tarea",
+  "confirm": "Confirmar"
+}
