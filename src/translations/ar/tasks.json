@@ -9,5 +9,9 @@
   "generate": "Generar",
   "editTasks": "Editar tareas",
   "addTask": "Agregar tarea",
-  "confirm": "Confirmar"
+  "confirm": "Confirmar",
+  "emptyTasks": "No se encontraron nuevas tareas\ngeneradas",
+  "task": "Tarea",
+  "requiresDetail": "Requiere detalle",
+  "estimatedTime": "Tiempo estimado"
 }

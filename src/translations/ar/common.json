@@ -8,5 +8,7 @@
   "board": "Tablero",
   "employees": "Operarios",
   "history": "Historial de OTs",
-  "poweredBy": "Desarrollado por SophenIA"
+  "poweredBy": "Desarrollado por SophenIA",
+  "yes": "Sí",
+  "no": "No"
 }

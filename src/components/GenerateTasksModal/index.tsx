@@ -21,7 +21,10 @@ export default function GenerateTasksModal() {
         </div>
         <div className="flex flex-wrap gap-2 rounded-lg border border-slate-200 p-2">
           {availableEmployees.map(empl => (
-            <div className="bg-claret flex items-center gap-2 rounded-md bg-opacity-15 px-2 py-1 text-oxford-blue">
+            <div
+              key={empl}
+              className="bg-claret flex items-center gap-2 rounded-md bg-opacity-15 px-2 py-1 text-oxford-blue"
+            >
               {empl}
               <div
                 onClick={() =>
@@ -43,7 +46,10 @@ export default function GenerateTasksModal() {
             const Icon = WEATHER_ICONS[weather];
 
             return (
-              <div className="bg-claret flex w-14 flex-col items-center rounded-full bg-opacity-15 py-3 text-disco shadow-md">
+              <div
+                key={day}
+                className="bg-claret flex w-14 flex-col items-center rounded-full bg-opacity-15 py-3 text-disco shadow-md"
+              >
                 {day.slice(0, 1).toUpperCase()}
                 <div className="flex h-10 items-center">
                   <Icon />
