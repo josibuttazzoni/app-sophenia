@@ -37,7 +37,7 @@ export default function Login() {
               />
             )}
           />
-          <Button variant="link" className="-px-4 text-pale-sky -mt-4 self-start">
+          <Button variant="link" className="-px-4 -mt-4 self-start text-pale-sky">
             {t('forgetPassword')}
           </Button>
           <Button type="submit" variant="primary" className="w-full">

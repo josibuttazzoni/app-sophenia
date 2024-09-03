@@ -3,5 +3,6 @@
   "email": "Email",
   "password": "Contraseña",
   "placeholder": "Ingresa tu {{field}}",
-  "forgetPassword": "¿Olvidaste tu contraseña?"
+  "forgetPassword": "¿Olvidaste tu contraseña?",
+  "logout": "Cerrar sesión"
 }
