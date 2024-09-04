@@ -1,4 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
+import { FaEdit, FaTrash } from 'react-icons/fa'; 
+import Switch from 'react-switch';
 
 import emptyEmployees from '#assets/emptyTasks.png';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
@@ -7,9 +9,10 @@ import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import Table from '#components/Table';
 import EmptyState from '#components/EmptyState';
 import { Employee, Roles } from 'src/types/employee';
+import { useState } from 'react';
 
 
-const employees: Employee[] = [
+const initialEmployees: Employee[] = [
   {
     id: '1',
     name: 'Matias Puyol',
@@ -32,6 +35,16 @@ const employees: Employee[] = [
 
 export default function Employees() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
+  const [employees, setEmployees] = useState(initialEmployees);
+
+  const handleToggle = (id: string) => {
+    setEmployees(prevEmployees =>
+      prevEmployees.map(employee =>
+        employee.id === id ? { ...employee, isAvailable: !employee.isAvailable } : employee
+      )
+    );
+  };
+
   return (
     <Layout selectedTab={SIDEBAR_TABS.EMPLOYEES}>
       <div className="flex justify-between flex-col">
@@ -42,10 +55,23 @@ export default function Employees() {
             {employees.map(employee => (
               <tr key={employee.id} className="h-16">
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.name}</td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.isAvailable.toString()}
+                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">
+                  <Switch
+                    onChange={() => handleToggle(employee.id)}
+                    checked={employee.isAvailable}
+                    offColor="#888"
+                    onColor="#8B0000"
+                  />
                 </td>
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.role}</td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{}</td>
+                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900 flex items-center space-x-2">
+                  <button>
+                    <FaEdit />
+                  </button>
+                  <button>
+                    <FaTrash />
+                  </button>
+                </td>
               </tr>
             ))}
           </Table>
