@@ -1,5 +1,5 @@
 import useTranslation from 'next-translate/useTranslation';
-import { FaEdit, FaTrash } from 'react-icons/fa'; 
+import { FaEdit, FaTrash, FaTrashRestore } from 'react-icons/fa'; 
 import Switch from 'react-switch';
 
 import emptyEmployees from '#assets/emptyTasks.png';
@@ -66,10 +66,10 @@ export default function Employees() {
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.role}</td>
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900 flex items-center space-x-2">
                   <button>
-                    <FaEdit />
+                   <FaEdit style={{ transform: 'scale(1.5)' }} />
                   </button>
                   <button>
-                    <FaTrash />
+                   <FaTrash style={{ transform: 'scale(1.35)' }} />
                   </button>
                 </td>
               </tr>
