@@ -1,16 +1,21 @@
+import { DialogTrigger } from '@radix-ui/react-dialog';
 import useTranslation from 'next-translate/useTranslation';
-import { FaEdit, FaTrash, FaTrashRestore } from 'react-icons/fa'; 
-import Switch from 'react-switch';
+import { useState } from 'react';
+import Edit from 'src/assets/edit.svg';
+import Trash from 'src/assets/trash.svg';
+import { Employee, Roles } from 'src/types/employee';
 
 import emptyEmployees from '#assets/emptyTasks.png';
-import { SIDEBAR_TABS } from '#components/Sidebar/constants';
-import Layout from '#components/layout';
-import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import Table from '#components/Table';
+import AddEmployeeModal from '#components/AddEmployeeModal';
 import EmptyState from '#components/EmptyState';
-import { Employee, Roles } from 'src/types/employee';
-import { useState } from 'react';
-
+import { IconButton } from '#components/IconButton';
+import { SIDEBAR_TABS } from '#components/Sidebar/constants';
+import { Switch } from '#components/Switch';
+import Table from '#components/Table';
+import Layout from '#components/layout';
+import { Button } from '#components/ui/button';
+import { Dialog, DialogContent } from '#components/ui/dialog';
+import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
 const initialEmployees: Employee[] = [
   {
@@ -31,7 +36,7 @@ const initialEmployees: Employee[] = [
     isAvailable: true,
     role: Roles.Gerencial
   }
-]
+];
 
 export default function Employees() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
@@ -47,40 +52,52 @@ export default function Employees() {
 
   return (
     <Layout selectedTab={SIDEBAR_TABS.EMPLOYEES}>
-      <div className="flex justify-between flex-col">
+      <div className="flex items-center justify-between">
         <div className="text-2xl font-semibold">{t('employees')}</div>
-        <div className="h-full w-full rounded-lg bg-white p-6">
+        <div className="flex gap-x-4">
+          <Dialog>
+            <DialogTrigger>
+              <Button className="px-8" variant="primary">
+                {t('addEmployee')}
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="h-[600px] w-[850px] max-w-none rounded-xl bg-white p-8">
+              <AddEmployeeModal />
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
+      <div className="h-full w-full rounded-lg bg-white p-6">
         {employees.length > 0 ? (
           <Table sections={[t('employee'), t('isAvailable'), t('role'), t('actions')]}>
             {employees.map(employee => (
               <tr key={employee.id} className="h-16">
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.name}</td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">
-                  <Switch
-                    onChange={() => handleToggle(employee.id)}
-                    checked={employee.isAvailable}
-                    offColor="#888"
-                    onColor="#8B0000"
-                  />
+                <td className="px-10 py-4">
+                  <Switch id={`switch-${employee.id}`} onToggle={() => handleToggle(employee.id)} />
                 </td>
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.role}</td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900 flex items-center space-x-2">
-                  <button>
-                   <FaEdit style={{ transform: 'scale(1.5)' }} />
-                  </button>
-                  <button>
-                   <FaTrash style={{ transform: 'scale(1.35)' }} />
-                  </button>
+                <td className="flex items-center space-x-2 px-6 py-4">
+                  <IconButton
+                    icon={Edit}
+                    onClick={() => {
+                      // TODO
+                    }}
+                  />
+                  <IconButton
+                    icon={Trash}
+                    onClick={() => {
+                      // TODO
+                    }}
+                  />
                 </td>
               </tr>
             ))}
           </Table>
         ) : (
-          <EmptyState title={t('emptyEmployees')} icon={emptyEmployees} />
+          <EmptyState title={t('emptyTasks')} icon={emptyEmployees} />
         )}
       </div>
-      </div>
-      <div className="h-full w-full rounded-lg bg-white"></div>
     </Layout>
   );
 }

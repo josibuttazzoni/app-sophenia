@@ -3,5 +3,6 @@
   "employee": "Operario",
   "actions": "Acciones",
   "role": "Rol",
-  "isAvailable": "Disponible"
+  "isAvailable": "Disponible",
+  "addEmployee": "Agregar operario"
 }
