@@ -15,14 +15,12 @@ export function Switch({ onToggle, id }: SwitchProps) {
   };
 
   return (
-    <div>
-      <label
-        htmlFor={id}
-        className={`relative flex h-6 w-11 cursor-pointer rounded-full transition-all ${isChecked ? 'bg-disco' : 'bg-gray-200'} `}
-      >
-        <input type="checkbox" id={id} className="peer sr-only" onChange={handleToggle} />
-        <span className="absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:left-6" />
-      </label>
-    </div>
+    <label
+      htmlFor={id}
+      className={`relative flex h-6 w-11 cursor-pointer rounded-full transition-all ${isChecked ? 'bg-disco' : 'bg-gray-200'} `}
+    >
+      <input type="checkbox" id={id} className="peer sr-only" onChange={handleToggle} />
+      <span className="absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:left-6" />
+    </label>
   );
 }
