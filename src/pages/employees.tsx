@@ -1,5 +1,5 @@
-import { DialogTrigger } from '@radix-ui/react-dialog';
 import useTranslation from 'next-translate/useTranslation';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import Edit from 'src/assets/edit.svg';
 import Trash from 'src/assets/trash.svg';
@@ -17,6 +17,11 @@ import { Dialog, DialogContent } from '#components/ui/dialog';
 import { Switch } from '#components/ui/switch';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
+const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
+  ssr: false
+});
+
+// TODO: delete when back is ready
 const initialEmployees: Employee[] = [
   {
     id: '1',
@@ -95,7 +100,7 @@ export default function Employees() {
             ))}
           </Table>
         ) : (
-          <EmptyState title={t('emptyTasks')} icon={emptyEmployees} />
+          <EmptyState title={t('emptyEmployees')} icon={emptyEmployees} />
         )}
       </div>
     </Layout>

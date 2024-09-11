@@ -4,5 +4,6 @@
   "actions": "Acciones",
   "role": "Rol",
   "isAvailable": "Disponible",
-  "addEmployee": "Agregar operario"
+  "addEmployee": "Agregar operario",
+  "emptyEmployees": "No se encontraron operarios"
 }
