@@ -23,7 +23,7 @@ export default function GenerateTasksModal() {
           {availableEmployees.map(empl => (
             <div
               key={empl}
-              className="bg-claret flex items-center gap-2 rounded-md bg-opacity-15 px-2 py-1 text-oxford-blue"
+              className="flex items-center gap-2 rounded-md bg-claret bg-opacity-15 px-2 py-1 text-oxford-blue"
             >
               {empl}
               <div
@@ -48,7 +48,7 @@ export default function GenerateTasksModal() {
             return (
               <div
                 key={day}
-                className="bg-claret flex w-14 flex-col items-center rounded-full bg-opacity-15 py-3 text-disco shadow-md"
+                className="flex w-14 flex-col items-center rounded-full bg-claret bg-opacity-15 py-3 text-disco shadow-md"
               >
                 {day.slice(0, 1).toUpperCase()}
                 <div className="flex h-10 items-center">

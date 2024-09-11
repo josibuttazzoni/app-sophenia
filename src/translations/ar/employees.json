@@ -1,3 +1,9 @@
 {
-  "employees": "Operarios"
+  "employees": "Operarios",
+  "employee": "Operario",
+  "actions": "Acciones",
+  "role": "Rol",
+  "isAvailable": "Disponible",
+  "addEmployee": "Agregar operario",
+  "emptyEmployees": "No se encontraron operarios"
 }

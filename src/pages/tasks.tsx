@@ -1,4 +1,5 @@
 import useTranslation from 'next-translate/useTranslation';
+import dynamic from 'next/dynamic';
 import { Task } from 'src/types/tasks';
 
 import emptyTasks from '#assets/emptyTasks.png';
@@ -8,8 +9,12 @@ import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import Table from '#components/Table';
 import Layout from '#components/layout';
 import { Button } from '#components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '#components/ui/dialog';
+import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+
+const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
+  ssr: false
+});
 
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
