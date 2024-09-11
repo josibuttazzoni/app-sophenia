@@ -10,11 +10,11 @@ import AddEmployeeModal from '#components/AddEmployeeModal';
 import EmptyState from '#components/EmptyState';
 import { IconButton } from '#components/IconButton';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
-import { Switch } from '#components/Switch';
 import Table from '#components/Table';
 import Layout from '#components/layout';
 import { Button } from '#components/ui/button';
 import { Dialog, DialogContent } from '#components/ui/dialog';
+import { Switch } from '#components/ui/switch';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
 const initialEmployees: Employee[] = [
@@ -74,7 +74,7 @@ export default function Employees() {
               <tr key={employee.id} className="h-16">
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.name}</td>
                 <td className="px-10 py-4">
-                  <Switch id={`switch-${employee.id}`} onToggle={() => handleToggle(employee.id)} />
+                  <Switch id={`switch-${employee.id}`} onCheckedChange={() => handleToggle(employee.id)} />
                 </td>
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.role}</td>
                 <td className="flex items-center space-x-2 px-6 py-4">
