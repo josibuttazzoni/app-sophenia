@@ -10,11 +10,12 @@ import AddEmployeeModal from '#components/AddEmployeeModal';
 import EmptyState from '#components/EmptyState';
 import { IconButton } from '#components/IconButton';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
-import Table from '#components/Table';
+import { BaseTable } from '#components/Table';
 import Layout from '#components/layout';
 import { Button } from '#components/ui/button';
 import { Dialog, DialogContent } from '#components/ui/dialog';
 import { Switch } from '#components/ui/switch';
+import { TableCell, TableRow } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
@@ -74,15 +75,19 @@ export default function Employees() {
       </div>
       <div className="h-full w-full rounded-lg bg-white p-6">
         {employees.length > 0 ? (
-          <Table sections={[t('employee'), t('isAvailable'), t('role'), t('actions')]}>
+          <BaseTable columns={[t('employee'), t('isAvailable'), t('role'), t('actions')]}>
             {employees.map(employee => (
-              <tr key={employee.id} className="h-16">
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.name}</td>
-                <td className="px-10 py-4">
-                  <Switch id={`switch-${employee.id}`} onCheckedChange={() => handleToggle(employee.id)} />
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{employee.role}</td>
-                <td className="flex items-center space-x-2 px-6 py-4">
+              <TableRow key={employee.id}>
+                <TableCell className="font-medium">{employee.name}</TableCell>
+                <TableCell>
+                  <Switch
+                    className="ml-4"
+                    id={`switch-${employee.id}`}
+                    onCheckedChange={() => handleToggle(employee.id)}
+                  />
+                </TableCell>
+                <TableCell className="font-medium">{employee.role}</TableCell>
+                <TableCell className="ml-1 flex gap-x-2">
                   <IconButton
                     icon={Edit}
                     onClick={() => {
@@ -95,10 +100,10 @@ export default function Employees() {
                       // TODO
                     }}
                   />
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
-          </Table>
+          </BaseTable>
         ) : (
           <EmptyState title={t('emptyEmployees')} icon={emptyEmployees} />
         )}

@@ -6,10 +6,11 @@ import emptyTasks from '#assets/emptyTasks.png';
 import EmptyState from '#components/EmptyState';
 import GenerateTasksModal from '#components/GenerateTasksModal';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
-import Table from '#components/Table';
+import { BaseTable } from '#components/Table';
 import Layout from '#components/layout';
 import { Button } from '#components/ui/button';
 import { Dialog, DialogContent } from '#components/ui/dialog';
+import { TableCell, TableRow } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
@@ -68,17 +69,15 @@ export default function Tasks() {
       </div>
       <div className="h-full w-full rounded-lg bg-white p-6">
         {tasks.length > 0 ? (
-          <Table sections={[t('task'), t('requiresDetail'), t('estimatedTime')]}>
+          <BaseTable columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}>
             {tasks.map(task => (
-              <tr key={task.id} className="h-16">
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{task.title}</td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">
-                  {tCommon(task.withDetail ? 'yes' : 'no')}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{task.time}</td>
-              </tr>
+              <TableRow key={task.id}>
+                <TableCell className="font-medium">{task.title}</TableCell>
+                <TableCell>{tCommon(task.withDetail ? 'yes' : 'no')}</TableCell>
+                <TableCell>{task.time}</TableCell>
+              </TableRow>
             ))}
-          </Table>
+          </BaseTable>
         ) : (
           <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
         )}

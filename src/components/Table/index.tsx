@@ -1,18 +1,18 @@
 import { ReactNode } from 'react';
 
-export default function Table({ sections, children }: { sections: string[]; children: ReactNode }) {
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '#components/ui/table';
+
+export function BaseTable({ columns, children }: { columns: string[]; children: ReactNode }) {
   return (
-    <table className="min-w-full divide-y divide-gray-200">
-      <thead>
-        <tr>
-          {sections.map(section => (
-            <th key={section} className="p-6 text-left text-sm font-semibold text-black">
-              {section}
-            </th>
+    <Table>
+      <TableHeader>
+        <TableRow className="hover:bg-transparent">
+          {columns.map(column => (
+            <TableHead key={column}>{column}</TableHead>
           ))}
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-200 bg-white">{children}</tbody>
-    </table>
+        </TableRow>
+      </TableHeader>
+      <TableBody>{children}</TableBody>
+    </Table>
   );
 }
