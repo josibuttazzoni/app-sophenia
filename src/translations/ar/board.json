@@ -1,3 +1,10 @@
 {
-  "board": "Tablero semanal de tareas"
+  "board": "Tablero semanal de tareas",
+  "emptyTasks": "No se encontraron nuevas tareas\ngeneradas",
+  "status": {
+    "pending": "Pendientes",
+    "progress": "En proceso",
+    "review": "En revisión",
+    "completed": "Finalizadas"
+  }
 }

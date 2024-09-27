@@ -23,7 +23,12 @@ const config = {
         disco: '#821744',
         'oxford-blue': '#374151',
         'maroon-flush': '#A42259',
-        'pale-sky': '#6B7280'
+        'pale-sky': '#6B7280',
+        prim: '#ECDDE3',
+        mystic: '#DDE7EC',
+        snuff: '#E1DDEC',
+        'willow-grove': '#E3ECDD',
+        'athens-gray': '#F4F5F7'
       },
       keyframes: {
         'accordion-down': {
