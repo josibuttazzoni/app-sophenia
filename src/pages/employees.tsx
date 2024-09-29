@@ -67,7 +67,7 @@ export default function Employees() {
                 {t('addEmployee')}
               </Button>
             </DialogTrigger>
-            <DialogContent className="h-[600px] w-[850px] max-w-none rounded-xl bg-white p-8">
+            <DialogContent className="rounded-xl bg-white p-8">
               <AddEmployeeModal />
             </DialogContent>
           </Dialog>
