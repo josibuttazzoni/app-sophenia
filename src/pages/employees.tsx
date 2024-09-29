@@ -3,10 +3,11 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import Edit from 'src/assets/edit.svg';
 import Trash from 'src/assets/trash.svg';
-import { Employee, Roles } from 'src/types/employee';
+import { Employee, Genres, Roles } from 'src/types/employee';
 
 import emptyEmployees from '#assets/emptyTasks.png';
-import AddEmployeeModal from '#components/AddEmployeeModal';
+import AddEmployeeModal from '#components/EmployeeModal';
+import EmployeeModal from '#components/EmployeeModal';
 import EmptyState from '#components/EmptyState';
 import { IconButton } from '#components/IconButton';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
@@ -28,19 +29,25 @@ const initialEmployees: Employee[] = [
     id: '1',
     name: 'Matias Puyol',
     isAvailable: true,
-    role: Roles.Operativo
+    role: Roles.Operativo,
+    genre: Genres.Male,
+    email: 'test@mail.com'
   },
   {
     id: '2',
     name: 'Juan Ontiveros',
     isAvailable: false,
-    role: Roles.Operativo
+    role: Roles.Operativo,
+    genre: Genres.Male,
+    email: 'test@mail.com'
   },
   {
     id: '3',
-    name: 'Santiago Benedetto',
+    name: 'Santiago Benedetti',
     isAvailable: true,
-    role: Roles.Gerencial
+    role: Roles.Gerencial,
+    genre: Genres.Male,
+    email: 'test@mail.com'
   }
 ];
 
@@ -67,8 +74,8 @@ export default function Employees() {
                 {t('addEmployee')}
               </Button>
             </DialogTrigger>
-            <DialogContent className="rounded-xl bg-white p-8">
-              <AddEmployeeModal />
+            <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
+              <EmployeeModal />
             </DialogContent>
           </Dialog>
         </div>
@@ -88,12 +95,14 @@ export default function Employees() {
                 </TableCell>
                 <TableCell className="font-medium">{employee.role}</TableCell>
                 <TableCell className="ml-1 flex gap-x-2">
-                  <IconButton
-                    icon={Edit}
-                    onClick={() => {
-                      // TODO
-                    }}
-                  />
+                  <Dialog>
+                    <DialogTrigger>
+                      <Edit />
+                    </DialogTrigger>
+                    <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
+                      <EmployeeModal email={employee.email} role={employee.role} genre={employee.genre} />
+                    </DialogContent>
+                  </Dialog>
                   <IconButton
                     icon={Trash}
                     onClick={() => {

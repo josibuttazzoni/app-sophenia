@@ -4,20 +4,20 @@ type CustomSelectProps = {
   label: string;
   items: string[];
   placeholder: string;
-  t: (key: string) => string;
+  value?: string;
 };
 
-export default function CustomSelect({ label, items, placeholder, t }: CustomSelectProps) {
+export default function CustomSelect({ label, items, placeholder, value }: CustomSelectProps) {
   return (
     <Select>
       <span className="text-sm">{label}</span>
       <SelectTrigger>
-        <SelectValue placeholder={placeholder} />
+        <SelectValue placeholder={value ?? placeholder} />
       </SelectTrigger>
       <SelectContent>
         {items.map(item => (
           <SelectItem key={item} value={item}>
-            {t(item)}
+            {item}
           </SelectItem>
         ))}
       </SelectContent>
