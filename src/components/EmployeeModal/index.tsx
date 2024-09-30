@@ -17,7 +17,7 @@ export default function EmployeeModal({ email, role, genre }: EmployeeModalProps
 
   return (
     <div className="flex flex-col justify-between gap-y-6">
-      <div className="text-xl font-semibold">{t('addEmployee')}</div>
+      <div className="text-xl font-semibold">{email ? t('editEmployee') : t('addEmployee')}</div>
       <Input
         value={email}
         label={t('email')}

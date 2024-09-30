@@ -5,6 +5,7 @@
   "role": "Rol",
   "isAvailable": "Disponible",
   "addEmployee": "Agregar operario",
+  "editEmployee": "Editar operario",
   "emptyEmployees": "No se encontraron operarios",
   "female": "Femenino",
   "male": "Masculino",
