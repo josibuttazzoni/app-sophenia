@@ -1,3 +1,4 @@
+import { DialogClose } from '@radix-ui/react-dialog';
 import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
@@ -6,10 +7,8 @@ import Trash from 'src/assets/trash.svg';
 import { Employee, Genres, Roles } from 'src/types/employee';
 
 import emptyEmployees from '#assets/emptyTasks.png';
-import AddEmployeeModal from '#components/EmployeeModal';
 import EmployeeModal from '#components/EmployeeModal';
 import EmptyState from '#components/EmptyState';
-import { IconButton } from '#components/IconButton';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import { BaseTable } from '#components/Table';
 import WarningModal from '#components/WarningModal';
@@ -115,10 +114,15 @@ export default function Employees() {
                             {t('wantToDeleteEmployee', { employee: employee.name })}
                           </div>
                           <div className="flex w-full justify-between gap-x-3">
-                            <Button className="w-1/2" variant="secondary">
-                              {t('cancel')}
+                            <DialogClose className="w-1/2">
+                              <Button className="w-full" variant="secondary">
+                                {t('cancel')}
+                              </Button>
+                            </DialogClose>
+                            {/* TODO: Add */}
+                            <Button onClick={() => {}} className="w-1/2">
+                              {t('delete')}
                             </Button>
-                            <Button className="w-1/2">{t('delete')}</Button>
                           </div>
                         </>
                       </WarningModal>
