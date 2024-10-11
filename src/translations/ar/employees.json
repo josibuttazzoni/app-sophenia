@@ -13,5 +13,8 @@
   "managerial": "Gerencial",
   "email": "Correo electrónico",
   "enterThe": "Ingrese el {{field}}",
-  "save": "Guardar"
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "delete": "Eliminar",
+  "wantToDeleteEmployee": "¿Deseas eliminar al operario {{employee}}?"
 }

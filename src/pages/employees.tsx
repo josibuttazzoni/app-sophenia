@@ -12,6 +12,7 @@ import EmptyState from '#components/EmptyState';
 import { IconButton } from '#components/IconButton';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import { BaseTable } from '#components/Table';
+import WarningModal from '#components/WarningModal';
 import Layout from '#components/layout';
 import { Button } from '#components/ui/button';
 import { Dialog, DialogContent } from '#components/ui/dialog';
@@ -103,12 +104,26 @@ export default function Employees() {
                       <EmployeeModal email={employee.email} role={employee.role} genre={employee.genre} />
                     </DialogContent>
                   </Dialog>
-                  <IconButton
-                    icon={Trash}
-                    onClick={() => {
-                      // TODO
-                    }}
-                  />
+                  <Dialog>
+                    <DialogTrigger>
+                      <Trash />
+                    </DialogTrigger>
+                    <DialogContent className="w-full max-w-sm rounded-xl bg-white p-8">
+                      <WarningModal>
+                        <>
+                          <div className="text-md text-ebony-clay text-center font-semibold">
+                            {t('wantToDeleteEmployee', { employee: employee.name })}
+                          </div>
+                          <div className="flex w-full justify-between gap-x-3">
+                            <Button className="w-1/2" variant="secondary">
+                              {t('cancel')}
+                            </Button>
+                            <Button className="w-1/2">{t('delete')}</Button>
+                          </div>
+                        </>
+                      </WarningModal>
+                    </DialogContent>
+                  </Dialog>
                 </TableCell>
               </TableRow>
             ))}
