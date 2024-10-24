@@ -5,5 +5,16 @@
   "role": "Rol",
   "isAvailable": "Disponible",
   "addEmployee": "Agregar operario",
-  "emptyEmployees": "No se encontraron operarios"
+  "editEmployee": "Editar operario",
+  "emptyEmployees": "No se encontraron operarios",
+  "female": "Femenino",
+  "male": "Masculino",
+  "gender": "Género",
+  "managerial": "Gerencial",
+  "email": "Correo electrónico",
+  "enterThe": "Ingrese el {{field}}",
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "delete": "Eliminar",
+  "wantToDeleteEmployee": "¿Deseas eliminar al operario {{employee}}?"
 }

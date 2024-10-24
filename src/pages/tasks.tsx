@@ -57,7 +57,7 @@ export default function Tasks() {
                 {t('generateTasks')}
               </Button>
             </DialogTrigger>
-            <DialogContent className="h-[600px] w-[850px] max-w-none rounded-xl bg-white p-8">
+            <DialogContent className="h-[600px] w-[850px] rounded-xl bg-white p-8">
               <GenerateTasksModal />
             </DialogContent>
           </Dialog>

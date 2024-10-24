@@ -21,6 +21,7 @@ const config = {
       colors: {
         claret: '#811744',
         disco: '#821744',
+        'ebony-clay': '#212B36',
         'oxford-blue': '#374151',
         'maroon-flush': '#A42259',
         'pale-sky': '#6B7280',
