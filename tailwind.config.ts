@@ -27,6 +27,7 @@ const config = {
         'pale-sky': '#6B7280',
         prim: '#ECDDE3',
         mystic: '#DDE7EC',
+        mischka: '#DADEE4',
         snuff: '#E1DDEC',
         'willow-grove': '#E3ECDD',
         'athens-gray': '#F4F5F7'

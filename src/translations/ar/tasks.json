@@ -13,5 +13,8 @@
   "emptyTasks": "No se encontraron nuevas tareas\ngeneradas",
   "task": "Tarea",
   "requiresDetail": "Requiere detalle",
-  "estimatedTime": "Tiempo estimado"
+  "estimatedTime": "Tiempo estimado",
+  "yes": "Sí",
+  "no": "No",
+  "description": "Descripción"
 }
