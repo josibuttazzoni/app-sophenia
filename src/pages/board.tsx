@@ -1,5 +1,5 @@
 import useTranslation from 'next-translate/useTranslation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 
 import emptyTasks from '#assets/emptyTasks.png';
@@ -18,6 +18,11 @@ type Task = {
 
 export default function Board() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
+
+  const [winReady, setwinReady] = useState(false);
+  useEffect(() => {
+    setwinReady(true);
+  }, []);
 
   // TODO: delete when backend is ready
   const TASKS_MOCK: Task[] = [
@@ -50,7 +55,7 @@ export default function Board() {
 
     if (sourceStatus === destinationStatus) return;
 
-    // TODO: change in backend?
+    // TODO: change in backend
     setTasks(prevTasks =>
       prevTasks.map(task => (task.id === draggableId ? { ...task, status: destinationStatus } : task))
     );
@@ -62,30 +67,32 @@ export default function Board() {
         <div className="text-2xl font-semibold">{t('board')}</div>
       </div>
 
-      <div className="w-full rounded-lg p-6">
-        {tasks.length > 0 ? (
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <div className="flex w-full justify-between gap-x-2">
-              {Object.values(STATUS).map(status => (
-                <Droppable droppableId={status} key={status}>
-                  {provided => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                      className="flex w-full flex-col gap-y-3 rounded-xl bg-white p-2"
-                    >
-                      <BoardColumn status={status} tasks={getTasksByStatus[status] || []} />
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              ))}
-            </div>
-          </DragDropContext>
-        ) : (
-          <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
-        )}
-      </div>
+      {winReady && (
+        <div className="w-full rounded-lg p-6">
+          {tasks.length > 0 ? (
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <div className="flex w-full justify-between gap-x-2">
+                {Object.values(STATUS).map(status => (
+                  <Droppable droppableId={status} key={status}>
+                    {provided => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        className="flex w-full flex-col gap-y-3 rounded-xl bg-white p-2"
+                      >
+                        <BoardColumn status={status} tasks={getTasksByStatus[status] || []} />
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                ))}
+              </div>
+            </DragDropContext>
+          ) : (
+            <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
+          )}
+        </div>
+      )}
     </Layout>
   );
 }
