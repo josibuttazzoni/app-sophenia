@@ -6,9 +6,10 @@ import emptyEmployees from '#assets/emptyTasks.png';
 import EmptyState from '#components/EmptyState';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import PaginatedTableWrapper from '#components/Table';
+import WorkOrderModal from '#components/WorkOrderModal';
 import Layout from '#components/layout';
 import { Button } from '#components/ui/button';
-import { Dialog } from '#components/ui/dialog';
+import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
@@ -88,6 +89,14 @@ export default function History() {
         <TableCell className="font-medium">{workOrder.startDate.toLocaleDateString()}</TableCell>
         <TableCell className="font-medium">{workOrder.endDate.toLocaleDateString()}</TableCell>
         <TableCell className="font-medium">{workOrder.name}</TableCell>
+        <TableCell className="font-medium">
+          <Dialog>
+            <DialogTrigger>Ver mas</DialogTrigger>
+            <DialogContent className="w-full max-w-sm rounded-xl bg-white p-8">
+              <WorkOrderModal {...workOrder} />
+            </DialogContent>
+          </Dialog>
+        </TableCell>
       </>
     );
   };
