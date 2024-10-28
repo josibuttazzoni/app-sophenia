@@ -78,7 +78,7 @@ const history: WorkOrder[] = [
   }
 ];
 
-export default function Employees() {
+export default function History() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.HISTORY);
 
   const renderRow = (workOrder: WorkOrder) => {
