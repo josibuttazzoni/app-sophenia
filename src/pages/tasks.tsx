@@ -6,11 +6,11 @@ import emptyTasks from '#assets/emptyTasks.png';
 import EmptyState from '#components/EmptyState';
 import GenerateTasksModal from '#components/GenerateTasksModal';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
-import { BaseTable } from '#components/Table';
+import PaginatedTableWrapper from '#components/Table';
 import Layout from '#components/layout';
 import { Button } from '#components/ui/button';
 import { Dialog, DialogContent } from '#components/ui/dialog';
-import { TableCell, TableRow } from '#components/ui/table';
+import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
@@ -44,8 +44,60 @@ export default function Tasks() {
       status: 'review',
       time: '2hs',
       withDetail: true
+    },
+    {
+      id: '4',
+      title: 'Task 4',
+      status: 'pending',
+      time: '10hs',
+      withDetail: false
+    },
+    {
+      id: '5',
+      title: 'Task 5',
+      status: 'completed',
+      time: '3hs',
+      withDetail: false
+    },
+    {
+      id: '6',
+      title: 'Task 6',
+      status: 'review',
+      time: '2hs',
+      withDetail: true
+    },
+    {
+      id: '7',
+      title: 'Task 7',
+      status: 'pending',
+      time: '10hs',
+      withDetail: false
+    },
+    {
+      id: '8',
+      title: 'Task 8',
+      status: 'completed',
+      time: '3hs',
+      withDetail: false
+    },
+    {
+      id: '9',
+      title: 'Task 9',
+      status: 'review',
+      time: '2hs',
+      withDetail: true
     }
   ];
+
+  const renderTaskRow = (task: Task) => {
+    return (
+      <>
+        <TableCell className="font-medium">{task.title}</TableCell>
+        <TableCell>{tCommon(task.withDetail ? 'yes' : 'no')}</TableCell>
+        <TableCell>{task.time}</TableCell>
+      </>
+    );
+  };
   return (
     <Layout selectedTab={SIDEBAR_TABS.TASKS}>
       <div className="flex items-center justify-between">
@@ -69,15 +121,11 @@ export default function Tasks() {
       </div>
       <div className="h-full w-full rounded-lg bg-white p-6">
         {tasks.length > 0 ? (
-          <BaseTable columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}>
-            {tasks.map(task => (
-              <TableRow key={task.id}>
-                <TableCell className="font-medium">{task.title}</TableCell>
-                <TableCell>{tCommon(task.withDetail ? 'yes' : 'no')}</TableCell>
-                <TableCell>{task.time}</TableCell>
-              </TableRow>
-            ))}
-          </BaseTable>
+          <PaginatedTableWrapper
+            data={tasks}
+            columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}
+            row={renderTaskRow}
+          />
         ) : (
           <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
         )}
