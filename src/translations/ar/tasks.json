@@ -16,5 +16,8 @@
   "estimatedTime": "Tiempo estimado",
   "yes": "Sí",
   "no": "No",
-  "description": "Descripción"
+  "description": "Descripción",
+  "pending": "Pendiente",
+  "completed": "Completa",
+  "review": "En revisión"
 }

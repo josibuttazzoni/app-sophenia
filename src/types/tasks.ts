@@ -1,3 +1,5 @@
+import { Employee } from 'employee';
+
 // TODO: change when back is ready
 export type Task = {
   id: string;
@@ -5,6 +7,8 @@ export type Task = {
   status: TaskStatus;
   time: string;
   withDetail: boolean;
+  workerAssigned: Employee;
+  description: string;
 };
 
 export type TaskStatus = 'pending' | 'progress' | 'review' | 'completed';
