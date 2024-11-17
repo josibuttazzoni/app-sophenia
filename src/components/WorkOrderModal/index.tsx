@@ -1,5 +1,5 @@
 import useTranslation from 'next-translate/useTranslation';
-import { WorkOrder } from 'src/types/tasks';
+import { WorkOrder } from 'src/types/workOrders';
 
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 

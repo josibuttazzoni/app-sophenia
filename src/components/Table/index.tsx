@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { Employee } from 'src/types/employee';
-import { Task, WorkOrder } from 'src/types/tasks';
+import { Task } from 'src/types/tasks';
+import { WorkOrder } from 'src/types/workOrders';
 
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '#components/ui/pagination';
 import { TableRow } from '#components/ui/table';
