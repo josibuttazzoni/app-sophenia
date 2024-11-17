@@ -5,22 +5,25 @@ type CustomSelectProps = {
   items: string[];
   placeholder: string;
   value?: string;
+  onChange?: (value: string) => void;
 };
 
-export default function CustomSelect({ label, items, placeholder, value }: CustomSelectProps) {
+export default function CustomSelect({ label, items, placeholder, value, onChange }: CustomSelectProps) {
   return (
-    <Select>
+    <div>
       <span className="text-sm">{label}</span>
-      <SelectTrigger>
-        <SelectValue placeholder={value ?? placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {items.map(item => (
-          <SelectItem key={item} value={item}>
-            {item}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+      <Select value={value} onValueChange={val => onChange?.(val)}>
+        <SelectTrigger>
+          <SelectValue placeholder={value ?? placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          {items.map(item => (
+            <SelectItem key={item} value={item}>
+              {item}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }
