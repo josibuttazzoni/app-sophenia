@@ -1,9 +1,11 @@
+import { cx } from 'class-variance-authority';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link';
 import { Form, useForm } from 'react-hook-form';
 import { Genres, Roles } from 'src/types/employee';
 
 import BackArrow from '#assets/back-arrow.svg';
+import { STATUS_COLORS } from '#components/BoardColumn/constants';
 import ImageUploadButton from '#components/UploadFile';
 import { Button } from '#components/ui/button';
 import { FormField } from '#components/ui/form';
@@ -42,6 +44,10 @@ export default function WorkerTask() {
         <div className="text-lg font-semibold">{task.title}</div>
       </div>
       {task.description}
+      <div className="flex gap-x-2">
+        <div className={cx('rounded-md px-2', STATUS_COLORS[task.status]?.bg)}>{t(task.status)} </div>
+        <div className="rounded-md border px-2">{task.time}</div>
+      </div>
       {/* TODO: Make forms work */}
       <Form className="flex flex-col gap-y-5" onSubmit={values => console.log(values)} {...form}>
         <div className="flex gap-x-1">

@@ -139,7 +139,6 @@ export default function Tasks() {
         <div className="text-md">
           {t('tasks')} al {formatDateES(new Date())}
         </div>
-
         {tasks.map(task => (
           <Link href={`${ROUTES.WORKER}${ROUTES.TASKS}/${task.id}`} className="rounded-md bg-white">
             <div className="rounded-t-md bg-disco px-3 py-2 text-white">{task.title}</div>
