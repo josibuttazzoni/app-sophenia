@@ -29,63 +29,63 @@ export default function Tasks() {
       title: 'Task 1',
       status: 'pending',
       time: '10hs',
-      withDetail: false
+      requiresTaskReport: false
     },
     {
       id: '2',
       title: 'Task 2',
       status: 'completed',
       time: '3hs',
-      withDetail: false
+      requiresTaskReport: false
     },
     {
       id: '3',
       title: 'Task 3',
       status: 'review',
       time: '2hs',
-      withDetail: true
+      requiresTaskReport: true
     },
     {
       id: '4',
       title: 'Task 4',
       status: 'pending',
       time: '10hs',
-      withDetail: false
+      requiresTaskReport: false
     },
     {
       id: '5',
       title: 'Task 5',
       status: 'completed',
       time: '3hs',
-      withDetail: false
+      requiresTaskReport: false
     },
     {
       id: '6',
       title: 'Task 6',
       status: 'review',
       time: '2hs',
-      withDetail: true
+      requiresTaskReport: true
     },
     {
       id: '7',
       title: 'Task 7',
       status: 'pending',
       time: '10hs',
-      withDetail: false
+      requiresTaskReport: false
     },
     {
       id: '8',
       title: 'Task 8',
       status: 'completed',
       time: '3hs',
-      withDetail: false
+      requiresTaskReport: false
     },
     {
       id: '9',
       title: 'Task 9',
       status: 'review',
       time: '2hs',
-      withDetail: true
+      requiresTaskReport: true
     }
   ];
 
@@ -93,7 +93,7 @@ export default function Tasks() {
     return (
       <>
         <TableCell className="font-medium">{task.title}</TableCell>
-        <TableCell>{tCommon(task.withDetail ? 'yes' : 'no')}</TableCell>
+        <TableCell>{tCommon(task.requiresTaskReport ? 'yes' : 'no')}</TableCell>
         <TableCell>{task.time}</TableCell>
       </>
     );

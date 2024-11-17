@@ -6,9 +6,9 @@ export type Task = {
   title: string;
   status: TaskStatus;
   time: string;
-  withDetail: boolean;
-  workerAssigned: Employee;
-  description: string;
+  requiresTaskReport: boolean;
+  workerAssigned?: Employee;
+  description?: string;
 };
 
 export type TaskStatus = 'pending' | 'progress' | 'review' | 'completed';
