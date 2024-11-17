@@ -13,8 +13,8 @@ export default function Login() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.LOGIN);
   const form = useForm();
   return (
-    <div className="flex h-full items-center justify-center">
-      <div className="flex h-fit w-96 flex-col items-center gap-y-6 rounded-lg bg-white p-6">
+    <div className="flex h-screen w-full items-center justify-center">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-y-6 rounded-lg bg-white p-6 md:h-fit md:w-96">
         <Image src={sophenia} alt="Sophenia Logo" width={200} height={200} />
         <h1 className="text-2xl">{t('login')}</h1>
         <Form {...form}>
