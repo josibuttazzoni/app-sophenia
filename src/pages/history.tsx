@@ -1,6 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
-import { WorkOrder } from 'src/types/tasks';
+import { WorkOrder } from 'src/types/workOrders';
 
 import emptyEmployees from '#assets/emptyTasks.png';
 import EmptyState from '#components/EmptyState';
