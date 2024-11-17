@@ -1,10 +1,12 @@
 import { cx } from 'class-variance-authority';
 import useTranslation from 'next-translate/useTranslation';
+import Link from 'next/link';
 import { Genres, Roles } from 'src/types/employee';
 import { Task } from 'src/types/tasks';
 
 import Clock from '#assets/clock.svg';
 import { STATUS_COLORS } from '#components/BoardColumn/constants';
+import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
 const tasks: Task[] = [
@@ -129,7 +131,7 @@ export default function Tasks() {
       <div className="text-lg font-semibold">{tasks[0]?.workerAssigned.name}</div>
       <div className="text-sm">{Date()}</div>
       {tasks.map(task => (
-        <div className="rounded-md bg-white">
+        <Link href={`${ROUTES.WORKER}${ROUTES.TASKS}/${task.id}`} className="rounded-md bg-white">
           <div className="rounded-t-md bg-disco px-3 py-2 text-white">{task.title}</div>
           <div className="flex flex-col gap-y-2 p-2 px-3 text-sm">
             {task.description}
@@ -142,7 +144,7 @@ export default function Tasks() {
               <div className={cx('rounded-md px-2', STATUS_COLORS[task.status]?.bg)}>{t(task.status)} </div>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

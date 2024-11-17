@@ -19,5 +19,7 @@
   "description": "Descripción",
   "pending": "Pendiente",
   "completed": "Completa",
-  "review": "En revisión"
+  "review": "En revisión",
+  "markAsSolved": "Marcar como completada",
+  "enterDescription": "Ingrese la descripción/comentarios de la tarea realizada"
 }
