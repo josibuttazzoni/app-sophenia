@@ -19,6 +19,7 @@ import { Switch } from '#components/ui/switch';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useEmployees } from '#lib/api/employess/useEmployees';
+import { useDeleteUser } from '#lib/api/users/useDeleteUser';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -27,16 +28,27 @@ const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => 
 export default function Employees() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
 
-  const { data } = useEmployees();
+  const { data: employees } = useEmployees();
 
-  const [employees, setEmployees] = useState(data);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  // const [employees, setEmployees] = useState(data);
 
   const handleToggle = (id: string) => {
-    setEmployees(prevEmployees =>
-      prevEmployees?.map(employee =>
-        employee.id === id ? { ...employee, isAvailable: !employee.isAvailable } : employee
-      )
-    );
+    console.log('id', id);
+    // TODO
+    // setEmployees(prevEmployees =>
+    //   prevEmployees?.map(employee =>
+    //     employee.id === id ? { ...employee, isAvailable: !employee.isAvailable } : employee
+    //   )
+    // );
+  };
+
+  const { mutateAsync, isPending } = useDeleteUser();
+
+  const handleDeleteWorker = async (id: string) => {
+    await mutateAsync({ id });
+    setIsDialogOpen(false);
   };
 
   const renderEmployeeRow = (employee: Employee) => {
@@ -60,7 +72,7 @@ export default function Employees() {
               <EmployeeModal email={employee.email} role={employee.wineRole} />
             </DialogContent>
           </Dialog>
-          <Dialog>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger>
               <Trash />
             </DialogTrigger>
@@ -76,8 +88,11 @@ export default function Employees() {
                         {t('cancel')}
                       </Button>
                     </DialogClose>
-                    {/* TODO: Add */}
-                    <Button onClick={() => {}} className="w-1/2">
+                    <Button
+                      onClick={() => handleDeleteWorker(employee.id)}
+                      className="w-1/2"
+                      disabled={isPending}
+                    >
                       {t('delete')}
                     </Button>
                   </div>

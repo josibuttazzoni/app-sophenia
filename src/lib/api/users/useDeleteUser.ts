@@ -1,9 +1,9 @@
 import useTranslation from 'next-translate/useTranslation';
 import { createMutation } from 'react-query-kit';
-import { DeleteUserRequestVariables } from 'src/types/auth';
+import { DeleteUserRequestVariables } from 'src/types/users';
 
 import { queryClient } from '#lib/api';
-import { deleteUser } from '#lib/services/auth';
+import { deleteUser } from '#lib/services/users';
 import { mapQueryOptions } from '#utils/queries';
 
 import { handleServerResponse } from '../handleServerResponse';
