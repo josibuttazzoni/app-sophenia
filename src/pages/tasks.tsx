@@ -36,18 +36,7 @@ export default function Tasks() {
       </>
     );
   };
-
-  /*
-  // [martina]
-  Generate task modal: suggest tasks
-  Edit task modal: create tasks
-
-  ####################################
-
-  Generate OT modal: suggest OT
-  Edit OT modal: create OT
-*/
-
+  
   return (
     <Layout selectedTab={SIDEBAR_TABS.TASKS}>
       <div className="flex items-center justify-between">

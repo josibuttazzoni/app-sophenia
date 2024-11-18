@@ -20,11 +20,6 @@ export const getTaskById = async (id: string) => {
   return mapTask(task);
 };
 
-// [martina]
-// delete:
-export const getTasksByIds = async (ids: string[]): Promise<Task[]> =>
-  Promise.all(ids.map(id => getTaskById(id)));
-
 export const updateTaskStatus = async ({ id, status }: UpdateTaskRequestVariables) =>
   api.patch<Task>(`/tasks/${id}/status`, {
     status
