@@ -1,8 +1,11 @@
 import { GetEmployeeResponse } from 'src/types/employee';
 
 export const mapEmployees = (employees: GetEmployeeResponse[]) => {
-  return employees.map(({ _id, ...employee }: GetEmployeeResponse) => ({
+  return employees.map(({ _id, fullname, isAvailable, wineRole, email }: GetEmployeeResponse) => ({
     id: _id,
-    ...employee
+    fullname: fullname,
+    isAvailable: isAvailable,
+    wineRole: wineRole,
+    email: email
   }));
 };
