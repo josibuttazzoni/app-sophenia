@@ -61,7 +61,7 @@ export default function Board() {
       </div>
 
       {winReady && (
-        <div className="min-h-screen w-full rounded-lg p-6">
+        <div className="min-h-screen w-full rounded-lg">
           {!!tasks && tasks.length > 0 ? (
             <DragDropContext onDragEnd={handleDragEnd}>
               <div className="flex w-full min-h-screen justify-between gap-x-2">
