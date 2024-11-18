@@ -27,16 +27,16 @@ export default function Tasks() {
   const { data: tasks } = useBacklog();
 
   const renderTaskRow = (task: Backlog) => {
-    const { title, requiresTaskReport, estimatedHours } = task;
+    const { title, requiresTaskReport, estimatedHoursToComplete } = task;
     return (
       <>
         <TableCell className="font-medium">{title}</TableCell>
         <TableCell>{tCommon(requiresTaskReport ? 'yes' : 'no')}</TableCell>
-        <TableCell>{formatHoursTime(estimatedHours)}</TableCell>
+        <TableCell>{formatHoursTime(estimatedHoursToComplete)}</TableCell>
       </>
     );
   };
-  
+
   return (
     <Layout selectedTab={SIDEBAR_TABS.TASKS}>
       <div className="flex items-center justify-between">
