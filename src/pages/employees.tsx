@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import Edit from 'src/assets/edit.svg';
 import Trash from 'src/assets/trash.svg';
-import { Employee, Genres, Roles } from 'src/types/employee';
+import { Employee } from 'src/types/employee';
 
 import emptyEmployees from '#assets/emptyTasks.png';
 import EmployeeModal from '#components/EmployeeModal';
@@ -18,70 +18,22 @@ import { Dialog, DialogContent } from '#components/ui/dialog';
 import { Switch } from '#components/ui/switch';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+import { useEmployees } from '#lib/api/employess/useEmployees';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
 });
 
-// TODO: delete when back is ready
-const initialEmployees: Employee[] = [
-  {
-    id: '1',
-    name: 'Matias Puyol',
-    isAvailable: true,
-    role: Roles.Operativo,
-    genre: Genres.Male,
-    email: 'test@mail.com'
-  },
-  {
-    id: '2',
-    name: 'Juan Ontiveros',
-    isAvailable: false,
-    role: Roles.Operativo,
-    genre: Genres.Male,
-    email: 'test@mail.com'
-  },
-  {
-    id: '3',
-    name: 'Santiago Benedetti',
-    isAvailable: true,
-    role: Roles.Operativo,
-    genre: Genres.Male,
-    email: 'test@mail.com'
-  },
-  {
-    id: '4',
-    name: 'Maria Jose Buttazzoni',
-    isAvailable: true,
-    role: Roles.Operativo,
-    genre: Genres.Female,
-    email: 'test-josi@mail.com'
-  },
-  {
-    id: '5',
-    name: 'Martina Mattioli',
-    isAvailable: false,
-    role: Roles.Operativo,
-    genre: Genres.Female,
-    email: 'test-martu@mail.com'
-  },
-  {
-    id: '6',
-    name: 'Joaquin Martin',
-    isAvailable: true,
-    role: Roles.Gerencial,
-    genre: Genres.Male,
-    email: 'test-joaquin@mail.com'
-  }
-];
-
 export default function Employees() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
-  const [employees, setEmployees] = useState(initialEmployees);
+
+  const { data } = useEmployees();
+
+  const [employees, setEmployees] = useState(data);
 
   const handleToggle = (id: string) => {
     setEmployees(prevEmployees =>
-      prevEmployees.map(employee =>
+      prevEmployees?.map(employee =>
         employee.id === id ? { ...employee, isAvailable: !employee.isAvailable } : employee
       )
     );
@@ -90,7 +42,7 @@ export default function Employees() {
   const renderEmployeeRow = (employee: Employee) => {
     return (
       <>
-        <TableCell className="font-medium">{employee.name}</TableCell>
+        <TableCell className="font-medium">{employee.fullname}</TableCell>
         <TableCell>
           <Switch
             className="ml-4"
@@ -98,14 +50,14 @@ export default function Employees() {
             onCheckedChange={() => handleToggle(employee.id)}
           />
         </TableCell>
-        <TableCell className="font-medium">{employee.role}</TableCell>
+        <TableCell className="font-medium">{employee.wineRole}</TableCell>
         <TableCell className="ml-1 flex gap-x-2">
           <Dialog>
             <DialogTrigger>
               <Edit />
             </DialogTrigger>
             <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
-              <EmployeeModal email={employee.email} role={employee.role} genre={employee.genre} />
+              <EmployeeModal email={employee.email} role={employee.wineRole} genre={employee.genre} />
             </DialogContent>
           </Dialog>
           <Dialog>
@@ -116,7 +68,7 @@ export default function Employees() {
               <WarningModal>
                 <>
                   <div className="text-md text-center font-semibold text-ebony-clay">
-                    {t('wantToDeleteEmployee', { employee: employee.name })}
+                    {t('wantToDeleteEmployee', { employee: employee.fullname })}
                   </div>
                   <div className="flex w-full justify-between gap-x-3">
                     <DialogClose className="w-1/2">
@@ -156,7 +108,7 @@ export default function Employees() {
         </div>
       </div>
       <div className="h-full w-full rounded-lg bg-white p-6">
-        {employees.length > 0 ? (
+        {!!employees && employees.length > 0 ? (
           <PaginatedTableWrapper
             data={employees}
             columns={[t('employee'), t('isAvailable'), t('role'), t('actions')]}

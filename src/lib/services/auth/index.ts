@@ -9,3 +9,5 @@ export const login = async ({ email, password, role }: LoginRequestVariables) =>
     role: role
   });
 };
+
+export const getUserByID = async (id: string) => api.get(`/user/${id}`);
