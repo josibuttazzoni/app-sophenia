@@ -35,7 +35,7 @@ const history: WorkOrder[] = [
           estimatedHoursToComplete: 5,
           workerAssigned: {
             email: 'worker1@example.com',
-            password: 'hashedPassword', // Nota: Evita almacenar contraseñas sin encriptar.
+            password: 'hashedPassword',
             fullname: 'Trabajador Uno',
             wineRole: 'Enólogo',
             roles: ['Role1', 'Role2'],
