@@ -13,115 +13,43 @@ import { formatDateES } from '#utils/date';
 
 const tasks: Task[] = [
   {
-    id: '1',
-    title: 'Task 1',
-    status: 'pending',
-    time: '10hs',
-    requiresTaskReport: false,
-    description: 'Sacar el orujo',
-    workerAssigned: {
-      id: '1',
-      name: 'Matias Puyol',
-      isAvailable: true,
-      role: Roles.Operativo,
-      genre: Genres.Male,
-      email: 'test@mail.com'
+    _id: '1',
+    data: {
+      title: 'Task 1',
+      status: 'pending',
+      estimatedHoursToComplete: 2,
+      rating: 5,
+      requiresTaskReport: false,
+      description: 'Sacar el orujo',
+      workerAssigned: {
+        _id: '1',
+        fullname: 'Matias Puyol',
+        wineRole: Roles.Operativo,
+        email: 'test@mail.com',
+        roles: [Roles.Operativo],
+        status: 'available',
+        password: ''
+      }
     }
   },
   {
-    id: '2',
-    title: 'Task 2',
-    status: 'completed',
-    time: '3hs',
-    requiresTaskReport: false,
-    description: 'Limpiar el tanque',
-    workerAssigned: {
-      id: '1',
-      name: 'Matias Puyol',
-      isAvailable: true,
-      role: Roles.Operativo,
-      genre: Genres.Male,
-      email: 'test@mail.com'
-    }
-  },
-  {
-    id: '3',
-    title: 'Task 3',
-    status: 'review',
-    time: '2hs',
-    requiresTaskReport: true,
-    description: 'Limpiar el tanque',
-    workerAssigned: {
-      id: '1',
-      name: 'Matias Puyol',
-      isAvailable: true,
-      role: Roles.Operativo,
-      genre: Genres.Male,
-      email: 'test@mail.com'
-    }
-  },
-  {
-    id: '4',
-    title: 'Task 4',
-    status: 'pending',
-    time: '10hs',
-    requiresTaskReport: false,
-    description: 'Limpiar el tanque',
-    workerAssigned: {
-      id: '1',
-      name: 'Matias Puyol',
-      isAvailable: true,
-      role: Roles.Operativo,
-      genre: Genres.Male,
-      email: 'test@mail.com'
-    }
-  },
-  {
-    id: '5',
-    title: 'Task 5',
-    status: 'completed',
-    time: '3hs',
-    requiresTaskReport: false,
-    description: 'Limpiar el tanque',
-    workerAssigned: {
-      id: '1',
-      name: 'Matias Puyol',
-      isAvailable: true,
-      role: Roles.Operativo,
-      genre: Genres.Male,
-      email: 'test@mail.com'
-    }
-  },
-  {
-    id: '6',
-    title: 'Task 6',
-    status: 'review',
-    time: '2hs',
-    requiresTaskReport: true,
-    description: 'Limpiar el tanque',
-    workerAssigned: {
-      id: '1',
-      name: 'Matias Puyol',
-      isAvailable: true,
-      role: Roles.Operativo,
-      genre: Genres.Male,
-      email: 'test@mail.com'
-    }
-  },
-  {
-    id: '7',
-    title: 'Task 7',
-    status: 'pending',
-    time: '10hs',
-    requiresTaskReport: false,
-    description: 'Limpiar el tanque',
-    workerAssigned: {
-      id: '1',
-      name: 'Matias Puyol',
-      isAvailable: true,
-      role: Roles.Operativo,
-      genre: Genres.Male,
-      email: 'test@mail.com'
+    _id: '2',
+    data: {
+      title: 'Task 2',
+      status: 'completed',
+      estimatedHoursToComplete: 2,
+      rating: 5,
+      requiresTaskReport: false,
+      description: 'Vaciar el tanque',
+      workerAssigned: {
+        _id: '1',
+        fullname: 'Santiago Benedetti',
+        wineRole: Roles.Operativo,
+        email: 'test@mail.com',
+        roles: [Roles.Operativo],
+        status: 'available',
+        password: ''
+      }
     }
   }
 ];
