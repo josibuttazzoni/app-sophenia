@@ -1,11 +1,10 @@
 import React, { useRef } from 'react';
-import { cn } from 'src/utils/components';
 
 import File from '#assets/file.svg';
 import { Button } from '#components/ui/button';
 
 export interface ImageUploadButtonProps {
-  onFileSelect: (file: File | null) => void;
+  onFileSelect: (file: File) => void;
   buttonLabel?: string;
   accept?: string;
   className?: string;
@@ -25,8 +24,8 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] || null;
-    onFileSelect(file);
+    const file = event.target.files?.[0];
+    if (file) onFileSelect(file);
   };
 
   return (
