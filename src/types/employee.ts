@@ -1,4 +1,4 @@
-import { Genres, Roles } from '../lib/enums/employee';
+import { Roles } from '../lib/enums/employee';
 
 export interface Employee extends EmployeeDto {
   id: string;
@@ -11,7 +11,5 @@ interface EmployeeDto {
   fullname: string;
   isAvailable: boolean;
   wineRole: Roles;
-  genre: Genres;
   email: string;
-  status: string;
 }

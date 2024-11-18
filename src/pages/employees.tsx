@@ -57,7 +57,7 @@ export default function Employees() {
               <Edit />
             </DialogTrigger>
             <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
-              <EmployeeModal email={employee.email} role={employee.wineRole} genre={employee.genre} />
+              <EmployeeModal email={employee.email} role={employee.wineRole} />
             </DialogContent>
           </Dialog>
           <Dialog>

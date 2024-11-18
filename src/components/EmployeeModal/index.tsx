@@ -6,28 +6,26 @@ import { Button } from '#components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '#components/ui/form';
 import { Input } from '#components/ui/input';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import { Genres, Roles } from '#lib/enums/employee';
+import { Roles } from '#lib/enums/employee';
 
 type EmployeeModalProps = {
   email?: string;
   role?: string;
-  genre?: string;
 };
 
-export default function EmployeeModal({ email, role, genre }: EmployeeModalProps) {
+export default function EmployeeModal({ email, role }: EmployeeModalProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
 
   const form = useForm({
     defaultValues: {
       email: email || '',
-      role: role || '',
-      genre: genre || ''
+      role: role || ''
     }
   });
 
   const { control, handleSubmit } = form;
 
-  const onSubmit = (data: { email: string; role: string; genre: string }) => {
+  const onSubmit = (data: { email: string; role: string }) => {
     console.log('Formulario enviado:', data);
   };
 
@@ -73,24 +71,6 @@ export default function EmployeeModal({ email, role, genre }: EmployeeModalProps
             </div>
           )}
         />
-        <FormField
-          control={control}
-          name="genre"
-          rules={{ required: t('validation.required', { field: t('genre') }) }}
-          render={({ field, fieldState }) => (
-            <div>
-              <CustomSelect
-                label={t('genre')}
-                items={Object.values(Genres)}
-                placeholder={t('genre')}
-                value={field.value}
-                onChange={field.onChange}
-              />
-              {fieldState.error && <FormMessage>{fieldState.error.message}</FormMessage>}{' '}
-            </div>
-          )}
-        />
-
         <Button type="submit">{t('save')}</Button>
       </form>
     </Form>
