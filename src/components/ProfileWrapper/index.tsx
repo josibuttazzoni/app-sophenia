@@ -1,4 +1,4 @@
-import { useProfile } from '#lib/api/user';
+import { useProfile } from '#lib/api/auth';
 
 import LoadingWrapper from '../LoadingWrapper';
 import { isUnauthorized } from './models';
