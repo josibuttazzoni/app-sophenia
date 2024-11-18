@@ -26,7 +26,7 @@ export default function Tasks() {
   const { data: tasks } = useTasks();
 
   const renderTaskRow = (task: Task) => {
-    const { title, requiresTaskReport, estimatedHoursToComplete } = task.data;
+    const { title, requiresTaskReport, estimatedHoursToComplete } = task;
     return (
       <>
         <TableCell className="font-medium">{title}</TableCell>

@@ -5,5 +5,5 @@ import { getWorkOrders } from '#lib/services/workOrders';
 
 export const useWorkOrders = createQuery({
   queryKey: [`/work-orders`],
-  fetcher: (): Promise<GetWorkOrdersResponse[] | undefined> => getWorkOrders()
+  fetcher: (): Promise<GetWorkOrdersResponse[]> => getWorkOrders()
 });

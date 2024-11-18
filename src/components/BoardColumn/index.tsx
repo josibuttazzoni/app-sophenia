@@ -1,15 +1,10 @@
 import useTranslation from 'next-translate/useTranslation';
 import { Draggable } from 'react-beautiful-dnd';
+import { Task } from 'src/types/tasks';
 
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
 import { STATUS_COLORS, getStatusTitle } from './constants';
-
-export type Task = {
-  id: string;
-  name: string;
-  status: string;
-};
 
 export type BoardColumnProps = {
   status: string;
@@ -37,7 +32,7 @@ export function BoardColumn({ status, tasks }: BoardColumnProps) {
                 {...provided.dragHandleProps}
                 className={`h-28 w-full rounded-lg border-l-4 bg-athens-gray ${STATUS_COLORS[status].stroke} p-1 px-2`}
               >
-                {task.name}
+                {task.title}
               </div>
             )}
           </Draggable>

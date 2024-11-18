@@ -1,8 +1,9 @@
 import { GetTaskByIdResponse, Task } from 'src/types/tasks';
 
 import api from '#config/api';
+import { mapTask } from '#lib/mappers/tasks';
 
-export const createTask = async (tasks: Task[]): Promise<Task[]> => {
+export const createTasks = async (tasks: Task[]): Promise<Task[]> => {
   const response = await api.post<Task[]>('/tasks', { tasks });
   if (!response.data) {
     throw new Error('Failed to create task');
@@ -10,6 +11,14 @@ export const createTask = async (tasks: Task[]): Promise<Task[]> => {
   return response.data;
 };
 
-export const getTaskById = async (id: string) => api.get<GetTaskByIdResponse>(`/tasks/${id}`);
+export const getTaskById = async (id: string) => {
+  const response = await api.get<GetTaskByIdResponse>(`/tasks/${id}`);
+  const task = response.data;
+  if (!task) {
+    throw new Error('Failed to fetch task');
+  }
+  return mapTask(task);
+};
 
-export const getTasksByIds = async (ids: string[]) => Promise.all(ids.map(id => getTaskById(id)));
+export const getTasksByIds = async (ids: string[]): Promise<Task[]> =>
+  Promise.all(ids.map(id => getTaskById(id)));

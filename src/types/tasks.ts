@@ -1,38 +1,26 @@
-export interface Task extends GetTaskByIdResponse {}
+import { TaskStatusDto } from '../lib/enums/tasks';
 
-export type TaskStatus = 'pending' | 'progress' | 'review' | 'completed';
-
-export interface GetTasksRequestVariables {
-  limit: number;
-  offset: number;
+export interface Task extends TaskDto {
+  id: string;
 }
-
-export interface GetTasksResponse {
-  data: Task[];
-  pagination: {
-    total: number;
-    limit: number;
-    offset: number;
-  };
-}
-
-export interface GetTaskByIdResponse {
+export interface GetTaskByIdResponse extends TaskDto {
   _id: string;
-  data: {
-    title: string;
-    description: string;
-    status: TaskStatus;
-    requiresTaskReport: boolean;
-    estimatedHoursToComplete: number;
-    workerAssigned: {
-      email: string;
-      password: string;
-      fullname: string;
-      wineRole: string;
-      roles: string[];
-      status: string;
-      _id: string;
-    };
-    rating: number;
+}
+
+interface TaskDto {
+  title: string;
+  description: string;
+  status: TaskStatusDto;
+  requiresTaskReport: boolean;
+  estimatedHoursToComplete: number;
+  workerAssigned: {
+    email: string;
+    password: string;
+    fullname: string;
+    wineRole: string;
+    roles: string[];
+    status: string;
+    _id: string;
   };
+  rating: number;
 }

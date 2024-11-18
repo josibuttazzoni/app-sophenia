@@ -1,7 +1,7 @@
 import { cx } from 'class-variance-authority';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link';
-import { Genres, Roles } from 'src/types/employee';
+import { Roles } from 'src/types/employee';
 import { Task } from 'src/types/tasks';
 
 import Clock from '#assets/clock.svg';
