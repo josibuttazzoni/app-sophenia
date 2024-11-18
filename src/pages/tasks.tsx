@@ -32,7 +32,7 @@ export default function Tasks() {
       <>
         <TableCell className="font-medium">{title}</TableCell>
         <TableCell>{tCommon(requiresTaskReport ? 'yes' : 'no')}</TableCell>
-        {estimatedHoursToComplete && <TableCell>{formatHoursTime(estimatedHoursToComplete)}</TableCell>}
+        <TableCell>{estimatedHoursToComplete ? formatHoursTime(estimatedHoursToComplete) : '-'}</TableCell>
       </>
     );
   };
