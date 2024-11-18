@@ -61,10 +61,10 @@ export default function Board() {
       </div>
 
       {winReady && (
-        <div className="h-full w-full rounded-lg p-6">
+        <div className="min-h-screen w-full rounded-lg p-6">
           {!!tasks && tasks.length > 0 ? (
             <DragDropContext onDragEnd={handleDragEnd}>
-              <div className="flex w-full justify-between gap-x-2">
+              <div className="flex w-full min-h-screen justify-between gap-x-2">
                 {Object.values(TaskStatusDto).map(status => (
                   <Droppable droppableId={status} key={status}>
                     {provided => (
