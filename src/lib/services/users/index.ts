@@ -1,6 +1,10 @@
-import { DeleteUserRequestVariables } from 'src/types/users';
+import { DeleteUserRequestVariables, GetUserProfileResponse } from 'src/types/users';
 
 import api from '#config/api';
+
+export const getCurrentProfile = async () => {
+  return api.get<GetUserProfileResponse>('/user/profile');
+};
 
 export const getUserByID = async (id: string) => api.get(`/user/${id}`);
 

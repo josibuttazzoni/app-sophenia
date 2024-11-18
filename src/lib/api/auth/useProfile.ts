@@ -1,11 +1,11 @@
 import type { ApiResponse } from 'apisauce';
 import { deleteCookie, hasCookie } from 'cookies-next';
 import { createQuery } from 'react-query-kit';
-import { GetUserProfileResponse } from 'src/types/user';
+import { GetUserProfileResponse } from 'src/types/users';
 
 import { COOKIES } from '#constants/cookies';
 import { useLoginRedirect } from '#lib/hooks/general/useLoginRedirect';
-import { getCurrentProfile } from '#lib/services/user';
+import { getCurrentProfile } from '#lib/services/users';
 
 export const useProfile = () => {
   const loginRedirect = useLoginRedirect();
