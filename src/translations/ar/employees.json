@@ -9,10 +9,15 @@
   "emptyEmployees": "No se encontraron operarios",
   "female": "Femenino",
   "male": "Masculino",
-  "gender": "Género",
+  "genre": "Género",
   "managerial": "Gerencial",
   "email": "Correo electrónico",
   "enterThe": "Ingrese el {{field}}",
+  "validation": {
+    "required": "{{field}} es requerido.",
+    "invalidEmail": "El correo electrónico no es válido.",
+    "minLength": "{{field}} debe tener al menos {{count}} caracteres."
+  },
   "save": "Guardar",
   "cancel": "Cancelar",
   "delete": "Eliminar",

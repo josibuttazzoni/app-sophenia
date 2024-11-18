@@ -1,10 +1,10 @@
 import useTranslation from 'next-translate/useTranslation';
-import { Form, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Genres, Roles } from 'src/types/employee';
 
 import CustomSelect from '#components/CustomSelect';
 import { Button } from '#components/ui/button';
-import { FormField } from '#components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '#components/ui/form';
 import { Input } from '#components/ui/input';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
@@ -16,54 +16,83 @@ type EmployeeModalProps = {
 
 export default function EmployeeModal({ email, role, genre }: EmployeeModalProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
-  const form = useForm();
+
+  const form = useForm({
+    defaultValues: {
+      email: email || '',
+      role: role || '',
+      genre: genre || ''
+    }
+  });
+
+  const { control, handleSubmit } = form;
+
+  const onSubmit = (data: { email: string; role: string; genre: string }) => {
+    console.log('Formulario enviado:', data);
+  };
 
   return (
-    <Form onSubmit={values => console.log(values)} {...form}>
-      <div className="flex flex-col justify-between gap-y-6">
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-6">
         <div className="text-xl font-semibold">{email ? t('editEmployee') : t('addEmployee')}</div>
+
         <FormField
-          {...form}
+          control={control}
           name="email"
-          render={() => (
-            <Input
-              value={email}
-              label={t('email')}
-              placeholder={t('enterThe', { field: t('email').toLowerCase() })}
-            />
+          rules={{
+            required: t('validation.required', { field: t('email') }),
+            pattern: {
+              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: t('validation.invalidEmail')
+            }
+          }}
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel>{t('email')}</FormLabel>
+              <FormControl>
+                <Input placeholder={t('enterThe', { field: t('email').toLowerCase() })} {...field} />
+              </FormControl>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={control}
+          name="role"
+          rules={{ required: t('validation.required', { field: t('role') }) }}
+          render={({ field, fieldState }) => (
+            <div>
+              <CustomSelect
+                label={t('role')}
+                items={Object.values(Roles)}
+                placeholder={t('role')}
+                value={field.value}
+                onChange={field.onChange}
+              />
+              {fieldState.error && <FormMessage>{fieldState.error.message}</FormMessage>}
+            </div>
+          )}
+        />
+        <FormField
+          control={control}
+          name="genre"
+          rules={{ required: t('validation.required', { field: t('genre') }) }}
+          render={({ field, fieldState }) => (
+            <div>
+              <CustomSelect
+                label={t('genre')}
+                items={Object.values(Genres)}
+                placeholder={t('genre')}
+                value={field.value}
+                onChange={field.onChange}
+              />
+              {fieldState.error && <FormMessage>{fieldState.error.message}</FormMessage>}{' '}
+            </div>
           )}
         />
 
-        <div>
-          <FormField
-            {...form}
-            name="role"
-            render={() => (
-              <CustomSelect
-                value={role}
-                items={Object.values(Roles)}
-                label={t('role')}
-                placeholder={t('role')}
-              />
-            )}
-          />
-        </div>
-        <div>
-          <FormField
-            {...form}
-            name="gender"
-            render={() => (
-              <CustomSelect
-                value={genre}
-                items={Object.values(Genres)}
-                label={t('gender')}
-                placeholder={t('gender')}
-              />
-            )}
-          />
-        </div>
         <Button type="submit">{t('save')}</Button>
-      </div>
+      </form>
     </Form>
   );
 }

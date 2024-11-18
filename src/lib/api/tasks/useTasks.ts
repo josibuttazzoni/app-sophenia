@@ -1,5 +1,5 @@
 import { createQuery } from 'react-query-kit';
-import { GetTaskByIdResponse, Task } from 'src/types/tasks';
+import { Task } from 'src/types/tasks';
 
 import { getTasksByIds } from '#lib/services/tasks';
 import { getWorkOrders } from '#lib/services/workOrders';

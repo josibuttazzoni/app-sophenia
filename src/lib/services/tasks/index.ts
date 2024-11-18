@@ -1,5 +1,4 @@
 import { GetTaskByIdResponse, Task } from 'src/types/tasks';
-import { map } from 'zod';
 
 import api from '#config/api';
 import { mapTask } from '#lib/mappers/tasks';
