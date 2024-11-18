@@ -1,4 +1,4 @@
-import { GetTaskByIdResponse, Task } from 'src/types/tasks';
+import { GetTaskByIdResponse, Task, UpdateTaskRequestVariables } from 'src/types/tasks';
 
 import api from '#config/api';
 import { mapTask } from '#lib/mappers/tasks';
@@ -22,3 +22,8 @@ export const getTaskById = async (id: string) => {
 
 export const getTasksByIds = async (ids: string[]): Promise<Task[]> =>
   Promise.all(ids.map(id => getTaskById(id)));
+
+export const updateTaskStatus = async ({ id, status }: UpdateTaskRequestVariables) =>
+  api.patch<Task>(`/tasks/${id}/status`, {
+    status
+  });

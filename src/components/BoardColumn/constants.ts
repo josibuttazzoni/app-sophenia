@@ -1,35 +1,32 @@
 import { Translate } from 'next-translate';
 
-export const STATUS = {
-  PENDING: 'pending',
-  PROGRESS: 'progress',
-  REVIEW: 'review',
-  COMPLETED: 'completed'
-};
+import { TaskStatusDto } from '#lib/enums/tasks';
+
+const { PENDING, PROGRESS, REVIEW, DONE } = TaskStatusDto;
 
 export const getStatusTitle = (t: Translate) => {
   return {
-    [STATUS.PENDING]: t('status.pending'),
-    [STATUS.PROGRESS]: t('status.progress'),
-    [STATUS.REVIEW]: t('status.review'),
-    [STATUS.COMPLETED]: t('status.completed')
+    [PENDING]: t('status.pending'),
+    [PROGRESS]: t('status.progress'),
+    [REVIEW]: t('status.review'),
+    [DONE]: t('status.completed')
   };
 };
 
 export const STATUS_COLORS = {
-  [STATUS.PENDING]: {
+  [PENDING]: {
     stroke: 'border-prim',
     bg: 'bg-prim'
   },
-  [STATUS.PROGRESS]: {
+  [PROGRESS]: {
     stroke: 'border-mystic',
     bg: 'bg-mystic'
   },
-  [STATUS.REVIEW]: {
+  [REVIEW]: {
     stroke: 'border-snuff',
     bg: 'bg-snuff'
   },
-  [STATUS.COMPLETED]: {
+  [DONE]: {
     stroke: 'border-willow-grove',
     bg: 'bg-willow-grove'
   }

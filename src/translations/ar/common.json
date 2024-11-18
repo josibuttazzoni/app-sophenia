@@ -11,5 +11,7 @@
   "poweredBy": "Desarrollado por SophenIA",
   "yes": "Sí",
   "no": "No",
-  "seeMore": "Ver más"
+  "seeMore": "Ver más",
+  "toastMutationError": "No se pudo completar la acción. Detalles: {{error}}",
+  "toastMutationSuccess": "Acción completada exitosamente."
 }

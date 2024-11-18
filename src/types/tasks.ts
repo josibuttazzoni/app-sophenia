@@ -24,3 +24,8 @@ interface TaskDto {
   };
   rating: number;
 }
+
+export interface UpdateTaskRequestVariables {
+  id: string;
+  status: TaskStatusDto;
+}
