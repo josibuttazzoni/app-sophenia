@@ -21,5 +21,6 @@
   "completed": "Completa",
   "review": "En revisión",
   "markAsSolved": "Marcar como completada",
-  "enterDescription": "Ingrese la descripción/comentarios de la tarea realizada"
+  "enterDescription": "Ingrese la descripción/comentarios de la tarea realizada",
+  "required": "Campo requerido"
 }

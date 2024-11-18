@@ -19,7 +19,7 @@ export default function WorkerTask() {
     title: 'Task 1',
     status: 'pending',
     time: '10hs',
-    requiresTaskReport: false,
+    requiresTaskReport: true,
     description: 'Sacar el orujo',
     workerAssigned: {
       id: '1',
@@ -66,14 +66,14 @@ export default function WorkerTask() {
               control={control}
               name="taskDetail"
               {...(task.requiresTaskReport && {
-                rules: { required: t('validation.required', { field: t('role') }) }
+                rules: { required: t('required', { field: t('role') }) }
               })}
               render={({ field, fieldState }) => (
                 <FormItem className="w-full py-0">
                   <FormControl>
                     <TextArea rows={4} placeholder={t('enterDescription')} {...field} />
                   </FormControl>
-                  {fieldState.error && <FormMessage>{fieldState.error.message}</FormMessage>}
+                  {fieldState.error && <FormMessage>{t('required')}</FormMessage>}
                 </FormItem>
               )}
             />
