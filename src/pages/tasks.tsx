@@ -19,8 +19,6 @@ const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => 
   ssr: false
 });
 
-// TODO: add loading state
-
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);

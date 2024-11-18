@@ -24,7 +24,7 @@ export default function WorkerTask() {
     workerAssigned: {
       id: '1',
       name: 'Matias Puyol',
-      isAvailable: true,
+      availability: true,
       role: Roles.Operativo,
       genre: Genres.Male,
       email: 'test@mail.com'

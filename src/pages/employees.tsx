@@ -20,6 +20,7 @@ import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useEmployees } from '#lib/api/employess/useEmployees';
 import { useDeleteUser } from '#lib/api/users/useDeleteUser';
+import { useUpdateUser } from '#lib/api/users/useUpdateUser';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -28,20 +29,31 @@ const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => 
 export default function Employees() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
 
-  const { data: employees } = useEmployees();
+  const { data, refetch } = useEmployees();
+  const { mutate: editMutate } = useUpdateUser();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  // const [employees, setEmployees] = useState(data);
+  const [employees, setEmployees] = useState(data);
 
   const handleToggle = (id: string) => {
-    console.log('id', id);
-    // TODO
-    // setEmployees(prevEmployees =>
-    //   prevEmployees?.map(employee =>
-    //     employee.id === id ? { ...employee, isAvailable: !employee.isAvailable } : employee
-    //   )
-    // );
+    setEmployees(prevEmployees =>
+      prevEmployees?.map(employee =>
+        employee.id === id ? { ...employee, availability: !employee.availability } : employee
+      )
+    );
+    const employee = employees?.find(employee => employee.id === id);
+    editMutate(
+      {
+        id,
+        data: {
+          availability: !employee?.availability
+        }
+      },
+      {
+        onSuccess: () => refetch()
+      }
+    );
   };
 
   const { mutateAsync, isPending } = useDeleteUser();
@@ -57,6 +69,7 @@ export default function Employees() {
         <TableCell className="font-medium">{employee.fullname}</TableCell>
         <TableCell>
           <Switch
+            checked={employee.availability}
             className="ml-4"
             id={`switch-${employee.id}`}
             onCheckedChange={() => handleToggle(employee.id)}

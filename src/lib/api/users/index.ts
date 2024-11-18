@@ -1,3 +1,5 @@
 import { useDeleteUser } from './useDeleteUser';
+import { useUpdateUser } from './useUpdateUser';
+import { useUser } from './useUser';
 
-export { useDeleteUser };
+export { useDeleteUser, useUpdateUser, useUser };

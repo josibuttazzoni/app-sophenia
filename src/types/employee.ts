@@ -9,7 +9,7 @@ export interface GetEmployeeResponse extends EmployeeDto {
 
 interface EmployeeDto {
   fullname: string;
-  isAvailable: boolean;
+  availability: boolean;
   wineRole: Roles;
   email: string;
 }
