@@ -4,5 +4,10 @@
   "password": "Contraseña",
   "placeholder": "Ingresa tu {{field}}",
   "forgetPassword": "¿Olvidaste tu contraseña?",
-  "logout": "Cerrar sesión"
+  "logout": "Cerrar sesión",
+  "validation": {
+    "required": "{{field}} es requerido.",
+    "invalidEmail": "El correo electrónico no es válido.",
+    "minLength": "{{field}} debe tener al menos {{count}} caracteres."
+  }
 }

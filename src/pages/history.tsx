@@ -30,21 +30,21 @@ const history: WorkOrder[] = [
         title: 'Tarea #1',
         status: 'completed',
         time: '10:00',
-        withDetail: true
+        requiresTaskReport: true
       },
       {
         id: '2',
         title: 'Tarea #2',
         status: 'completed',
         time: '10:00',
-        withDetail: true
+        requiresTaskReport: true
       },
       {
         id: '3',
         title: 'Tarea #3',
         status: 'completed',
         time: '10:00',
-        withDetail: true
+        requiresTaskReport: true
       }
     ]
   },
@@ -59,21 +59,21 @@ const history: WorkOrder[] = [
         title: 'Tarea #1',
         status: 'completed',
         time: '10:00',
-        withDetail: true
+        requiresTaskReport: true
       },
       {
         id: '2',
         title: 'Tarea #2',
         status: 'completed',
         time: '10:00',
-        withDetail: true
+        requiresTaskReport: true
       },
       {
         id: '3',
         title: 'Tarea #3',
         status: 'completed',
         time: '10:00',
-        withDetail: true
+        requiresTaskReport: true
       }
     ]
   }

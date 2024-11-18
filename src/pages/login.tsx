@@ -6,46 +6,81 @@ import { LoginRequestVariables } from 'src/types/auth';
 import sophenia from '#assets/sophenia.png';
 import BrandTagline from '#components/BrandTagline';
 import { Button } from '#components/ui/button';
-import { Form, FormField } from '#components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '#components/ui/form';
 import { Input } from '#components/ui/input';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useLogin } from '#lib/api/auth';
 
 export default function Login() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.LOGIN);
-  const form = useForm();
+
+  const form = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  });
+
+  const { handleSubmit, control } = form;
+
   const { mutate } = useLogin();
   const onSubmit: SubmitHandler<{ [x: string]: string }> = data => mutate(data as LoginRequestVariables);
+
   return (
-    <div className="flex h-full items-center justify-center">
-      <div className="flex h-fit w-96 flex-col items-center gap-y-6 rounded-lg bg-white p-6">
+    <div className="flex h-screen w-full items-center justify-center">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-y-6 rounded-lg bg-white p-6 md:h-fit md:w-96">
         <Image src={sophenia} alt="Sophenia Logo" width={200} height={200} />
         <h1 className="text-2xl">{t('login')}</h1>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <FormField
-              {...form}
+              control={control}
               name="email"
-              render={({ field }) => (
-                <Input label={t('email')} placeholder={t('placeholder', { field: 'email' })} {...field} />
+              rules={{
+                required: t('validation.required', { field: t('email') }),
+                pattern: {
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                  message: t('validation.invalidEmail')
+                }
+              }}
+              render={({ field, fieldState }) => (
+                <FormItem>
+                  <FormLabel>{t('email')}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t('placeholder', { field: 'email' })} {...field} />
+                  </FormControl>
+                  <FormMessage>{fieldState.error?.message}</FormMessage>
+                </FormItem>
               )}
             />
             <FormField
-              {...form}
+              control={control}
               name="password"
-              render={({ field }) => (
-                <Input
-                  label={t('password')}
-                  type="password"
-                  placeholder={t('placeholder', { field: 'contraseña' })}
-                  {...field}
-                />
+              rules={{
+                required: t('validation.required', { field: t('password') }),
+                minLength: {
+                  value: 6,
+                  message: t('validation.minLength', { field: t('password'), count: 6 })
+                }
+              }}
+              render={({ field, fieldState }) => (
+                <FormItem>
+                  <FormLabel>{t('password')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder={t('placeholder', { field: 'contraseña' })}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage>{fieldState.error?.message}</FormMessage>
+                </FormItem>
               )}
             />
             <Button variant="link" className="-px-4 -mt-4 self-start text-pale-sky">
               {t('forgetPassword')}
             </Button>
-            <Button type="submit" variant="primary" className="w-full">
+            <Button type="submit" variant="primary" className="mt-5 w-full">
               {t('login')}
             </Button>
           </form>

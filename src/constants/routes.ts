@@ -3,5 +3,7 @@ export const ROUTES = {
   HOME: '/',
   BOARD: '/board',
   EMPLOYEES: '/employees',
-  HISTORY: '/history'
+  HISTORY: '/history',
+  WORKER: '/worker',
+  TASKS: '/tasks'
 } as const;

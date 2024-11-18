@@ -23,7 +23,7 @@ export default function EditTasksContent() {
   const titles = [t('description'), t('estimatedTime'), t('requiresDetail')];
 
   return (
-    <div className="border-mischka flex max-h-96 flex-col gap-y-3 overflow-auto rounded-md border p-4">
+    <div className="flex max-h-96 flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
       {TASKS_MOCK.map(({ title, description, id, estimatedHours, requiresTaskReport }) => (
         <div key={id} className="flex w-full flex-row items-center justify-between">
           <div className="flex w-full flex-col gap-y-1">
