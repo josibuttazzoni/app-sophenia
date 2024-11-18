@@ -7,3 +7,6 @@ export type LoginRequestVariables = {
   password: string;
   role: string;
 };
+export interface DeleteUserRequestVariables {
+  id: string;
+}

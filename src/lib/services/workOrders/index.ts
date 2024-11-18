@@ -1,4 +1,4 @@
-import { GetWorkOrdersResponse } from 'src/types/workOrders';
+import { GetWorkOrderResponse, GetWorkOrdersResponse } from 'src/types/workOrders';
 
 import api from '#config/api';
 
@@ -11,3 +11,5 @@ export const getWorkOrders = async () => {
   }
   return response.data.data;
 };
+
+export const getCurrentWorkOrder = async () => api.get<GetWorkOrderResponse>('/work-orders/current');

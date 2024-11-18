@@ -2,7 +2,6 @@ import { cx } from 'class-variance-authority';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { Genres, Roles } from 'src/types/employee';
 
 import BackArrow from '#assets/back-arrow.svg';
 import { STATUS_COLORS } from '#components/BoardColumn/constants';
@@ -12,6 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '#components
 import { TextArea } from '#components/ui/textarea';
 import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+import { Genres, Roles } from '#lib/enums/employee';
 
 export default function WorkerTask() {
   const task = {

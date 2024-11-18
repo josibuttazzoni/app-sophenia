@@ -7,12 +7,12 @@ import Logout from '#assets/logout.svg';
 import { STATUS_COLORS } from '#components/BoardColumn/constants';
 import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import { useTasks } from '#lib/api/tasks/useTasks';
+import { useBoard } from '#lib/api/workOrders/useBoard';
 import { formatDateES } from '#utils/date';
 
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
-  const { data } = useTasks();
+  const { data } = useBoard();
   return (
     <>
       <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
