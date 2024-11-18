@@ -9,8 +9,8 @@ import EmptyState from '#components/EmptyState';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import Layout from '#components/layout';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import { useTasks } from '#lib/api/tasks/useTasks';
 import { useUpdateTask } from '#lib/api/tasks/useUpdateTask';
+import { useBoard } from '#lib/api/workOrders/useBoard';
 import { TaskStatusDto } from '#lib/enums/tasks';
 
 export default function Board() {
@@ -21,7 +21,7 @@ export default function Board() {
     setwinReady(true);
   }, []);
 
-  const { data } = useTasks();
+  const { data } = useBoard();
 
   const { mutate: editMutate } = useUpdateTask();
 
@@ -52,8 +52,6 @@ export default function Board() {
     editMutate({ id: draggableId, status: destinationStatus });
   };
 
-  console.log('tasks', tasks);
-
   return (
     <Layout selectedTab={SIDEBAR_TABS.BOARD}>
       <div className="flex items-center justify-between">
@@ -61,10 +59,10 @@ export default function Board() {
       </div>
 
       {winReady && (
-        <div className="min-h-screen w-full rounded-lg">
+        <div className="h-full w-full rounded-lg">
           {!!tasks && tasks.length > 0 ? (
             <DragDropContext onDragEnd={handleDragEnd}>
-              <div className="flex min-h-screen w-full justify-between gap-x-2">
+              <div className="flex h-fit min-h-full w-full justify-between gap-x-2">
                 {Object.values(TaskStatusDto).map(status => (
                   <Droppable droppableId={status} key={status}>
                     {provided => (

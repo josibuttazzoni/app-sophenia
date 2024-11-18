@@ -1,12 +1,12 @@
 import useTranslation from 'next-translate/useTranslation';
 import { useForm } from 'react-hook-form';
-import { Genres, Roles } from 'src/types/employee';
 
 import CustomSelect from '#components/CustomSelect';
 import { Button } from '#components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '#components/ui/form';
 import { Input } from '#components/ui/input';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+import { Genres, Roles } from '#lib/enums/employee';
 
 type EmployeeModalProps = {
   email?: string;

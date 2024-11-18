@@ -1,19 +1,17 @@
-// TODO: change when back is ready
-export type Employee = {
-  id: string;
-  name: string;
-  isAvailable: boolean;
-  role: Roles;
-  genre: Genres;
-  email: string;
-};
+import { Genres, Roles } from '../lib/enums/employee';
 
-export enum Roles {
-  Operativo = 'Operativo',
-  Gerencial = 'Gerencial'
+export interface Employee extends EmployeeDto {
+  id: string;
+}
+export interface GetEmployeeResponse extends EmployeeDto {
+  _id: string;
 }
 
-export enum Genres {
-  Male = 'Masculino',
-  Female = 'Femenino'
+interface EmployeeDto {
+  fullname: string;
+  isAvailable: boolean;
+  wineRole: Roles;
+  genre: Genres;
+  email: string;
+  status: string;
 }

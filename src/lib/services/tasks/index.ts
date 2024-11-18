@@ -1,7 +1,7 @@
-import { GetTaskByIdResponse, Task, UpdateTaskRequestVariables } from 'src/types/tasks';
+import { GetBacklogResponse, GetTaskByIdResponse, Task, UpdateTaskRequestVariables } from 'src/types/tasks';
 
 import api from '#config/api';
-import { mapTask } from '#lib/mappers/tasks';
+import { mapBacklog, mapTask } from '#lib/mappers/tasks';
 
 export const createTasks = async (tasks: Task[]): Promise<Task[]> => {
   const response = await api.post<Task[]>('/tasks', { tasks });
@@ -20,10 +20,17 @@ export const getTaskById = async (id: string) => {
   return mapTask(task);
 };
 
-export const getTasksByIds = async (ids: string[]): Promise<Task[]> =>
-  Promise.all(ids.map(id => getTaskById(id)));
-
 export const updateTaskStatus = async ({ id, status }: UpdateTaskRequestVariables) =>
   api.patch<Task>(`/tasks/${id}/status`, {
     status
   });
+
+export const getBacklog = async () => {
+  const response = await api.get<{ data: GetBacklogResponse[] }>('/tasks/backlog', {
+    params: { limit: 10, offset: 0 }
+  });
+  if (!response.data || !response.data.data) {
+    throw new Error('Failed to fetch backlog');
+  }
+  return mapBacklog(response.data.data);
+};

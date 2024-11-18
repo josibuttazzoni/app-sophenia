@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { Employee } from 'src/types/employee';
-import { Task } from 'src/types/tasks';
+import { Backlog } from 'src/types/tasks';
 import { WorkOrder } from 'src/types/workOrders';
 
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '#components/ui/pagination';
@@ -9,7 +9,7 @@ import { TableRow } from '#components/ui/table';
 import { BaseTable } from './BaseTable';
 import { ITEMS_PER_PAGE } from './constants';
 
-type TableData = Task | Employee | WorkOrder;
+type TableData = Backlog | Employee | WorkOrder;
 
 type PaginatedTableWrapperProps<T extends TableData> = {
   data: T[];

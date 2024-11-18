@@ -6,7 +6,6 @@ export interface Task extends TaskDto {
 export interface GetTaskByIdResponse extends TaskDto {
   _id: string;
 }
-
 interface TaskDto {
   title: string;
   description: string;
@@ -28,4 +27,19 @@ interface TaskDto {
 export interface UpdateTaskRequestVariables {
   id: string;
   status: TaskStatusDto;
+}
+
+export interface Backlog extends BacklogDto {
+  id: string;
+}
+
+export interface GetBacklogResponse extends BacklogDto {
+  _id: string;
+}
+interface BacklogDto {
+  title: string;
+  description: string;
+  status: TaskStatusDto;
+  requiresTaskReport: boolean;
+  estimatedHours: number;
 }
