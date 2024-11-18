@@ -8,7 +8,7 @@ export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 }
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, label, containerClassName, textarea, ...props }, ref) => {
+  ({ className, label, containerClassName, ...props }, ref) => {
     return (
       <div className={cn('flex w-full flex-col gap-y-1 text-sm', containerClassName)}>
         {label && <label>{label}</label>}

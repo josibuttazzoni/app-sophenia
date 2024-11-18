@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { GET_DAY, GET_MONTH, LOCALES, TIME_ZONES, WEEKEND_DAYS } from './constants';
+import { LOCALES, TIME_ZONES, WEEKEND_DAYS } from './constants';
 
 type ValidTypesToDateFormat = string | number | Date;
 
