@@ -26,25 +26,64 @@ const history: WorkOrder[] = [
     endDate: new Date(),
     tasks: [
       {
-        id: '1',
-        title: 'Tarea #1',
-        status: 'completed',
-        time: '10:00',
-        withDetail: true
+        _id: '1',
+        data: {
+          title: 'Tarea #1',
+          description: 'Descripción de la tarea #1',
+          status: 'completed',
+          requiresTaskReport: true,
+          estimatedHoursToComplete: 5,
+          workerAssigned: {
+            email: 'worker1@example.com',
+            password: 'hashedPassword', // Nota: Evita almacenar contraseñas sin encriptar.
+            fullname: 'Trabajador Uno',
+            wineRole: 'Enólogo',
+            roles: ['Role1', 'Role2'],
+            status: 'active',
+            _id: 'worker1'
+          },
+          rating: 4.5
+        }
       },
       {
-        id: '2',
-        title: 'Tarea #2',
-        status: 'completed',
-        time: '10:00',
-        withDetail: true
+        _id: '2',
+        data: {
+          title: 'Tarea #2',
+          description: 'Descripción de la tarea #2',
+          status: 'completed',
+          requiresTaskReport: true,
+          estimatedHoursToComplete: 3,
+          workerAssigned: {
+            email: 'worker2@example.com',
+            password: 'hashedPassword',
+            fullname: 'Trabajador Dos',
+            wineRole: 'Viticultor',
+            roles: ['Role1', 'Role2'],
+            status: 'active',
+            _id: 'worker2'
+          },
+          rating: 4.0
+        }
       },
       {
-        id: '3',
-        title: 'Tarea #3',
-        status: 'completed',
-        time: '10:00',
-        withDetail: true
+        _id: '3',
+        data: {
+          title: 'Tarea #3',
+          description: 'Descripción de la tarea #3',
+          status: 'completed',
+          requiresTaskReport: false,
+          estimatedHoursToComplete: 2,
+          workerAssigned: {
+            email: 'worker3@example.com',
+            password: 'hashedPassword',
+            fullname: 'Trabajador Tres',
+            wineRole: 'Operario',
+            roles: ['Role1'],
+            status: 'inactive',
+            _id: 'worker3'
+          },
+          rating: 3.8
+        }
       }
     ]
   },
@@ -55,25 +94,44 @@ const history: WorkOrder[] = [
     endDate: new Date(),
     tasks: [
       {
-        id: '1',
-        title: 'Tarea #1',
-        status: 'completed',
-        time: '10:00',
-        withDetail: true
+        _id: '4',
+        data: {
+          title: 'Tarea #4',
+          description: 'Descripción de la tarea #4',
+          status: 'completed',
+          requiresTaskReport: true,
+          estimatedHoursToComplete: 6,
+          workerAssigned: {
+            email: 'worker4@example.com',
+            password: 'hashedPassword',
+            fullname: 'Trabajador Cuatro',
+            wineRole: 'Supervisor',
+            roles: ['Role1', 'Role2', 'Role3'],
+            status: 'active',
+            _id: 'worker4'
+          },
+          rating: 4.7
+        }
       },
       {
-        id: '2',
-        title: 'Tarea #2',
-        status: 'completed',
-        time: '10:00',
-        withDetail: true
-      },
-      {
-        id: '3',
-        title: 'Tarea #3',
-        status: 'completed',
-        time: '10:00',
-        withDetail: true
+        _id: '5',
+        data: {
+          title: 'Tarea #5',
+          description: 'Descripción de la tarea #5',
+          status: 'completed',
+          requiresTaskReport: false,
+          estimatedHoursToComplete: 4,
+          workerAssigned: {
+            email: 'worker5@example.com',
+            password: 'hashedPassword',
+            fullname: 'Trabajador Cinco',
+            wineRole: 'Asistente',
+            roles: ['Role1'],
+            status: 'active',
+            _id: 'worker5'
+          },
+          rating: 4.2
+        }
       }
     ]
   }

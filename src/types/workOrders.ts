@@ -1,4 +1,4 @@
-import { Task } from 'tasks';
+import { Task } from './tasks';
 
 export interface WorkOrder {
   id: string;

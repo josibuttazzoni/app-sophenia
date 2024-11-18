@@ -1,6 +1,4 @@
-export interface Task  extends GetTaskByIdResponse {
- 
-}
+export interface Task extends GetTaskByIdResponse {}
 
 export type TaskStatus = 'pending' | 'progress' | 'review' | 'completed';
 
@@ -20,7 +18,7 @@ export interface GetTasksResponse {
 
 export interface GetTaskByIdResponse {
   _id: string;
-  data:{
+  data: {
     title: string;
     description: string;
     status: TaskStatus;
@@ -36,5 +34,5 @@ export interface GetTaskByIdResponse {
       _id: string;
     };
     rating: number;
-  }
+  };
 }

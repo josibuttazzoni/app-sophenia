@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { queryClient as defaultQueryClient } from '#lib/api';
 
-export function usePersistedQueryClient(queryClient: QueryClient = defaultQueryClient) {
+export const usePersistedQueryClient = (queryClient: QueryClient = defaultQueryClient) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -18,4 +18,4 @@ export function usePersistedQueryClient(queryClient: QueryClient = defaultQueryC
       });
     }
   }, [isClient, queryClient]);
-}
+};

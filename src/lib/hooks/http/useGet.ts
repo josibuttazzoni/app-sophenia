@@ -31,7 +31,7 @@ export function useGet<Endpoint extends ApiEndpoint>(
       if (!result.ok) {
         throw new Error(result.problem);
       }
-      return result.data;
+      return result.data as Endpoint['response'];
     }
   });
 

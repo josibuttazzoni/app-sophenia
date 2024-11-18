@@ -24,9 +24,9 @@ export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
   const { data: tasks } = useTasks();
-  
+
   const renderTaskRow = (task: Task) => {
-    const {title, requiresTaskReport, estimatedHoursToComplete} = task.data;
+    const { title, requiresTaskReport, estimatedHoursToComplete } = task.data;
     return (
       <>
         <TableCell className="font-medium">{title}</TableCell>
@@ -59,7 +59,7 @@ export default function Tasks() {
       <div className="h-full w-full rounded-lg bg-white p-6">
         {!!tasks && tasks.length > 0 ? (
           <PaginatedTableWrapper
-            data={tasks}
+            data={tasks.map(task => task.data!)}
             columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}
             row={renderTaskRow}
           />
