@@ -32,7 +32,8 @@ export default function Board() {
     { id: '4', name: 'Task 4', status: STATUS.COMPLETED },
     { id: '5', name: 'Task 5', status: STATUS.PENDING },
     { id: '6', name: 'Task 6', status: STATUS.PENDING },
-    { id: '7', name: 'Task 7', status: STATUS.REVIEW }
+    { id: '7', name: 'Task 7', status: STATUS.REVIEW },
+    { id: '8', name: 'Task 7', status: STATUS.REVIEW }
   ];
 
   const [tasks, setTasks] = useState<Task[]>(TASKS_MOCK);
