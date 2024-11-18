@@ -1,20 +1,18 @@
 import { cx } from 'class-variance-authority';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link';
-import { Roles } from 'src/types/employee';
-import { Task } from 'src/types/tasks';
 
 import Clock from '#assets/clock.svg';
 import Logout from '#assets/logout.svg';
 import { STATUS_COLORS } from '#components/BoardColumn/constants';
 import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import { formatDateES } from '#utils/date';
 import { useTasks } from '#lib/api/tasks/useTasks';
+import { formatDateES } from '#utils/date';
 
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
-  const {data} = useTasks(); 
+  const { data } = useTasks();
   return (
     <>
       <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">

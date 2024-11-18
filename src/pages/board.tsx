@@ -5,12 +5,12 @@ import { Task } from 'src/types/tasks';
 
 import emptyTasks from '#assets/emptyTasks.png';
 import { BoardColumn } from '#components/BoardColumn';
-import { STATUS } from '#components/BoardColumn/constants';
 import EmptyState from '#components/EmptyState';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import Layout from '#components/layout';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useTasks } from '#lib/api/tasks/useTasks';
+import { useUpdateTask } from '#lib/api/tasks/useUpdateTask';
 import { TaskStatusDto } from '#lib/enums/tasks';
 
 export default function Board() {
@@ -22,6 +22,8 @@ export default function Board() {
   }, []);
 
   const { data } = useTasks();
+
+  const { mutate: editMutate } = useUpdateTask();
 
   const [tasks, setTasks] = useState<Task[] | undefined>(data);
 
@@ -43,11 +45,14 @@ export default function Board() {
 
     if (sourceStatus === destinationStatus) return;
 
-    // TODO: change in backend
     setTasks(prevTasks =>
       prevTasks?.map(task => (task.id === draggableId ? { ...task, status: destinationStatus } : task))
     );
+
+    editMutate({ id: draggableId, status: destinationStatus });
   };
+
+  console.log('tasks', tasks);
 
   return (
     <Layout selectedTab={SIDEBAR_TABS.BOARD}>
@@ -56,11 +61,11 @@ export default function Board() {
       </div>
 
       {winReady && (
-        <div className="w-full rounded-lg p-6">
+        <div className="min-h-screen w-full rounded-lg">
           {!!tasks && tasks.length > 0 ? (
             <DragDropContext onDragEnd={handleDragEnd}>
-              <div className="flex w-full justify-between gap-x-2">
-                {Object.values(STATUS).map(status => (
+              <div className="flex min-h-screen w-full justify-between gap-x-2">
+                {Object.values(TaskStatusDto).map(status => (
                   <Droppable droppableId={status} key={status}>
                     {provided => (
                       <div
@@ -68,7 +73,7 @@ export default function Board() {
                         {...provided.droppableProps}
                         className="flex w-full flex-col gap-y-3 rounded-xl bg-white p-2"
                       >
-                        <BoardColumn status={status} tasks={getTasksByStatus[status] || []} />
+                        <BoardColumn status={status} tasks={getTasksByStatus?.[status] || []} />
                         {provided.placeholder}
                       </div>
                     )}
