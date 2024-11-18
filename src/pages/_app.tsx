@@ -26,7 +26,7 @@ function App({ Component, pageProps }: AppProps) {
               font-family: ${montserrat.style.fontFamily};
             }
           `}</style>
-          <main className="flex min-h-screen flex-col w-full items-center gap-4 bg-neutral-200 text-oxford-blue">
+          <main className="flex min-h-screen w-full flex-col items-center gap-4 bg-neutral-200 text-oxford-blue">
             <Component {...pageProps} />
           </main>
         </SessionProvider>

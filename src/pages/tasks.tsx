@@ -13,6 +13,7 @@ import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useTasks } from '#lib/api/tasks/useTasks';
+import { formatHoursTime } from '#utils/date/index';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -31,7 +32,7 @@ export default function Tasks() {
       <>
         <TableCell className="font-medium">{title}</TableCell>
         <TableCell>{tCommon(requiresTaskReport ? 'yes' : 'no')}</TableCell>
-        <TableCell>{estimatedHoursToComplete}</TableCell>
+        {estimatedHoursToComplete && <TableCell>{formatHoursTime(estimatedHoursToComplete)}</TableCell>}
       </>
     );
   };

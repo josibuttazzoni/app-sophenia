@@ -25,6 +25,21 @@ export const currentYear = currentDate().getFullYear();
 export const formatTime = (time: number): string => `0${time}`.slice(-2);
 
 /**
+ * Given a time in hours, returns it with a HH:MMhs format.
+ * @function
+ * @example
+ * // returns '03:00hs'
+ * formatTime('3');
+ * @param {number} hours Time in hours
+ * @returns  {string} Formatted time
+ */
+export const formatHoursTime = (hours: number): string => {
+  const hoursString = `0${Math.floor(hours)}`.slice(-2);
+  const minutesString = `0${Math.round((hours % 1) * 60)}`.slice(-2);
+  return `${hoursString}:${minutesString}hs`;
+};
+
+/**
  * Given a date, returns it formatted as 'HH:MM'
  * @function
  * @example
