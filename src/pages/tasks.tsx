@@ -24,9 +24,9 @@ export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
   const { data: tasks } = useTasks();
-  
+
   const renderTaskRow = (task: Task) => {
-    const {title, requiresTaskReport, estimatedHoursToComplete} = task.data;
+    const { title, requiresTaskReport, estimatedHoursToComplete } = task;
     return (
       <>
         <TableCell className="font-medium">{title}</TableCell>

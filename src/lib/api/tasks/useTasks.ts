@@ -1,20 +1,18 @@
 import { createQuery } from 'react-query-kit';
+import { GetTaskByIdResponse, Task } from 'src/types/tasks';
 
-import { GetTaskByIdResponse } from 'src/types/tasks';
-import { getWorkOrders } from '#lib/services/workOrders';
 import { getTasksByIds } from '#lib/services/tasks';
-import { handleServerResponse } from '../handleServerResponse';
-import { ApiResponse } from 'apisauce';
+import { getWorkOrders } from '#lib/services/workOrders';
 
 export const useTasks = createQuery({
   queryKey: ['/work-orders-tasks'],
-  fetcher: async (): Promise<ApiResponse<GetTaskByIdResponse, GetTaskByIdResponse>[]> => {
+  fetcher: async (): Promise<Task[]> => {
     const workOrders = await getWorkOrders();
-    const taskIds = workOrders?.flatMap((workOrder) => workOrder.tasksIds);
+    const taskIds = workOrders?.flatMap(workOrder => workOrder.tasksIds);
 
-    if(!taskIds) return [];
+    if (!taskIds) return [];
     const tasks = await getTasksByIds(taskIds);
 
     return tasks;
-  },
+  }
 });

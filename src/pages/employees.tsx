@@ -115,7 +115,7 @@ export default function Employees() {
             <DialogContent className="w-full max-w-sm rounded-xl bg-white p-8">
               <WarningModal>
                 <>
-                  <div className="text-md text-ebony-clay text-center font-semibold">
+                  <div className="text-md text-center font-semibold text-ebony-clay">
                     {t('wantToDeleteEmployee', { employee: employee.name })}
                   </div>
                   <div className="flex w-full justify-between gap-x-3">
