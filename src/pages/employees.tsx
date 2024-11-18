@@ -29,11 +29,7 @@ export default function Employees() {
 
   const { data } = useEmployees();
 
-  console.log('workers', data);
-
   const [employees, setEmployees] = useState(data);
-
-  console.log('employees', employees);
 
   const handleToggle = (id: string) => {
     setEmployees(prevEmployees =>
