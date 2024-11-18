@@ -1,12 +1,17 @@
 import { cx } from 'class-variance-authority';
+import { deleteCookie } from 'cookies-next';
 import useTranslation from 'next-translate/useTranslation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import glassIcon from '#assets/glass.png';
 import Logout from '#assets/logout.svg';
 import BrandTagline from '#components/BrandTagline';
+import { COOKIES } from '#constants/cookies';
+import { PAGES_PATHS } from '#constants/pages';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+import { queryClient } from '#lib/api';
 
 import { SIDEBAR_TABS } from './constants';
 
@@ -15,8 +20,15 @@ type SidebarProps = {
 };
 
 export function Sidebar({ selectedTab }: SidebarProps) {
+  const router = useRouter();
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
   const { t: tLogin } = useTranslation(TRANSLATIONS_NAMESPACES.LOGIN);
+
+  const handleLogout = () => {
+    deleteCookie(COOKIES.AUTH_TOKEN);
+    queryClient.clear();
+    router.replace(PAGES_PATHS.LOGIN);
+  };
 
   return (
     <div className="flex min-h-screen w-80 flex-col items-start justify-between bg-disco pb-4 pt-10 text-white">
@@ -38,13 +50,13 @@ export function Sidebar({ selectedTab }: SidebarProps) {
           })}
         </div>
         <div className="my-8 w-11/12 self-center border-[0.5px] border-white" />
-        <Link
-          href="/logout"
+        <div
           className="flex w-full cursor-pointer flex-row items-center gap-x-3 px-4 py-3 hover:opacity-50"
+          onClick={handleLogout}
         >
           {tLogin('logout')}
           <Logout />
-        </Link>
+        </div>
       </div>
       <BrandTagline className="w-full justify-center" variant="white" />
     </div>
