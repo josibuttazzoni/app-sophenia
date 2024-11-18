@@ -1,6 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 import Image from 'next/image';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { LoginRequestVariables } from 'src/types/auth';
 
 import sophenia from '#assets/sophenia.png';
 import BrandTagline from '#components/BrandTagline';
@@ -8,6 +9,7 @@ import { Button } from '#components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '#components/ui/form';
 import { Input } from '#components/ui/input';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+import { useLogin } from '#lib/api/auth';
 
 export default function Login() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.LOGIN);
@@ -21,9 +23,8 @@ export default function Login() {
 
   const { handleSubmit, control } = form;
 
-  const onSubmit = (data: { email: string; password: string }) => {
-    console.log('Formulario enviado con:', data);
-  };
+  const { mutate } = useLogin();
+  const onSubmit: SubmitHandler<{ [x: string]: string }> = data => mutate(data as LoginRequestVariables);
 
   return (
     <div className="flex h-screen w-full items-center justify-center">
@@ -59,7 +60,7 @@ export default function Login() {
                 required: t('validation.required', { field: t('password') }),
                 minLength: {
                   value: 6,
-                  message: t('validation.minLength', { count: 6 })
+                  message: t('validation.minLength', { field: t('password'), count: 6 })
                 }
               }}
               render={({ field, fieldState }) => (

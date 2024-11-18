@@ -1,6 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
-import { WorkOrder } from 'src/types/tasks';
+import { WorkOrder } from 'src/types/workOrders';
 
 import emptyEmployees from '#assets/emptyTasks.png';
 import EmptyState from '#components/EmptyState';
@@ -81,6 +81,7 @@ const history: WorkOrder[] = [
 
 export default function History() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.HISTORY);
+  const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
 
   const renderRow = (workOrder: WorkOrder) => {
     return (
@@ -91,7 +92,7 @@ export default function History() {
         <TableCell className="font-medium">{workOrder.name}</TableCell>
         <TableCell className="font-medium">
           <Dialog>
-            <DialogTrigger>Ver mas</DialogTrigger>
+            <DialogTrigger>{tCommon('seeMore')}</DialogTrigger>
             <DialogContent className="w-full max-w-sm rounded-xl bg-white p-8">
               <WorkOrderModal {...workOrder} />
             </DialogContent>

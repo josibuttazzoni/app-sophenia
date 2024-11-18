@@ -1,22 +1,38 @@
-import { Employee } from 'employee';
-
-// TODO: change when back is ready
-export type Task = {
-  id: string;
-  title: string;
-  status: TaskStatus;
-  time: string;
-  requiresTaskReport: boolean;
-  workerAssigned?: Employee;
-  description?: string;
-};
+export interface Task extends GetTaskByIdResponse {}
 
 export type TaskStatus = 'pending' | 'progress' | 'review' | 'completed';
 
-export type WorkOrder = {
-  id: string;
-  startDate: Date;
-  endDate: Date;
-  name: string;
-  tasks: Task[];
-};
+export interface GetTasksRequestVariables {
+  limit: number;
+  offset: number;
+}
+
+export interface GetTasksResponse {
+  data: Task[];
+  pagination: {
+    total: number;
+    limit: number;
+    offset: number;
+  };
+}
+
+export interface GetTaskByIdResponse {
+  _id: string;
+  data: {
+    title: string;
+    description: string;
+    status: TaskStatus;
+    requiresTaskReport: boolean;
+    estimatedHoursToComplete: number;
+    workerAssigned: {
+      email: string;
+      password: string;
+      fullname: string;
+      wineRole: string;
+      roles: string[];
+      status: string;
+      _id: string;
+    };
+    rating: number;
+  };
+}
