@@ -1,7 +1,7 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Edit from 'src/assets/edit.svg';
 import Trash from 'src/assets/trash.svg';
 import { Employee } from 'src/types/employee';
@@ -32,9 +32,16 @@ export default function Employees() {
   const { data, refetch } = useEmployees();
   const { mutate: editMutate } = useUpdateUser();
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
 
   const [employees, setEmployees] = useState(data);
+
+  useEffect(() => {
+    setEmployees(data);
+  }, [data]);
 
   const handleToggle = (id: string) => {
     setEmployees(prevEmployees =>
@@ -60,32 +67,49 @@ export default function Employees() {
 
   const handleDeleteWorker = async (id: string) => {
     await mutateAsync({ id });
-    setIsDialogOpen(false);
+    setIsDeleteDialogOpen(false);
+  };
+
+  const handleEditOpen = (isOpen: boolean, employee: Employee) => {
+    setSelectedEmployee(employee);
+    setIsEditDialogOpen(isOpen);
+  };
+
+  const handleEditClose = () => {
+    setSelectedEmployee(null);
+    setIsEditDialogOpen(false);
+  };
+
+  const handleEditWorker = () => {
+    refetch();
+    handleEditClose();
+    setIsCreateDialogOpen(false);
   };
 
   const renderEmployeeRow = (employee: Employee) => {
+    const { id, fullname, wineRole, availability } = employee;
     return (
       <>
-        <TableCell className="font-medium">{employee.fullname}</TableCell>
+        <TableCell className="font-medium">{fullname}</TableCell>
         <TableCell>
           <Switch
-            checked={employee.availability}
+            checked={availability}
             className="ml-4"
-            id={`switch-${employee.id}`}
-            onCheckedChange={() => handleToggle(employee.id)}
+            id={`switch-${id}`}
+            onCheckedChange={() => handleToggle(id)}
           />
         </TableCell>
-        <TableCell className="font-medium">{employee.wineRole}</TableCell>
+        <TableCell className="font-medium">{wineRole}</TableCell>
         <TableCell className="ml-1 flex gap-x-2">
-          <Dialog>
+          <Dialog open={isEditDialogOpen} onOpenChange={isOpen => handleEditOpen(isOpen, employee)}>
             <DialogTrigger>
               <Edit />
             </DialogTrigger>
             <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
-              <EmployeeModal email={employee.email} role={employee.wineRole} />
+              <EmployeeModal onSuccess={handleEditWorker} {...selectedEmployee} />
             </DialogContent>
           </Dialog>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
             <DialogTrigger>
               <Trash />
             </DialogTrigger>
@@ -93,7 +117,7 @@ export default function Employees() {
               <WarningModal>
                 <>
                   <div className="text-md text-center font-semibold text-ebony-clay">
-                    {t('wantToDeleteEmployee', { employee: employee.fullname })}
+                    {t('wantToDeleteEmployee', { employee: fullname })}
                   </div>
                   <div className="flex w-full justify-between gap-x-3">
                     <DialogClose className="w-1/2">
@@ -101,11 +125,7 @@ export default function Employees() {
                         {t('cancel')}
                       </Button>
                     </DialogClose>
-                    <Button
-                      onClick={() => handleDeleteWorker(employee.id)}
-                      className="w-1/2"
-                      disabled={isPending}
-                    >
+                    <Button onClick={() => handleDeleteWorker(id)} className="w-1/2" disabled={isPending}>
                       {t('delete')}
                     </Button>
                   </div>
@@ -123,14 +143,14 @@ export default function Employees() {
       <div className="flex items-center justify-between">
         <div className="text-2xl font-semibold">{t('employees')}</div>
         <div className="flex gap-x-4">
-          <Dialog>
+          <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger>
               <Button className="px-8" variant="primary">
                 {t('addEmployee')}
               </Button>
             </DialogTrigger>
             <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
-              <EmployeeModal />
+              <EmployeeModal onSuccess={handleEditWorker} />
             </DialogContent>
           </Dialog>
         </div>

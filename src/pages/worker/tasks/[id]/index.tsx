@@ -11,13 +11,14 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '#components
 import { TextArea } from '#components/ui/textarea';
 import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import { Genres, Roles } from '#lib/enums/employee';
+import { Genres, RoleDto } from '#lib/enums/employees';
+import { TaskStatusDto } from '#lib/enums/tasks';
 
 export default function WorkerTask() {
   const task = {
     id: '1',
     title: 'Task 1',
-    status: 'pending',
+    status: TaskStatusDto.PROGRESS,
     time: '10hs',
     requiresTaskReport: true,
     description: 'Sacar el orujo',
@@ -25,7 +26,7 @@ export default function WorkerTask() {
       id: '1',
       name: 'Matias Puyol',
       availability: true,
-      role: Roles.Operativo,
+      role: RoleDto.WORKER,
       genre: Genres.Male,
       email: 'test@mail.com'
     }

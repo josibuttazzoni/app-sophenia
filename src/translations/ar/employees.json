@@ -12,6 +12,7 @@
   "genre": "Género",
   "managerial": "Gerencial",
   "email": "Correo electrónico",
+  "fullname": "Nombre completo",
   "enterThe": "Ingrese el {{field}}",
   "validation": {
     "required": "{{field}} es requerido.",
