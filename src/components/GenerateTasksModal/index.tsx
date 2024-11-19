@@ -14,7 +14,7 @@ export default function GenerateTasksModal() {
   return (
     <div className="flex flex-col gap-y-4">
       <div className="text-xl font-semibold">{t(isEditing ? 'editTasks' : 'generateTasks')}</div>
-      {isEditing ? <EditTasksContent /> : <GenerateTasksContent />}
+      {isEditing ? <EditTasksContent /> : <GenerateTasksContent setIsEditing={setIsEditing} />}
     </div>
   );
 }

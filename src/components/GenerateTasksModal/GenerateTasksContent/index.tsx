@@ -1,5 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 import { useForm } from 'react-hook-form';
+import { Backlog } from 'src/types/tasks';
 
 import CustomSelect from '#components/CustomSelect';
 import { Button } from '#components/ui/button';
@@ -8,10 +9,15 @@ import { TextArea } from '#components/ui/textarea';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useSuggestTasks } from '#lib/api/tasks';
 import { SeasonMoment } from '#lib/enums/tasks';
+import { useTasksContext } from '#lib/providers/TasksContext';
 
 import { WEATHER_ICONS, WEATHER_MOCK } from './mocks';
 
-export default function GenerateTasksContent() {
+type GenerateTasksContentProps = {
+  setIsEditing: (editing: boolean) => void;
+};
+
+export default function GenerateTasksContent({ setIsEditing }: GenerateTasksContentProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const form = useForm({
     defaultValues: {
@@ -20,8 +26,17 @@ export default function GenerateTasksContent() {
     }
   });
 
+  const { setSuggestedTasks } = useTasksContext(({ setSuggestedTasks }) => ({
+    setSuggestedTasks
+  }));
+
   const { control, handleSubmit } = form;
-  const { mutate: suggestTasks } = useSuggestTasks();
+
+  const handleSuccess = (tasks: Backlog[]) => {
+    setSuggestedTasks(tasks);
+    setIsEditing(true);
+  };
+  const { mutate: suggestTasks } = useSuggestTasks(handleSuccess);
 
   const onSubmit = (data: { weeklyGoal: string; seasonMoment: string }) => {
     suggestTasks({ seasonMoment: data.seasonMoment });

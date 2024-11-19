@@ -6,12 +6,15 @@ import TickIcon from '#assets/tick.svg';
 import DeleteIcon from '#assets/trash.svg';
 import { Input } from '#components/ui/input';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-
-import { TASKS_MOCK } from './mocks';
+import { useTasksContext } from '#lib/providers/TasksContext';
 
 export default function EditTasksContent() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const [editing, setEditing] = useState(false);
+
+  const { suggestedTasks } = useTasksContext(({ suggestedTasks }) => ({
+    suggestedTasks
+  }));
 
   const taskRow = (title: string, content: string) => (
     <div className="flex w-full flex-row items-center gap-x-2 text-sm text-pale-sky">
@@ -24,7 +27,7 @@ export default function EditTasksContent() {
 
   return (
     <div className="flex max-h-96 flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
-      {TASKS_MOCK.map(({ title, description, id, estimatedHours, requiresTaskReport }) => (
+      {suggestedTasks.map(({ title, description, id, estimatedHours, requiresTaskReport }) => (
         <div key={id} className="flex w-full flex-row items-center justify-between">
           <div className="flex w-full flex-col gap-y-1">
             <div className="font-semibold">{title}</div>

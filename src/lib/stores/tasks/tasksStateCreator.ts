@@ -1,10 +1,10 @@
-import { Task } from 'src/types/tasks';
+import { Backlog, Task } from 'src/types/tasks';
 import type { StateCreator } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 export type TasksState = {
-  suggestedTasks: Task[] | [];
-  setSuggestedTasks: (tasks: Task[]) => void;
+  suggestedTasks: Backlog[] | [];
+  setSuggestedTasks: (tasks: Backlog[]) => void;
 };
 
 export function tasksStateCreator(name = 'tasks') {
