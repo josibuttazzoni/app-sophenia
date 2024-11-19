@@ -26,25 +26,28 @@ export default function EditTasksContent() {
   const titles = [t('description'), t('estimatedTime'), t('requiresDetail')];
 
   return (
-    <div className="flex max-h-96 flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
-      {suggestedTasks.map(({ title, description, id, estimatedHours, requiresTaskReport }) => (
-        <div key={id} className="flex w-full flex-row items-center justify-between">
-          <div className="flex w-full flex-col gap-y-1">
-            <div className="font-semibold">{title}</div>
-            {[description, `${estimatedHours}hs`, t(requiresTaskReport ? 'yes' : 'no')].map(
-              (content, index) => taskRow(titles[index], content)
-            )}
+    <div>
+      <div className="text-xl font-semibold">{t('editTasks')}</div>
+      <div className="flex max-h-96 flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
+        {suggestedTasks.map(({ title, description, id, estimatedHoursToComplete, requiresTaskReport }) => (
+          <div key={id} className="flex w-full flex-row items-center justify-between">
+            <div className="flex w-full flex-col gap-y-1">
+              <div className="font-semibold">{title}</div>
+              {[description, `${estimatedHoursToComplete}hs`, t(requiresTaskReport ? 'yes' : 'no')].map(
+                (content, index) => taskRow(titles[index], content)
+              )}
+            </div>
+            <div className="flex gap-x-2">
+              {editing ? (
+                <TickIcon onClick={() => setEditing(false)} className="cursor-pointer" />
+              ) : (
+                <EditIcon onClick={() => setEditing(true)} className="cursor-pointer" />
+              )}
+              {!editing && <DeleteIcon className="cursor-pointer" />}
+            </div>
           </div>
-          <div className="flex gap-x-2">
-            {editing ? (
-              <TickIcon onClick={() => setEditing(false)} className="cursor-pointer" />
-            ) : (
-              <EditIcon onClick={() => setEditing(true)} className="cursor-pointer" />
-            )}
-            {!editing && <DeleteIcon className="cursor-pointer" />}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

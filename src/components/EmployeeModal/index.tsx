@@ -63,7 +63,7 @@ export default function EmployeeModal({ email, role, genre }: EmployeeModalProps
             <div>
               <CustomSelect
                 label={t('role')}
-                items={Object.values(Roles)}
+                items={Object.values(Roles).map(value => ({ value, label: value }))}
                 placeholder={t('role')}
                 value={field.value}
                 onChange={field.onChange}
@@ -80,7 +80,7 @@ export default function EmployeeModal({ email, role, genre }: EmployeeModalProps
             <div>
               <CustomSelect
                 label={t('genre')}
-                items={Object.values(Genres)}
+                items={Object.values(Genres).map(value => ({ value, label: value }))}
                 placeholder={t('genre')}
                 value={field.value}
                 onChange={field.onChange}

@@ -43,38 +43,40 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
   };
 
   return (
-    <div className="flex flex-col gap-y-4">
-      <div className="flex flex-col gap-y-4">
-        {t('weekWeather')}
-        <div className="flex gap-x-3">
-          {WEATHER_MOCK.map(({ day, min, max, weather }) => {
-            const Icon = WEATHER_ICONS[weather];
-            return (
-              <div
-                key={day}
-                className="flex w-14 flex-col items-center rounded-full bg-claret bg-opacity-15 py-3 text-disco shadow-md"
-              >
-                {day.slice(0, 1).toUpperCase()}
-                <div className="flex h-10 items-center">
-                  <Icon />
-                </div>
-                <span className="text-xs">{min.toString()}°</span> {max.toString()}°
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex h-full flex-col justify-between gap-y-3">
+          <div className="text-xl font-semibold">{t('generateTasks')}</div>
+          <div className="flex h-full flex-col gap-y-6">
+            <div>
+              <FormLabel>{t('weekWeather')}</FormLabel>
+              <div className="flex gap-x-3 pt-3">
+                {WEATHER_MOCK.map(({ day, min, max, weather }) => {
+                  const Icon = WEATHER_ICONS[weather];
+                  return (
+                    <div
+                      key={day}
+                      className="flex w-14 flex-col items-center rounded-full bg-claret bg-opacity-15 py-3 text-disco shadow-md"
+                    >
+                      {day.slice(0, 1).toUpperCase()}
+                      <div className="flex h-10 items-center">
+                        <Icon />
+                      </div>
+                      <span className="text-xs">{min.toString()}°</span> {max.toString()}°
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
-        </div>
-      </div>
-      <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-y-4">
+            </div>
             <FormField
               control={control}
               name="seasonMoment"
               rules={{ required: t('validation.required', { field: t('role') }) }}
               render={({ field, fieldState }) => (
                 <CustomSelect
+                  className="pt-3"
                   label={t('seasonMoment')}
-                  items={Object.values(SeasonMoment)}
+                  items={Object.values(SeasonMoment).map(value => ({ label: t(value), value }))}
                   placeholder={t('seasonMoment')}
                   value={field.value}
                   onChange={field.onChange}
@@ -87,9 +89,10 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
               name="weeklyGoal"
               render={({ field, fieldState }) => (
                 <FormItem>
-                  <FormLabel>{t('weeklyGoal')}</FormLabel>
                   <FormControl>
                     <TextArea
+                      className="pt-3"
+                      label={t('weeklyGoal')}
                       placeholder={t('enterThe', { field: t('weeklyGoal').toLowerCase() })}
                       {...field}
                     />
@@ -103,8 +106,8 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
               {t('generate')}
             </Button>
           </div>
-        </form>
-      </Form>
-    </div>
+        </div>
+      </form>
+    </Form>
   );
 }

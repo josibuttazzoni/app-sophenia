@@ -41,7 +41,7 @@ interface BacklogDto {
   description: string;
   status: TaskStatusDto;
   requiresTaskReport: boolean;
-  estimatedHours: number;
+  estimatedHoursToComplete: number;
 }
 
 export interface SuggestTasksVariables {

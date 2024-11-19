@@ -3,24 +3,32 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '#
 
 type CustomSelectProps = {
   label?: string;
-  items: string[];
+  items: { label: string; value: string }[];
   placeholder: string;
   value?: string;
   onChange?: (value: string) => void;
+  className?: string;
 };
 
-export default function CustomSelect({ label, items, placeholder, value, onChange }: CustomSelectProps) {
+export default function CustomSelect({
+  label,
+  items,
+  placeholder,
+  value,
+  onChange,
+  className
+}: CustomSelectProps) {
   return (
     <div>
       {label && <FormLabel>{label}</FormLabel>}
       <Select value={value} onValueChange={val => onChange?.(val)}>
-        <SelectTrigger>
+        <SelectTrigger className={className}>
           <SelectValue placeholder={value ?? placeholder} />
         </SelectTrigger>
         <SelectContent>
           {items.map(item => (
-            <SelectItem key={item} value={item}>
-              {item}
+            <SelectItem key={item.value} value={item.value}>
+              {item.label}
             </SelectItem>
           ))}
         </SelectContent>

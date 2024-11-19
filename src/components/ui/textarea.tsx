@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { cn } from 'src/utils/components';
 
+import { FormLabel } from './form';
+
 export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   containerClassName?: string;
@@ -11,7 +13,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ className, label, containerClassName, ...props }, ref) => {
     return (
       <div className={cn('flex w-full flex-col gap-y-1 text-sm', containerClassName)}>
-        {label && <label>{label}</label>}
+        {label && <FormLabel>{label}</FormLabel>}
         <textarea
           ref={ref}
           className={cn(
