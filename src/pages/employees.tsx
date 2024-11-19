@@ -8,6 +8,7 @@ import { Employee } from 'src/types/employee';
 
 import emptyEmployees from '#assets/emptyTasks.png';
 import EmployeeModal from '#components/EmployeeModal';
+import { getRoleTitle } from '#components/EmployeeModal/constants';
 import EmptyState from '#components/EmptyState';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import PaginatedTableWrapper from '#components/Table';
@@ -18,9 +19,11 @@ import { Dialog, DialogContent } from '#components/ui/dialog';
 import { Switch } from '#components/ui/switch';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import { useEmployees } from '#lib/api/employess/useEmployees';
 import { useDeleteUser } from '#lib/api/users/useDeleteUser';
 import { useUpdateUser } from '#lib/api/users/useUpdateUser';
+import { useUsers } from '#lib/api/users/useUsers';
+import { RoleDto } from '#lib/enums/employees';
+import { sortBy } from '#utils/list';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -29,7 +32,7 @@ const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => 
 export default function Employees() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
 
-  const { data, refetch } = useEmployees();
+  const { data, refetch } = useUsers();
   const { mutate: editMutate } = useUpdateUser();
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -38,6 +41,8 @@ export default function Employees() {
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
 
   const [employees, setEmployees] = useState(data);
+
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     setEmployees(data);
@@ -86,8 +91,13 @@ export default function Employees() {
     setIsCreateDialogOpen(false);
   };
 
+  const handleSort = () => {
+    setEmployees(sortBy(employees, sortDirection, 'fullname'));
+    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+  };
+
   const renderEmployeeRow = (employee: Employee) => {
-    const { id, fullname, availability } = employee;
+    const { id, fullname, role, availability } = employee;
     return (
       <>
         <TableCell className="font-medium">{fullname}</TableCell>
@@ -99,6 +109,7 @@ export default function Employees() {
             onCheckedChange={() => handleToggle(id)}
           />
         </TableCell>
+        <TableCell className="font-medium">{getRoleTitle(t)[role as RoleDto]}</TableCell>
         <TableCell className="ml-1 flex gap-x-2">
           <Dialog open={isEditDialogOpen} onOpenChange={isOpen => handleEditOpen(isOpen, employee)}>
             <DialogTrigger>
@@ -158,8 +169,12 @@ export default function Employees() {
         {!!employees && employees.length > 0 ? (
           <PaginatedTableWrapper
             data={employees}
-            columns={[t('employee'), t('isAvailable'), t('actions')]}
+            columns={[t('employee'), t('isAvailable'), t('role'), t('actions')]}
             row={renderEmployeeRow}
+            onSort={handleSort}
+            sortColumn={t('employee')}
+            sortDirection={sortDirection}
+            className="w-[10%]"
           />
         ) : (
           <EmptyState title={t('emptyEmployees')} icon={emptyEmployees} />
