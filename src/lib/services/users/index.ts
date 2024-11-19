@@ -12,10 +12,10 @@ export const getCurrentProfile = async () => {
   return api.get<GetUserProfileResponse>('/user/profile');
 };
 
-// TODO: fix, limit is always 10
 export const getUsers = async () => {
   const response = await api.get<{ data: GetUser[] }>('/user', {
-    params: { limit: 30, offset: 0 }
+    limit: 50,
+    offset: 0
   });
   if (!response.data || !response.data.data) {
     throw new Error('Failed to fetch users');
