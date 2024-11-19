@@ -1,7 +1,8 @@
+import { FormLabel } from '#components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '#components/ui/select';
 
 type CustomSelectProps = {
-  label: string;
+  label?: string;
   items: string[];
   placeholder: string;
   value?: string;
@@ -11,7 +12,7 @@ type CustomSelectProps = {
 export default function CustomSelect({ label, items, placeholder, value, onChange }: CustomSelectProps) {
   return (
     <div>
-      <span className="text-sm">{label}</span>
+      {label && <FormLabel>{label}</FormLabel>}
       <Select value={value} onValueChange={val => onChange?.(val)}>
         <SelectTrigger>
           <SelectValue placeholder={value ?? placeholder} />

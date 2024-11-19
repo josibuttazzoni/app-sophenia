@@ -1,42 +1,34 @@
 import useTranslation from 'next-translate/useTranslation';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import CrossIcon from '#assets/cross.svg';
-import { Input } from '#components/ui/input';
+import CustomSelect from '#components/CustomSelect';
+import { Button } from '#components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '#components/ui/form';
+import { TextArea } from '#components/ui/textarea';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+import { useSuggestTasks } from '#lib/api/tasks';
+import { SeasonMoment } from '#lib/enums/tasks';
 
-import { EMPLOYEES_MOCK, WEATHER_ICONS, WEATHER_MOCK } from './mocks';
+import { WEATHER_ICONS, WEATHER_MOCK } from './mocks';
 
 export default function GenerateTasksContent() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
-  const [availableEmployees, setAvailableEmployees] = useState(EMPLOYEES_MOCK);
+  const form = useForm({
+    defaultValues: {
+      weeklyGoal: '',
+      seasonMoment: ''
+    }
+  });
+
+  const { control, handleSubmit } = form;
+  const { mutate: suggestTasks } = useSuggestTasks();
+
+  const onSubmit = (data: { weeklyGoal: string; seasonMoment: string }) => {
+    suggestTasks({ seasonMoment: data.seasonMoment });
+  };
+
   return (
-    <div className="flex flex-col justify-between gap-y-4">
-      <div className="flex flex-col gap-y-4">
-        <div className="flex flex-row items-center gap-x-4">
-          {t('availableEmployees')}
-          <div className="rounded-full bg-disco px-4 text-white">{availableEmployees.length}</div>
-        </div>
-        <div className="flex flex-wrap gap-2 rounded-lg border border-slate-200 p-2">
-          {availableEmployees.map(empl => (
-            <div
-              key={empl}
-              className="flex items-center gap-2 rounded-md bg-claret bg-opacity-15 px-2 py-1 text-oxford-blue"
-            >
-              {empl}
-              <div
-                onClick={() =>
-                  availableEmployees.length > 1 &&
-                  setAvailableEmployees(availableEmployees.filter(e => e !== empl))
-                }
-                className="cursor-pointer"
-              >
-                <CrossIcon />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <div className="flex flex-col gap-y-4">
       <div className="flex flex-col gap-y-4">
         {t('weekWeather')}
         <div className="flex gap-x-3">
@@ -57,10 +49,47 @@ export default function GenerateTasksContent() {
           })}
         </div>
       </div>
-      <div className="flex flex-col gap-y-4">
-        {t('weeklyGoal')}
-        <Input />
-      </div>
+      <Form {...form}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col gap-y-4">
+            <FormField
+              control={control}
+              name="seasonMoment"
+              rules={{ required: t('validation.required', { field: t('role') }) }}
+              render={({ field, fieldState }) => (
+                <CustomSelect
+                  label={t('seasonMoment')}
+                  items={Object.values(SeasonMoment)}
+                  placeholder={t('seasonMoment')}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <FormField
+              control={control}
+              rules={{ required: t('required') }}
+              name="weeklyGoal"
+              render={({ field, fieldState }) => (
+                <FormItem>
+                  <FormLabel>{t('weeklyGoal')}</FormLabel>
+                  <FormControl>
+                    <TextArea
+                      placeholder={t('enterThe', { field: t('weeklyGoal').toLowerCase() })}
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex w-full justify-end">
+            <Button type="submit" className="px-12">
+              {t('generate')}
+            </Button>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }

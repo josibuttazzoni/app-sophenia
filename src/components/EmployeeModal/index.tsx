@@ -35,7 +35,6 @@ export default function EmployeeModal({ email, role, genre }: EmployeeModalProps
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-6">
         <div className="text-xl font-semibold">{email ? t('editEmployee') : t('addEmployee')}</div>
-
         <FormField
           control={control}
           name="email"

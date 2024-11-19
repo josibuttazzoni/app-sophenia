@@ -1,4 +1,11 @@
-import { GetBacklogResponse, GetTaskByIdResponse, Task, UpdateTaskRequestVariables } from 'src/types/tasks';
+import {
+  Backlog,
+  GetBacklogResponse,
+  GetTaskByIdResponse,
+  SuggestTasksVariables,
+  Task,
+  UpdateTaskRequestVariables
+} from 'src/types/tasks';
 
 import api from '#config/api';
 import { mapBacklog, mapTask } from '#lib/mappers/tasks';
@@ -33,4 +40,8 @@ export const getBacklog = async () => {
     throw new Error('Failed to fetch backlog');
   }
   return mapBacklog(response.data.data);
+};
+
+export const suggestTasks = async ({ seasonMoment }: SuggestTasksVariables) => {
+  return await api.post<Backlog[]>('tasks/suggest', { seasonMoment });
 };

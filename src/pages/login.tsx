@@ -36,6 +36,7 @@ export default function Login() {
   const onSubmit: SubmitHandler<{ [x: string]: string }> = data => mutate(data as LoginRequestVariables);
 
   const token = useMemo(() => getCookie(COOKIES.AUTH_TOKEN), []);
+
   useEffect(() => {
     if (token) {
       router.push(PAGES_PATHS.TASKS);

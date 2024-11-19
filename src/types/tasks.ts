@@ -43,3 +43,7 @@ interface BacklogDto {
   requiresTaskReport: boolean;
   estimatedHours: number;
 }
+
+export interface SuggestTasksVariables {
+  seasonMoment: string;
+}
