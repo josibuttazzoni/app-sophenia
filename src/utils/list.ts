@@ -1,5 +1,5 @@
 export const sortBy = (list: any, sortDirection: string, key: string) => {
-  const sortedData = [...list].sort((a, b) => {
+  const sortedData = list?.sort((a: { [x: string]: string; }, b: { [x: string]: string; }) => {
     const itemA = a[key].toLowerCase();
     const itemB = b[key].toLowerCase();
 

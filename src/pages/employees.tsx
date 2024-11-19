@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import Edit from 'src/assets/edit.svg';
 import Trash from 'src/assets/trash.svg';
-import { Employee } from 'src/types/employee';
 
 import emptyEmployees from '#assets/emptyTasks.png';
 import EmployeeModal from '#components/EmployeeModal';
@@ -24,6 +23,7 @@ import { useUpdateUser } from '#lib/api/users/useUpdateUser';
 import { useUsers } from '#lib/api/users/useUsers';
 import { RoleDto } from '#lib/enums/employees';
 import { sortBy } from '#utils/list';
+import { User } from 'src/types/users';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -38,23 +38,25 @@ export default function Employees() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
-
-  const [employees, setEmployees] = useState(data);
+  const [selectedEmployee, setSelectedEmployee] = useState<User | null>(null);
 
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
+  const [employees, setEmployees] = useState(sortBy(data, sortDirection, 'fullname'));
+
+
   useEffect(() => {
-    setEmployees(data);
+    setEmployees(sortBy(data, sortDirection, 'fullname'));
+    setSortDirection(sortDirection);
   }, [data]);
 
   const handleToggle = (id: string) => {
-    setEmployees(prevEmployees =>
+    setEmployees((prevEmployees: User[]) =>
       prevEmployees?.map(employee =>
         employee.id === id ? { ...employee, availability: !employee.availability } : employee
       )
     );
-    const employee = employees?.find(employee => employee.id === id);
+    const employee = employees?.find((employee: User) => employee.id === id);
     editMutate(
       {
         id,
@@ -75,7 +77,7 @@ export default function Employees() {
     setIsDeleteDialogOpen(false);
   };
 
-  const handleEditOpen = (isOpen: boolean, employee: Employee) => {
+  const handleEditOpen = (isOpen: boolean, employee: User) => {
     setSelectedEmployee(employee);
     setIsEditDialogOpen(isOpen);
   };
@@ -96,7 +98,7 @@ export default function Employees() {
     setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
   };
 
-  const renderEmployeeRow = (employee: Employee) => {
+  const renderEmployeeRow = (employee: User) => {
     const { id, fullname, role, availability } = employee;
     return (
       <>
