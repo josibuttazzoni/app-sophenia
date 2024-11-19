@@ -1,3 +1,5 @@
+import { RoleDto } from '../lib/enums/employees';
+
 export type LoginResponse = {
   access_token: string;
 };
@@ -5,13 +7,13 @@ export type LoginResponse = {
 export type LoginRequestVariables = {
   email: string;
   password: string;
-  role: string;
+  role: RoleDto;
 };
 
 export interface RegisterRequestVariables {
   fullname: string;
   email: string;
-  role: string;
+  role: RoleDto;
   status: string;
 }
 
@@ -19,7 +21,7 @@ export interface RegisterResponse {
   email: string;
   password: string;
   fullname: string;
-  roles: string[];
+  roles: RoleDto[];
   status: string;
   availability: boolean;
   _id: string;

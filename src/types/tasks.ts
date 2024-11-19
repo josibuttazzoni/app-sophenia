@@ -1,3 +1,4 @@
+import { RoleDto } from '../lib/enums/employees';
 import { TaskStatusDto } from '../lib/enums/tasks';
 
 export interface Task extends TaskDto {
@@ -16,8 +17,7 @@ interface TaskDto {
     email: string;
     password: string;
     fullname: string;
-    wineRole: string;
-    roles: string[];
+    roles: RoleDto[];
     status: string;
     _id: string;
   };

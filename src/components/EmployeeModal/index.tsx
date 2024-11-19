@@ -10,13 +10,15 @@ import { Input } from '#components/ui/input';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useRegister } from '#lib/api/auth/useRegister';
 import { useUpdateUser } from '#lib/api/users';
-import { WineRoleDto } from '#lib/enums/employees';
+import { RoleDto } from '#lib/enums/employees';
+
+import { getRoleTitle, getRoles } from './constants';
 
 type EmployeeModalProps = {
   id?: string;
   fullname?: string;
   email?: string;
-  role?: string;
+  role?: RoleDto;
   onSuccess: () => void;
 };
 
@@ -27,7 +29,7 @@ export default function EmployeeModal({ id, fullname, email, role, onSuccess }: 
     defaultValues: {
       fullname: fullname || '',
       email: email || '',
-      role: role || ''
+      role: role
     }
   });
 
@@ -37,22 +39,14 @@ export default function EmployeeModal({ id, fullname, email, role, onSuccess }: 
 
   const { mutate: createMutate } = useRegister();
 
-  // TODO: fix when back is fixed (wineRole / role)
   const onSubmit = (data: UpdateUserRequestVariables) => {
-    console.log('Formulario enviado:', data);
     if (!id) {
-      return createMutate(
-        { fullname: data.fullname, email: data.email, role: 'WORKER' } as RegisterRequestVariables,
-        {
-          onSuccess: onSuccess
-        }
-      );
+      return createMutate({ ...data } as RegisterRequestVariables, {
+        onSuccess: onSuccess
+      });
     } else {
       return editMutate(
-        {
-          id,
-          data
-        },
+        { id, data },
         {
           onSuccess: onSuccess
         }
@@ -67,6 +61,7 @@ export default function EmployeeModal({ id, fullname, email, role, onSuccess }: 
         <FormField
           control={control}
           name="fullname"
+          rules={{ required: t('validation.required', { field: t('fullname') }) }}
           render={({ field, fieldState }) => (
             <FormItem className="!py-0">
               <FormLabel>{t('fullname')}</FormLabel>
@@ -105,9 +100,12 @@ export default function EmployeeModal({ id, fullname, email, role, onSuccess }: 
             <div>
               <CustomSelect
                 label={t('role')}
-                items={Object.values(WineRoleDto)}
-                placeholder={t('role')}
-                value={field.value}
+                items={getRoles(t)}
+                placeholder={t('placeholderRole')}
+                value={{
+                  value: field.value,
+                  label: getRoleTitle(t)[role as RoleDto]
+                }}
                 onChange={field.onChange}
               />
               {fieldState.error && <FormMessage>{fieldState.error.message}</FormMessage>}

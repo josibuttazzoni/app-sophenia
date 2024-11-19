@@ -87,7 +87,7 @@ export default function Employees() {
   };
 
   const renderEmployeeRow = (employee: Employee) => {
-    const { id, fullname, wineRole, availability } = employee;
+    const { id, fullname, availability } = employee;
     return (
       <>
         <TableCell className="font-medium">{fullname}</TableCell>
@@ -99,7 +99,6 @@ export default function Employees() {
             onCheckedChange={() => handleToggle(id)}
           />
         </TableCell>
-        <TableCell className="font-medium">{wineRole}</TableCell>
         <TableCell className="ml-1 flex gap-x-2">
           <Dialog open={isEditDialogOpen} onOpenChange={isOpen => handleEditOpen(isOpen, employee)}>
             <DialogTrigger>
@@ -159,7 +158,7 @@ export default function Employees() {
         {!!employees && employees.length > 0 ? (
           <PaginatedTableWrapper
             data={employees}
-            columns={[t('employee'), t('isAvailable'), t('role'), t('actions')]}
+            columns={[t('employee'), t('isAvailable'), t('actions')]}
             row={renderEmployeeRow}
           />
         ) : (

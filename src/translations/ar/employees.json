@@ -22,5 +22,10 @@
   "save": "Guardar",
   "cancel": "Cancelar",
   "delete": "Eliminar",
-  "wantToDeleteEmployee": "¿Deseas eliminar al operario {{employee}}?"
+  "wantToDeleteEmployee": "¿Deseas eliminar al operario {{employee}}?",
+  "placeholderRole": "Selecciona un rol",
+  "roleDto": {
+    "worker": "Operativo",
+    "admin": "Gerencial"
+  }
 }

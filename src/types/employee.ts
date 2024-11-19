@@ -1,17 +1,16 @@
-import { Roles } from '../lib/enums/employees';
+import { RoleDto } from '../lib/enums/employees';
 
 export interface Employee extends EmployeeDto {
   id: string;
-  role: string;
+  role: RoleDto;
 }
 export interface GetEmployeeResponse extends EmployeeDto {
   _id: string;
-  roles: string[];
+  roles: RoleDto[];
 }
 
 interface EmployeeDto {
   fullname: string;
   availability: boolean;
-  wineRole: Roles;
   email: string;
 }

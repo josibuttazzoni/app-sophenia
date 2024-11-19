@@ -1,5 +1,7 @@
 import { ErrorApiResponse } from 'api/errors';
 
+import { RoleDto } from '../lib/enums/employees';
+
 export interface User extends UserDto {
   id: string;
 }
@@ -12,8 +14,7 @@ export interface UserDto {
   availability: boolean;
   email: string;
   password: string;
-  wineRole: string;
-  roles: string[];
+  roles: RoleDto[];
   fullname: string;
   status: string;
 }
@@ -27,7 +28,7 @@ export interface DeleteUserRequestVariables {
 export interface UpdateUserRequestVariables {
   fullname?: string;
   email?: string;
-  role?: string;
+  role?: RoleDto;
   status?: string;
   availability?: boolean;
 }
