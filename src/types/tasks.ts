@@ -43,3 +43,9 @@ interface BacklogDto {
   requiresTaskReport: boolean;
   estimatedHours: number;
 }
+
+export interface AddRatingRequestVariables {
+  id: string;
+  rating: number;
+  ratingComment?: string;
+}

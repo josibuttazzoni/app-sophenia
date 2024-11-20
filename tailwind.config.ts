@@ -29,6 +29,7 @@ const config = {
         mystic: '#DDE7EC',
         mischka: '#DADEE4',
         snuff: '#E1DDEC',
+        logan: '#AA9FC6',
         'willow-grove': '#E3ECDD',
         'athens-gray': '#F4F5F7'
       },

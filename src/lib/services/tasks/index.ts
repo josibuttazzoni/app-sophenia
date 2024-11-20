@@ -1,4 +1,10 @@
-import { GetBacklogResponse, GetTaskByIdResponse, Task, UpdateTaskRequestVariables } from 'src/types/tasks';
+import {
+  AddRatingRequestVariables,
+  GetBacklogResponse,
+  GetTaskByIdResponse,
+  Task,
+  UpdateTaskRequestVariables
+} from 'src/types/tasks';
 
 import api from '#config/api';
 import { mapBacklog, mapTask } from '#lib/mappers/tasks';
@@ -34,3 +40,9 @@ export const getBacklog = async () => {
   }
   return mapBacklog(response.data.data);
 };
+
+export const addRating = async ({ id, rating, ratingComment }: AddRatingRequestVariables) =>
+  api.patch<Task>(`/tasks/${id}/rate`, {
+    rating,
+    ratingComment
+  });

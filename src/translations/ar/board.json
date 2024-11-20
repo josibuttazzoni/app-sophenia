@@ -6,5 +6,6 @@
     "progress": "En proceso",
     "review": "En revisión",
     "completed": "Finalizadas"
-  }
+  },
+  "addComment": "Agregar un comentario"
 }
