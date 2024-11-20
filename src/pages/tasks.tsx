@@ -19,24 +19,22 @@ const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => 
   ssr: false
 });
 
-// TODO: add loading state
-
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
   const { data: tasks } = useBacklog();
 
   const renderTaskRow = (task: Backlog) => {
-    const { title, requiresTaskReport, estimatedHours } = task;
+    const { title, requiresTaskReport, estimatedHoursToComplete } = task;
     return (
       <>
         <TableCell className="font-medium">{title}</TableCell>
         <TableCell>{tCommon(requiresTaskReport ? 'yes' : 'no')}</TableCell>
-        <TableCell>{formatHoursTime(estimatedHours)}</TableCell>
+        <TableCell>{formatHoursTime(estimatedHoursToComplete)}</TableCell>
       </>
     );
   };
-  
+
   return (
     <Layout selectedTab={SIDEBAR_TABS.TASKS}>
       <div className="flex items-center justify-between">

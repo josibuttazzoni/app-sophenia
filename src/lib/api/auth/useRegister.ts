@@ -1,19 +1,19 @@
 import useTranslation from 'next-translate/useTranslation';
 import { createMutation } from 'react-query-kit';
-import { DeleteUserRequestVariables } from 'src/types/auth';
+import { RegisterRequestVariables } from 'src/types/auth';
 
 import { queryClient } from '#lib/api';
-import { deleteUser } from '#lib/services/auth';
+import { register } from '#lib/services/auth';
 import { mapQueryOptions } from '#utils/queries';
 
 import { handleServerResponse } from '../handleServerResponse';
 
-export const useDeleteUser = () => {
+export const useRegister = () => {
   const { t: tCommon } = useTranslation('common');
   return createMutation({
-    mutationFn: (variables: DeleteUserRequestVariables) => deleteUser(variables).then(handleServerResponse),
+    mutationFn: (variables: RegisterRequestVariables) => register(variables).then(handleServerResponse),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['/users'] });
+      queryClient.invalidateQueries({ queryKey: ['/auth/register'] });
     },
     ...mapQueryOptions(tCommon)
   })();
