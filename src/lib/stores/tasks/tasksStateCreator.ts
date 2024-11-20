@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware';
 
 export type TasksState = {
   suggestedTasks: Backlog[] | [];
-  setSuggestedTasks: (tasks: Backlog[]) => void;
+  setSuggestedTasks: (tasks: Backlog[] | []) => void;
 };
 
 export function tasksStateCreator(name = 'tasks') {

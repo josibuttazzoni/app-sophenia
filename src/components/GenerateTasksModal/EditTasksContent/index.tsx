@@ -1,74 +1,121 @@
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Backlog } from 'src/types/tasks';
 
 import EditIcon from '#assets/edit.svg';
 import TickIcon from '#assets/tick.svg';
 import DeleteIcon from '#assets/trash.svg';
-import { Input } from '#components/ui/input';
-import { TextArea } from '#components/ui/textarea';
+import { Form } from '#components/ui/form';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useTasksContext } from '#lib/providers/TasksContext';
 
+import InputField from './InputField';
+import SwitchField from './SwitchField';
+import TextAreaField from './TextAreaField';
+
 export default function EditTasksContent() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
-  const [editing, setEditing] = useState({});
 
-  const { suggestedTasks } = useTasksContext(({ suggestedTasks }) => ({
-    suggestedTasks
+  const { suggestedTasks, setSuggestedTasks } = useTasksContext(({ suggestedTasks, setSuggestedTasks }) => ({
+    suggestedTasks,
+    setSuggestedTasks
   }));
 
-  const taskRow = (taskIndex: number, title: string, content: string, isDescription: boolean) => (
-    <div
-      className={`flex w-full text-sm text-pale-sky ${isDescription ? 'flex-col gap-y-2' : 'flex-row  items-center gap-x-2'}`}
-    >
-      <div className="font-medium">{title}</div>
-      {editing?.[taskIndex] ? (
-        isDescription ? (
-          <TextArea value={content} />
-        ) : (
-          <Input className="h-7 w-fit" containerClassName="w-fit" value={content} />
-        )
-      ) : (
-        content
-      )}
-    </div>
+  const [editing, setEditing] = useState(
+    Object.keys(suggestedTasks).reduce(
+      (obj, key) => {
+        obj[key] = false;
+        return obj;
+      },
+      {} as { [key: string]: boolean }
+    )
   );
 
-  const titles = [t('description'), t('estimatedTime'), t('requiresDetail')];
+  const form = useForm({ defaultValues: suggestedTasks });
 
-  console.log(editing);
+  const { handleSubmit, control } = form;
+
+  const onSubmit = (values: Backlog[]) => {
+    console.log;
+  };
+
+  const handleConfirm = (taskIndex: number) => {
+    const values = form.getValues()[taskIndex];
+    setSuggestedTasks(
+      suggestedTasks.map((item, index) => {
+        if (index === taskIndex) {
+          const filteredValues = Object.entries(values).reduce(
+            (acc, [key, value]) => {
+              if (value !== undefined && value !== '') {
+                acc[key as keyof Backlog] = value;
+              }
+              return acc;
+            },
+            {} as Partial<typeof item>
+          );
+          return { ...item, ...filteredValues };
+        }
+        return item;
+      })
+    );
+    setEditing({ ...editing, [taskIndex]: false });
+  };
 
   return (
     <div className="flex flex-col gap-y-3">
       <div className="text-xl font-semibold">{t('editTasks')}</div>
-      <div className="flex max-h-[500px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
-        {suggestedTasks.map(
-          ({ title, description, estimatedHoursToComplete, requiresTaskReport }, taskIndex) => (
-            <div key={title} className="flex w-full flex-row items-center justify-between gap-x-4">
-              <div className="flex w-full flex-col gap-y-1">
-                <div className="font-semibold">{title}</div>
-                {[description, `${estimatedHoursToComplete}hs`, t(requiresTaskReport ? 'yes' : 'no')].map(
-                  (content, index) => taskRow(taskIndex, titles[index], content, index === 0)
-                )}
-              </div>
-              <div className="flex gap-x-2">
-                {editing?.[taskIndex] ? (
-                  <TickIcon
-                    onClick={() => setEditing({ ...editing, [taskIndex]: false })}
-                    className="cursor-pointer"
-                  />
-                ) : (
-                  <EditIcon
-                    onClick={() => setEditing({ ...editing, [taskIndex]: true })}
-                    className="cursor-pointer"
-                  />
-                )}
-                {!editing && <DeleteIcon className="cursor-pointer" />}
-              </div>
-            </div>
-          )
-        )}
-      </div>
+      <Form {...form}>
+        <form
+          className="flex max-h-[500px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          {suggestedTasks.map(
+            ({ title, description, estimatedHoursToComplete, requiresTaskReport }, taskIndex) => {
+              const isEditing = editing?.[taskIndex];
+              return (
+                <div key={title} className="flex w-full flex-row items-center justify-between gap-x-4">
+                  <div className="flex w-full flex-col gap-y-1">
+                    <div className="font-semibold">{title}</div>
+                    <TextAreaField
+                      name={`${taskIndex}.description`}
+                      isEditing={isEditing}
+                      title={t('description')}
+                      content={description}
+                      control={control}
+                    />
+                    <InputField
+                      name={`${taskIndex}.estimatedHoursToComplete`}
+                      title={t('estimatedTime')}
+                      isEditing={isEditing}
+                      content={estimatedHoursToComplete}
+                      control={control}
+                    />
+                    <SwitchField
+                      name={`${taskIndex}.requiresTaskReport`}
+                      isEditing={isEditing}
+                      title={t('requiresDetail')}
+                      content={requiresTaskReport}
+                      control={control}
+                    />
+                  </div>
+                  <div className="flex gap-x-2">
+                    {isEditing ? (
+                      <TickIcon onClick={() => handleConfirm(taskIndex)} className="cursor-pointer" />
+                    ) : (
+                      <EditIcon
+                        onClick={() => setEditing({ ...editing, [taskIndex]: true })}
+                        className="cursor-pointer"
+                      />
+                    )}
+                    {!isEditing && <DeleteIcon className="cursor-pointer" />}
+                  </div>
+                </div>
+              );
+            }
+          )}
+        </form>
+      </Form>
     </div>
   );
 }
