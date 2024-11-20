@@ -6,7 +6,7 @@ import { WorkOrder } from 'src/types/workOrders';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '#components/ui/pagination';
 import { TableRow } from '#components/ui/table';
 
-import { BaseTable } from './BaseTable';
+import { BaseTable, BaseTableProps } from './BaseTable';
 import { ITEMS_PER_PAGE } from './constants';
 
 type TableData = Backlog | Employee | WorkOrder;
@@ -16,13 +16,14 @@ type PaginatedTableWrapperProps<T extends TableData> = {
   columns: string[];
   itemsPerPage?: number;
   row: (item: T) => JSX.Element | ReactNode;
-};
+} & BaseTableProps;
 
 export default function PaginatedTableWrapper<T extends TableData>({
   data,
   columns,
   itemsPerPage = ITEMS_PER_PAGE,
-  row
+  row,
+  ...props
 }: PaginatedTableWrapperProps<T>) {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -33,7 +34,7 @@ export default function PaginatedTableWrapper<T extends TableData>({
 
   return (
     <div className="flex h-full flex-col justify-between">
-      <BaseTable columns={columns}>
+      <BaseTable columns={columns} {...props}>
         {paginatedData.map((item, index) => (
           <TableRow key={index}>{row(item)}</TableRow>
         ))}
