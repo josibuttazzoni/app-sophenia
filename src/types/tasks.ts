@@ -22,6 +22,7 @@ interface TaskDto {
     _id: string;
   };
   rating: number;
+  ratingComment?: string;
 }
 
 export interface UpdateTaskRequestVariables {

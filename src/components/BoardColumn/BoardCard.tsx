@@ -28,14 +28,7 @@ export type BoardCardProps = {
 export function BoardCard({ id, status, title, description, index }: BoardCardProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
 
-  // TODO: check if necessary [martina]
   const { data } = useTask({ variables: { id } });
-  const { mutate: editMutate } = useRating();
-  console.log('data', data);
-
-  const handleRateTask = ({ rating, ratingComment }: AddRatingRequestVariables) => {
-    editMutate({ id, rating, ratingComment });
-  };
 
   return (
     <Draggable key={id} draggableId={id} index={index} isDragDisabled={status === TaskStatusDto.DONE}>
@@ -54,18 +47,25 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
             <Dialog>
               <DialogTrigger className="flex flex-row items-center gap-x-1 hover:underline">
                 {data?.rating ? (
-                  <span>ver comentario</span>
+                  <span className="cursor-pointer text-left text-[0.65rem] font-medium">
+                    {t('viewRating')}
+                  </span>
                 ) : (
                   <>
                     <AddComment />
                     <span className="cursor-pointer text-left text-[0.65rem] font-medium">
-                      {t('addComment')}
+                      {t('addRating')}
                     </span>
                   </>
                 )}
               </DialogTrigger>
               <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
-                {data?.rating ? <span>ver comentario</span> : <CommentModal title={title} />}
+                <CommentModal
+                  id={id}
+                  rating={data?.rating}
+                  ratingComment={data?.ratingComment}
+                  title={title}
+                />
               </DialogContent>
             </Dialog>
           )}

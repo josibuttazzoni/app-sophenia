@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import Edit from 'src/assets/edit.svg';
 import Trash from 'src/assets/trash.svg';
+import { User } from 'src/types/users';
 
 import emptyEmployees from '#assets/emptyTasks.png';
 import EmployeeModal from '#components/EmployeeModal';
@@ -23,7 +24,6 @@ import { useUpdateUser } from '#lib/api/users/useUpdateUser';
 import { useUsers } from '#lib/api/users/useUsers';
 import { RoleDto } from '#lib/enums/employees';
 import { sortBy } from '#utils/list';
-import { User } from 'src/types/users';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -43,7 +43,6 @@ export default function Employees() {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
   const [employees, setEmployees] = useState(sortBy(data, sortDirection, 'fullname'));
-
 
   useEffect(() => {
     setEmployees(sortBy(data, sortDirection, 'fullname'));
@@ -100,6 +99,7 @@ export default function Employees() {
 
   const renderEmployeeRow = (employee: User) => {
     const { id, fullname, role, availability } = employee;
+    const employeeRole = getRoleTitle(t)[role as RoleDto];
     return (
       <>
         <TableCell className="font-medium">{fullname}</TableCell>
@@ -111,7 +111,7 @@ export default function Employees() {
             onCheckedChange={() => handleToggle(id)}
           />
         </TableCell>
-        <TableCell className="font-medium">{getRoleTitle(t)[role as RoleDto]}</TableCell>
+        <TableCell className="font-medium">{employeeRole}</TableCell>
         <TableCell className="ml-1 flex gap-x-2">
           <Dialog open={isEditDialogOpen} onOpenChange={isOpen => handleEditOpen(isOpen, employee)}>
             <DialogTrigger>
