@@ -45,5 +45,6 @@ interface BacklogDto {
 }
 
 export interface SuggestTasksVariables {
-  seasonMoment: string;
+  objective: string;
+  seasonMoment?: string;
 }

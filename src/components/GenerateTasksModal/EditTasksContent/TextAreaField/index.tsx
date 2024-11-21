@@ -1,7 +1,7 @@
 import { Control } from 'react-hook-form';
 import { Backlog } from 'src/types/tasks';
 
-import { FormControl, FormField, FormItem } from '#components/ui/form';
+import { FormField } from '#components/ui/form';
 import { TextArea } from '#components/ui/textarea';
 
 type TextAreaFieldProps = {
@@ -21,11 +21,7 @@ export default function TextAreaField({ title, content, isEditing, name, control
           control={control}
           name={name}
           render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <TextArea {...field} value={String((content || field.value) ?? '')} defaultValue={content} />
-              </FormControl>
-            </FormItem>
+            <TextArea {...field} value={field.value?.toString()} defaultValue={content} />
           )}
         />
       </div>

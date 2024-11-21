@@ -22,10 +22,11 @@ export default function InputField({ title, content, isEditing, name, control }:
           name={name}
           render={({ field }) => (
             <Input
+              {...field}
               className="h-7 w-fit"
               containerClassName="w-fit"
-              defaultValue={String((content || field.value) ?? '')}
-              value={String(field.value ?? '')}
+              defaultValue={content}
+              value={field.value?.toString()}
             />
           )}
         />

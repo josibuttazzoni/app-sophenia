@@ -3,18 +3,25 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Backlog } from 'src/types/tasks';
 
+import CrossIcon from '#assets/cross.svg';
 import EditIcon from '#assets/edit.svg';
 import TickIcon from '#assets/tick.svg';
 import DeleteIcon from '#assets/trash.svg';
+import { Button } from '#components/ui/button';
 import { Form } from '#components/ui/form';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+import { useCreateTasks } from '#lib/api/tasks/useCreateTasks';
 import { useTasksContext } from '#lib/providers/TasksContext';
 
 import InputField from './InputField';
 import SwitchField from './SwitchField';
 import TextAreaField from './TextAreaField';
 
-export default function EditTasksContent() {
+export default function EditTasksContent({
+  setTasksModalOpen
+}: {
+  setTasksModalOpen: (open: boolean) => void;
+}) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
 
   const { suggestedTasks, setSuggestedTasks } = useTasksContext(({ suggestedTasks, setSuggestedTasks }) => ({
@@ -34,11 +41,9 @@ export default function EditTasksContent() {
 
   const form = useForm({ defaultValues: suggestedTasks });
 
-  const { handleSubmit, control } = form;
+  const { control, handleSubmit } = form;
 
-  const onSubmit = (values: Backlog[]) => {
-    console.log;
-  };
+  const { mutate: createTasks, status } = useCreateTasks(() => setTasksModalOpen(false));
 
   const handleConfirm = (taskIndex: number) => {
     const values = form.getValues()[taskIndex];
@@ -62,58 +67,75 @@ export default function EditTasksContent() {
     setEditing({ ...editing, [taskIndex]: false });
   };
 
+  const onSubmit = () => {
+    createTasks(suggestedTasks);
+  };
+
   return (
     <div className="flex flex-col gap-y-3">
       <div className="text-xl font-semibold">{t('editTasks')}</div>
       <Form {...form}>
-        <form
-          className="flex max-h-[500px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {suggestedTasks.map(
-            ({ title, description, estimatedHoursToComplete, requiresTaskReport }, taskIndex) => {
-              const isEditing = editing?.[taskIndex];
-              return (
-                <div key={title} className="flex w-full flex-row items-center justify-between gap-x-4">
-                  <div className="flex w-full flex-col gap-y-1">
-                    <div className="font-semibold">{title}</div>
-                    <TextAreaField
-                      name={`${taskIndex}.description`}
-                      isEditing={isEditing}
-                      title={t('description')}
-                      content={description}
-                      control={control}
-                    />
-                    <InputField
-                      name={`${taskIndex}.estimatedHoursToComplete`}
-                      title={t('estimatedTime')}
-                      isEditing={isEditing}
-                      content={estimatedHoursToComplete}
-                      control={control}
-                    />
-                    <SwitchField
-                      name={`${taskIndex}.requiresTaskReport`}
-                      isEditing={isEditing}
-                      title={t('requiresDetail')}
-                      content={requiresTaskReport}
-                      control={control}
-                    />
-                  </div>
-                  <div className="flex gap-x-2">
-                    {isEditing ? (
-                      <TickIcon onClick={() => handleConfirm(taskIndex)} className="cursor-pointer" />
-                    ) : (
-                      <EditIcon
-                        onClick={() => setEditing({ ...editing, [taskIndex]: true })}
-                        className="cursor-pointer"
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex max-h-[500px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
+            {suggestedTasks.map(
+              ({ title, description, estimatedHoursToComplete, requiresTaskReport }, taskIndex) => {
+                const isEditing = editing?.[taskIndex];
+                return (
+                  <div key={title} className="flex w-full flex-row items-center justify-between gap-x-4">
+                    <div className="flex w-full flex-col gap-y-1">
+                      <div className="font-semibold">{title}</div>
+                      <TextAreaField
+                        name={`${taskIndex}.description`}
+                        isEditing={isEditing}
+                        title={t('description')}
+                        content={description}
+                        control={control}
                       />
-                    )}
-                    {!isEditing && <DeleteIcon className="cursor-pointer" />}
+                      <InputField
+                        name={`${taskIndex}.estimatedHoursToComplete`}
+                        title={t('estimatedTime')}
+                        isEditing={isEditing}
+                        content={estimatedHoursToComplete}
+                        control={control}
+                      />
+                      <SwitchField
+                        name={`${taskIndex}.requiresTaskReport`}
+                        isEditing={isEditing}
+                        title={t('requiresDetail')}
+                        content={requiresTaskReport}
+                        control={control}
+                      />
+                    </div>
+                    <div className="flex gap-x-2">
+                      {isEditing ? (
+                        <TickIcon onClick={() => handleConfirm(taskIndex)} className="cursor-pointer" />
+                      ) : (
+                        <EditIcon
+                          onClick={() => setEditing({ ...editing, [taskIndex]: true })}
+                          className="cursor-pointer"
+                        />
+                      )}
+                      {isEditing ? (
+                        <CrossIcon onClick={() => setEditing({ ...editing, [taskIndex]: false })} />
+                      ) : (
+                        <DeleteIcon
+                          onClick={() =>
+                            setSuggestedTasks(suggestedTasks.filter(task => task.title !== title))
+                          }
+                          className="cursor-pointer"
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            }
-          )}
+                );
+              }
+            )}
+          </div>
+          <div className="flex w-full justify-end pt-3">
+            <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="px-12">
+              {t('confirm')}
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

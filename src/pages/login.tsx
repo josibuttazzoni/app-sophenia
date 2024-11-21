@@ -101,7 +101,7 @@ export default function Login() {
                 {t('forgetPassword')}
               </Button>
               <Button
-                status={status === 'pending' ? 'loading' : 'enabled'}
+                status={status === 'pending' ? 'pending' : 'enabled'}
                 type="submit"
                 variant="primary"
                 className="mt-5 w-full"

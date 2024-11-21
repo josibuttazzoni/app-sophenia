@@ -12,12 +12,13 @@ import { TextArea } from '#components/ui/textarea';
 import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { Genres, Roles } from '#lib/enums/employee';
+import { TaskStatusDto } from '#lib/enums/tasks';
 
 export default function WorkerTask() {
   const task = {
     id: '1',
     title: 'Task 1',
-    status: 'pending',
+    status: TaskStatusDto.PENDING,
     time: '10hs',
     requiresTaskReport: true,
     description: 'Sacar el orujo',

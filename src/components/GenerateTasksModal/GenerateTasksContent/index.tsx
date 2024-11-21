@@ -36,7 +36,7 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
     setSuggestedTasks(tasks);
     setIsEditing(true);
   };
-  const { mutate: suggestTasks } = useSuggestTasks(handleSuccess);
+  const { mutate: suggestTasks, status } = useSuggestTasks(handleSuccess);
 
   const onSubmit = (data: { weeklyGoal: string; seasonMoment: string }) => {
     suggestTasks({ objective: data.weeklyGoal, seasonMoment: data.seasonMoment });
@@ -102,7 +102,7 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
             />
           </div>
           <div className="flex w-full justify-end">
-            <Button type="submit" className="px-12">
+            <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="px-12">
               {t('generate')}
             </Button>
           </div>

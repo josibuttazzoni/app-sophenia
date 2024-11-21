@@ -1,7 +1,7 @@
 import { Control } from 'react-hook-form';
 import { Backlog } from 'src/types/tasks';
 
-import { FormField } from '#components/ui/form';
+import { FormControl, FormField, FormItem } from '#components/ui/form';
 import { Switch } from '#components/ui/switch';
 
 type SwitchFieldProps = {
@@ -13,6 +13,7 @@ type SwitchFieldProps = {
 };
 
 export default function SwitchField({ title, content, isEditing, name, control }: SwitchFieldProps) {
+  console.log(content);
   return (
     <div className="flex w-full flex-row items-center gap-x-2 text-sm text-pale-sky">
       <div className="font-medium">{title}</div>
@@ -22,7 +23,8 @@ export default function SwitchField({ title, content, isEditing, name, control }
           name={name}
           render={({ field }) => (
             <Switch
-              checked={Boolean(content || field.value)}
+              defaultChecked={content}
+              checked={!!field.value}
               onCheckedChange={checked => field.onChange(checked)}
             />
           )}

@@ -1,3 +1,4 @@
+import { ApiResponse } from 'apisauce';
 import {
   Backlog,
   GetBacklogResponse,
@@ -10,12 +11,12 @@ import {
 import api from '#config/api';
 import { mapBacklog, mapTask } from '#lib/mappers/tasks';
 
-export const createTasks = async (tasks: Backlog[]): Promise<Task[]> => {
+export const createTasks = async (tasks: Backlog[]): Promise<ApiResponse<Task[]>> => {
   const response = await api.post<Task[]>('/tasks', { tasks });
   if (!response.data) {
     throw new Error('Failed to create task');
   }
-  return response.data;
+  return { ...response };
 };
 
 export const getTaskById = async (id: string) => {
@@ -42,6 +43,6 @@ export const getBacklog = async () => {
   return mapBacklog(response.data.data);
 };
 
-export const suggestTasks = async ({ objective }: SuggestTasksVariables) => {
-  return await api.post<Backlog[]>('tasks/suggest', { objective });
+export const suggestTasks = async ({ objective, seasonMoment }: SuggestTasksVariables) => {
+  return await api.post<Backlog[]>('tasks/suggest', { objective, seasonMoment });
 };
