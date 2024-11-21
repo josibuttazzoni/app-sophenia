@@ -32,7 +32,7 @@ export default function Login() {
 
   const { handleSubmit, control } = form;
 
-  const { mutate } = useLogin();
+  const { mutate, status } = useLogin();
   const onSubmit: SubmitHandler<{ [x: string]: string }> = data => mutate(data as LoginRequestVariables);
 
   const token = useMemo(() => getCookie(COOKIES.AUTH_TOKEN), []);
@@ -100,7 +100,12 @@ export default function Login() {
               <Button variant="link" className="-px-4 -mt-4 self-start text-pale-sky">
                 {t('forgetPassword')}
               </Button>
-              <Button type="submit" variant="primary" className="mt-5 w-full">
+              <Button
+                status={status === 'pending' ? 'loading' : 'enabled'}
+                type="submit"
+                variant="primary"
+                className="mt-5 w-full"
+              >
                 {t('login')}
               </Button>
             </form>

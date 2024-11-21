@@ -24,9 +24,8 @@ export default function InputField({ title, content, isEditing, name, control }:
             <Input
               className="h-7 w-fit"
               containerClassName="w-fit"
-              defaultValue={content}
-              {...field}
-              value={String((content || field.value) ?? '')}
+              defaultValue={String((content || field.value) ?? '')}
+              value={String(field.value ?? '')}
             />
           )}
         />

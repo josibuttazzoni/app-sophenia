@@ -10,7 +10,7 @@ import {
 import api from '#config/api';
 import { mapBacklog, mapTask } from '#lib/mappers/tasks';
 
-export const createTasks = async (tasks: Task[]): Promise<Task[]> => {
+export const createTasks = async (tasks: Backlog[]): Promise<Task[]> => {
   const response = await api.post<Task[]>('/tasks', { tasks });
   if (!response.data) {
     throw new Error('Failed to create task');
@@ -42,6 +42,6 @@ export const getBacklog = async () => {
   return mapBacklog(response.data.data);
 };
 
-export const suggestTasks = async ({ seasonMoment }: SuggestTasksVariables) => {
-  return await api.post<Backlog[]>('tasks/suggest', { seasonMoment });
+export const suggestTasks = async ({ objective }: SuggestTasksVariables) => {
+  return await api.post<Backlog[]>('tasks/suggest', { objective });
 };

@@ -39,7 +39,7 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
   const { mutate: suggestTasks } = useSuggestTasks(handleSuccess);
 
   const onSubmit = (data: { weeklyGoal: string; seasonMoment: string }) => {
-    suggestTasks({ seasonMoment: data.seasonMoment });
+    suggestTasks({ objective: data.weeklyGoal, seasonMoment: data.seasonMoment });
   };
 
   return (
