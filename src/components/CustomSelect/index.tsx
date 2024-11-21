@@ -1,33 +1,43 @@
+import { Key } from 'react';
+
 import { FormLabel } from '#components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '#components/ui/select';
+import { RoleDto } from '#lib/enums/employees';
 
-type CustomSelectProps = {
-  label?: string;
-  items: { label: string; value: string }[];
-  placeholder: string;
-  value?: string;
-  onChange?: (value: string) => void;
-  className?: string;
+type SelectData = string | RoleDto;
+
+type Value<T extends SelectData> = {
+  value: T;
+  label: string;
 };
 
-export default function CustomSelect({
+type CustomSelectProps<T extends SelectData> = {
+  label: string;
+  placeholder: string;
+  value?: Value<T>;
+  items: Value<T>[];
+  className?: string;
+  onChange?: (value: T) => void;
+};
+
+export default function CustomSelect<T extends SelectData>({
   label,
   items,
   placeholder,
   value,
   onChange,
   className
-}: CustomSelectProps) {
+}: CustomSelectProps<T>) {
   return (
     <div>
       {label && <FormLabel>{label}</FormLabel>}
-      <Select value={value} onValueChange={val => onChange?.(val)}>
+      <Select value={value?.value} onValueChange={val => onChange?.(val as T)}>
         <SelectTrigger className={className}>
-          <SelectValue placeholder={value ?? placeholder} />
+          <SelectValue placeholder={value?.label ?? placeholder} />
         </SelectTrigger>
         <SelectContent>
-          {items.map(item => (
-            <SelectItem key={item.value} value={item.value}>
+          {items.map((item: Value<T>) => (
+            <SelectItem key={item.value as Key} value={item.value as string}>
               {item.label}
             </SelectItem>
           ))}

@@ -35,7 +35,8 @@ export const updateTaskStatus = async ({ id, status }: UpdateTaskRequestVariable
 
 export const getBacklog = async () => {
   const response = await api.get<{ data: GetBacklogResponse[] }>('/tasks/backlog', {
-    params: { limit: 10, offset: 0 }
+    limit: 50,
+    offset: 0
   });
   if (!response.data || !response.data.data) {
     throw new Error('Failed to fetch backlog');
