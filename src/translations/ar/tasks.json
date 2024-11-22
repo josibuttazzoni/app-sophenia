@@ -26,5 +26,6 @@
   "markAsSolved": "Marcar como completada",
   "enterDescription": "Ingrese la descripción/comentarios de la tarea realizada",
   "required": "Campo requerido",
-  "workOrderName": "Nombre de la OT"
+  "workOrderName": "Nombre de la OT",
+  "workerAssigned": "Empleado asignado"
 }
