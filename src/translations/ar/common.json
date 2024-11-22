@@ -13,5 +13,6 @@
   "no": "No",
   "seeMore": "Ver más",
   "toastMutationError": "No se pudo completar la acción. Detalles: {{error}}",
-  "toastMutationSuccess": "Acción completada exitosamente."
+  "toastMutationSuccess": "Acción completada exitosamente.",
+  "save": "Guardar"
 }
