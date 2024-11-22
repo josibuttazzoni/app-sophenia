@@ -22,6 +22,7 @@ interface TaskDto {
     _id: string;
   };
   rating: number;
+  ratingComment?: string;
 }
 
 export interface UpdateTaskRequestVariables {
@@ -47,4 +48,9 @@ interface BacklogDto {
 export interface SuggestTasksVariables {
   objective: string;
   seasonMoment?: string;
+}
+export interface AddRatingRequestVariables {
+  id: string;
+  rating: number;
+  ratingComment?: string;
 }

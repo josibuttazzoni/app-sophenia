@@ -2,6 +2,7 @@ import { HydrationBoundary, QueryClientProvider, dehydrate } from '@tanstack/rea
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { Montserrat } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
 
 import { queryClient } from '#lib/api';
 import { usePersistedQueryClient } from '#lib/hooks/query/usePersistedQueryClient';
@@ -21,6 +22,7 @@ function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <HydrationBoundary state={pageProps.dehydratedState}>
         <SessionProvider session={pageProps.session}>
+          <ToastContainer />
           <style jsx global>{`
             html {
               font-family: ${montserrat.style.fontFamily};

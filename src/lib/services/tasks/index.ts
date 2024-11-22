@@ -1,5 +1,6 @@
 import { ApiResponse } from 'apisauce';
 import {
+  AddRatingRequestVariables,
   Backlog,
   GetBacklogResponse,
   GetTaskByIdResponse,
@@ -47,3 +48,9 @@ export const getBacklog = async () => {
 export const suggestTasks = async ({ objective, seasonMoment }: SuggestTasksVariables) => {
   return await api.post<Backlog[]>('tasks/suggest', { objective, seasonMoment });
 };
+
+export const addRating = async ({ id, rating, ratingComment }: AddRatingRequestVariables) =>
+  api.patch<Task>(`/tasks/${id}/rate`, {
+    rating,
+    ratingComment
+  });
