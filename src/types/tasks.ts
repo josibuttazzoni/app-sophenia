@@ -45,6 +45,10 @@ interface BacklogDto {
   estimatedHoursToComplete: number;
 }
 
+export interface SuggestTasksVariables {
+  objective: string;
+  seasonMoment?: string;
+}
 export interface AddRatingRequestVariables {
   id: string;
   rating: number;
