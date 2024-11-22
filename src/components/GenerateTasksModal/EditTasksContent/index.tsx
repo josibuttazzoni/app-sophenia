@@ -41,7 +41,7 @@ export default function EditTasksContent({
 
   const form = useForm({ defaultValues: suggestedTasks });
 
-  const { control, handleSubmit } = form;
+  const { control, handleSubmit, setValue } = form;
 
   const { mutate: createTasks, status } = useCreateTasks(() => setTasksModalOpen(false));
 
@@ -75,8 +75,8 @@ export default function EditTasksContent({
     <div className="flex flex-col gap-y-3">
       <div className="text-xl font-semibold">{t('editTasks')}</div>
       <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex max-h-[500px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
+        <form className="flex h-full flex-col justify-between" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex max-h-[530px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
             {suggestedTasks.map(
               ({ title, description, estimatedHoursToComplete, requiresTaskReport }, taskIndex) => {
                 const isEditing = editing?.[taskIndex];
@@ -101,6 +101,7 @@ export default function EditTasksContent({
                       <SwitchField
                         name={`${taskIndex}.requiresTaskReport`}
                         isEditing={isEditing}
+                        setValue={setValue}
                         title={t('requiresDetail')}
                         content={requiresTaskReport}
                         control={control}
@@ -131,7 +132,7 @@ export default function EditTasksContent({
               }
             )}
           </div>
-          <div className="flex w-full justify-end pt-3">
+          <div className="flex w-full justify-end">
             <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="px-12">
               {t('confirm')}
             </Button>
