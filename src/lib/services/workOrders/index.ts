@@ -26,3 +26,10 @@ export const getSuggestionsForWorkOrder = async ({ taskIds, workersIds }: Sugges
     workersIds: workersIds
   });
 };
+
+export const createWorkOrder = async (assignedTasks: {
+  workOrderTasks: { taskId: string; workerAssignedId: string }[];
+  name: string;
+}) => {
+  return api.post('/work-orders', assignedTasks);
+};
