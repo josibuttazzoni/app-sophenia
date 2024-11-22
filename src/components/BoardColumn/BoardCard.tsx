@@ -44,7 +44,7 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
             <span className="text-sm font-medium">{title}</span>
             <span className="text-xs text-gray-500">{description}</span>
           </div>
-          {status === TaskStatusDto.REVIEW && (
+          {(status === TaskStatusDto.REVIEW || status === TaskStatusDto.DONE) && (
             <Dialog
               open={commentModalOpen}
               onOpenChange={isOpen => {
@@ -53,19 +53,21 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
             >
               <DialogTrigger
                 onClick={() => setCommentModalOpen(true)}
-                className="flex flex-row items-center gap-x-1 hover:underline"
+                className="mt-4 flex flex-row items-center gap-x-1 hover:underline"
               >
                 {data?.rating ? (
                   <span className="cursor-pointer text-left text-[0.65rem] font-medium">
                     {t('viewRating')}
                   </span>
                 ) : (
-                  <>
-                    <AddComment />
-                    <span className="cursor-pointer text-left text-[0.65rem] font-medium">
-                      {t('addRating')}
-                    </span>
-                  </>
+                  status !== TaskStatusDto.DONE && (
+                    <>
+                      <AddComment />
+                      <span className="cursor-pointer text-left text-[0.65rem] font-medium">
+                        {t('addRating')}
+                      </span>
+                    </>
+                  )
                 )}
               </DialogTrigger>
               <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
