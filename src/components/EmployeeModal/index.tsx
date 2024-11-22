@@ -40,15 +40,14 @@ export default function EmployeeModal({
   });
 
   const onSuccess = () => {
-    if (createError !== null || editError !== null) return;
     setEmployeeModalOpen(false);
   };
 
   const { control, handleSubmit } = form;
 
-  const { mutate: editMutate, error: editError } = useUpdateUser(onSuccess);
+  const { mutate: editMutate } = useUpdateUser(onSuccess);
 
-  const { mutate: createMutate, error: createError } = useRegister(onSuccess);
+  const { mutate: createMutate } = useRegister(onSuccess);
 
   const onSubmit = (data: UpdateUserRequestVariables) => {
     if (!id) {
