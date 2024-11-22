@@ -1,14 +1,13 @@
 import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { AddRatingRequestVariables } from 'src/types/tasks';
 
 import AddComment from '#assets/add.svg';
 import CommentModal from '#components/CommentModal';
 import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useTask } from '#lib/api/tasks';
-import { useRating } from '#lib/api/tasks/useRating';
 import { TaskStatusDto } from '#lib/enums/tasks';
 
 import { STATUS_COLORS } from './constants';
@@ -28,6 +27,8 @@ export type BoardCardProps = {
 export function BoardCard({ id, status, title, description, index }: BoardCardProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
 
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
+
   const { data } = useTask({ variables: { id } });
 
   return (
@@ -44,8 +45,16 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
             <span className="text-xs text-gray-500">{description}</span>
           </div>
           {status === TaskStatusDto.REVIEW && (
-            <Dialog>
-              <DialogTrigger className="flex flex-row items-center gap-x-1 hover:underline">
+            <Dialog
+              open={commentModalOpen}
+              onOpenChange={isOpen => {
+                setCommentModalOpen(isOpen);
+              }}
+            >
+              <DialogTrigger
+                onClick={() => setCommentModalOpen(true)}
+                className="flex flex-row items-center gap-x-1 hover:underline"
+              >
                 {data?.rating ? (
                   <span className="cursor-pointer text-left text-[0.65rem] font-medium">
                     {t('viewRating')}
@@ -65,6 +74,7 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
                   rating={data?.rating}
                   ratingComment={data?.ratingComment}
                   title={title}
+                  setCommentModalOpen={setCommentModalOpen}
                 />
               </DialogContent>
             </Dialog>

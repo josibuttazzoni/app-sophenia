@@ -26,7 +26,7 @@ const buttonVariants = cva(
       status: {
         enabled: 'cursor-pointer focus:will-change-transform active:scale-95',
         disabled: 'cursor-not-allowed !bg-athens-gray text-pale-sky hover:bg-athens-gray',
-        loading: 'cursor-wait'
+        pending: 'cursor-wait bg-opacity-60'
       }
     },
     defaultVariants: {

@@ -19,10 +19,16 @@ type EmployeeModalProps = {
   fullname?: string;
   email?: string;
   role?: RoleDto;
-  onSuccess: () => void;
+  setEmployeeModalOpen: (open: boolean) => void;
 };
 
-export default function EmployeeModal({ id, fullname, email, role, onSuccess }: EmployeeModalProps) {
+export default function EmployeeModal({
+  id,
+  fullname,
+  email,
+  role,
+  setEmployeeModalOpen
+}: EmployeeModalProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.EMPLOYEES);
 
   const form = useForm({
@@ -33,24 +39,22 @@ export default function EmployeeModal({ id, fullname, email, role, onSuccess }: 
     }
   });
 
+  const onSuccess = () => {
+    if (createError !== null || editError !== null) return;
+    setEmployeeModalOpen(false);
+  };
+
   const { control, handleSubmit } = form;
 
-  const { mutate: editMutate } = useUpdateUser();
+  const { mutate: editMutate, error: editError } = useUpdateUser(onSuccess);
 
-  const { mutate: createMutate } = useRegister();
+  const { mutate: createMutate, error: createError } = useRegister(onSuccess);
 
   const onSubmit = (data: UpdateUserRequestVariables) => {
     if (!id) {
-      return createMutate({ ...data } as RegisterRequestVariables, {
-        onSuccess: onSuccess
-      });
+      return createMutate({ ...data } as RegisterRequestVariables);
     } else {
-      return editMutate(
-        { id, data },
-        {
-          onSuccess: onSuccess
-        }
-      );
+      return editMutate({ id, data });
     }
   };
 
@@ -88,7 +92,7 @@ export default function EmployeeModal({ id, fullname, email, role, onSuccess }: 
               <FormControl>
                 <Input placeholder={t('enterThe', { field: t('email').toLowerCase() })} {...field} />
               </FormControl>
-              <FormMessage>{fieldState.error?.message}</FormMessage>
+              {fieldState.error?.message}
             </FormItem>
           )}
         />

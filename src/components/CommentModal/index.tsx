@@ -14,9 +14,16 @@ type CommentModalProps = {
   rating?: number;
   ratingComment?: string;
   title?: string;
+  setCommentModalOpen: (open: boolean) => void;
 };
 
-export default function CommentModal({ id, rating, ratingComment, title }: CommentModalProps) {
+export default function CommentModal({
+  id,
+  rating,
+  ratingComment,
+  title,
+  setCommentModalOpen
+}: CommentModalProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
 
@@ -33,7 +40,7 @@ export default function CommentModal({ id, rating, ratingComment, title }: Comme
 
   const currentRating = watch('rating');
 
-  const { mutate: editMutate } = useRating();
+  const { mutate: editMutate, status } = useRating(() => setCommentModalOpen(false));
 
   const onSubmit = ({ rating, ratingComment }: { rating?: number; ratingComment?: string }) => {
     editMutate({ id, rating: rating || 0, ratingComment });
@@ -50,7 +57,7 @@ export default function CommentModal({ id, rating, ratingComment, title }: Comme
             required: t('requiredRating'),
             validate: value => !!value || t('requiredRating')
           }}
-          render={({ field, fieldState }) => (
+          render={({ fieldState }) => (
             <FormItem>
               <FormLabel>{isEditable ? t('addRating') : t('rating')}</FormLabel>
               <FormControl>
@@ -87,7 +94,7 @@ export default function CommentModal({ id, rating, ratingComment, title }: Comme
           )}
         />
         {isEditable && (
-          <Button className="mt-6" type="submit">
+          <Button status={status === 'pending' ? 'pending' : 'enabled'} className="mt-6" type="submit">
             {tCommon('save')}
           </Button>
         )}
