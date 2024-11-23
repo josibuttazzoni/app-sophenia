@@ -71,17 +71,17 @@ export default function Tasks() {
               </DialogContent>
             </Dialog>
           </div>
-          <div className="h-full w-full rounded-lg bg-white p-6">
-            {!!tasks && tasks.length > 0 ? (
-              <PaginatedTableWrapper
-                data={tasks}
-                columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}
-                row={renderTaskRow}
-              />
-            ) : (
-              <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
-            )}
-          </div>
+        </div>
+        <div className="h-full w-full rounded-lg bg-white p-6">
+          {!!tasks && tasks.length > 0 ? (
+            <PaginatedTableWrapper
+              data={tasks}
+              columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}
+              row={renderTaskRow}
+            />
+          ) : (
+            <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
+          )}
         </div>
       </Layout>
     </TasksProvider>
