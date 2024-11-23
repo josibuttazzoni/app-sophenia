@@ -93,7 +93,7 @@ export const EditWorkOrderSuggestion = ({ workers }: { workers: User[] }) => {
         </div>
         <div className="flex w-full justify-end pt-2">
           <Button
-            status={status === 'pending' ? 'loading' : 'enabled'}
+            status={status === 'pending' ? 'pending' : 'enabled'}
             className="px-12"
             onClick={() => {
               if (workOrderName === '') {

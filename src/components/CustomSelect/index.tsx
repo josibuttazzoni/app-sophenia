@@ -1,5 +1,6 @@
 import { Key } from 'react';
 
+import { FormLabel } from '#components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '#components/ui/select';
 import { RoleDto } from '#lib/enums/employees';
 
@@ -15,6 +16,7 @@ type CustomSelectProps<T extends SelectData> = {
   placeholder: string;
   value?: Value<T>;
   items: Value<T>[];
+  className?: string;
   onChange?: (value: T) => void;
 };
 
@@ -23,13 +25,14 @@ export default function CustomSelect<T extends SelectData>({
   items,
   placeholder,
   value,
-  onChange
+  onChange,
+  className
 }: CustomSelectProps<T>) {
   return (
     <div>
-      <span className="text-sm">{label}</span>
+      {label && <FormLabel>{label}</FormLabel>}
       <Select value={value?.value} onValueChange={val => onChange?.(val as T)}>
-        <SelectTrigger>
+        <SelectTrigger className={className}>
           <SelectValue placeholder={value?.label ?? placeholder} />
         </SelectTrigger>
         <SelectContent>

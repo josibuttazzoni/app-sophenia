@@ -6,12 +6,14 @@ import { Task } from 'src/types/tasks';
 import emptyTasks from '#assets/emptyTasks.png';
 import { BoardColumn } from '#components/BoardColumn';
 import EmptyState from '#components/EmptyState';
+import LoadingWrapper from '#components/LoadingWrapper';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import Layout from '#components/layout';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useUpdateTask } from '#lib/api/tasks/useUpdateTask';
 import { useBoard } from '#lib/api/workOrders/useBoard';
 import { TaskStatusDto } from '#lib/enums/tasks';
+import { useProfile } from '#lib/hooks/user/useProfile';
 
 export default function Board() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
@@ -21,11 +23,17 @@ export default function Board() {
     setwinReady(true);
   }, []);
 
-  const { data } = useBoard();
+  const { data, isFetching } = useBoard();
 
   const { mutate: editMutate } = useUpdateTask();
 
   const [tasks, setTasks] = useState<Task[] | undefined>(data);
+
+  const loading = useProfile(data, isFetching);
+
+  useEffect(() => {
+    setTasks(data);
+  }, [data]);
 
   const getTasksByStatus = tasks?.reduce(
     (acc, task) => {
@@ -53,35 +61,37 @@ export default function Board() {
   };
 
   return (
-    <Layout selectedTab={SIDEBAR_TABS.BOARD}>
+    <Layout selectedTab={SIDEBAR_TABS.BOARD} withProfileWrapper={false}>
       <div className="flex items-center justify-between">
         <div className="text-2xl font-semibold">{t('board')}</div>
       </div>
 
       {winReady && (
         <div className="h-full w-full rounded-lg">
-          {!!tasks && tasks.length > 0 ? (
-            <DragDropContext onDragEnd={handleDragEnd}>
-              <div className="flex h-fit min-h-full w-full justify-between gap-x-2">
-                {Object.values(TaskStatusDto).map(status => (
-                  <Droppable droppableId={status} key={status}>
-                    {provided => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                        className="flex w-full flex-col gap-y-3 rounded-xl bg-white p-2"
-                      >
-                        <BoardColumn status={status} tasks={getTasksByStatus?.[status] || []} />
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                ))}
-              </div>
-            </DragDropContext>
-          ) : (
-            <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
-          )}
+          <LoadingWrapper loading={loading}>
+            {!!tasks && tasks.length > 0 ? (
+              <DragDropContext onDragEnd={handleDragEnd}>
+                <div className="flex h-fit min-h-full w-full justify-between gap-x-2">
+                  {Object.values(TaskStatusDto).map(status => (
+                    <Droppable droppableId={status} key={status}>
+                      {provided => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.droppableProps}
+                          className="flex w-full flex-col gap-y-3 rounded-xl bg-white p-2"
+                        >
+                          <BoardColumn status={status} tasks={getTasksByStatus?.[status] || []} />
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  ))}
+                </div>
+              </DragDropContext>
+            ) : (
+              <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
+            )}
+          </LoadingWrapper>
         </div>
       )}
     </Layout>

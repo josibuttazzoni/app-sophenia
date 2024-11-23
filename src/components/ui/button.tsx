@@ -3,6 +3,8 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import * as React from 'react';
 import { cn } from 'src/utils/components';
 
+import Loading from '#components/LoadingWrapper/components/Loading';
+
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300',
   {
@@ -26,7 +28,7 @@ const buttonVariants = cva(
       status: {
         enabled: 'cursor-pointer focus:will-change-transform active:scale-95',
         disabled: 'cursor-not-allowed !bg-athens-gray text-pale-sky hover:bg-athens-gray',
-        loading: 'cursor-wait'
+        pending: 'cursor-wait bg-opacity-60'
       }
     },
     defaultVariants: {
@@ -41,12 +43,21 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  loading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, status, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, status, children, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
-    return <Comp className={cn(buttonVariants({ variant, size, className, status }))} ref={ref} {...props} />;
+    return (
+      <Comp className={cn(buttonVariants({ variant, size, className, status }))} ref={ref} {...props}>
+        {status === 'pending' ? (
+          <Loading white={variant !== 'secondary'} className="z-10 [&>div>svg]:h-5 [&>div>svg]:w-5" />
+        ) : (
+          children
+        )}
+      </Comp>
+    );
   }
 );
 Button.displayName = 'Button';

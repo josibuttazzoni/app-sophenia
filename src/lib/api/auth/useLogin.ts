@@ -8,6 +8,7 @@ import { LoginRequestVariables } from 'src/types/auth';
 import { COOKIES } from '#constants/cookies';
 import { REDIRECT_TO } from '#constants/login';
 import { PAGES_PATHS } from '#constants/pages';
+import { RoleDto } from '#lib/enums/employees';
 import { login } from '#lib/services/auth';
 import { setAuthHeader } from '#utils/api';
 import { mapQueryOptions } from '#utils/queries';
@@ -24,7 +25,7 @@ export const useLogin = () => {
   return createMutation({
     mutationFn: ({ email, password }: LoginRequestVariables) =>
       // TODO: delete default value
-      login({ email, password, role: 'ADMIN' })?.then(handleServerResponse),
+      login({ email, password, role: RoleDto.ADMIN })?.then(handleServerResponse),
     onSettled: data => {
       if (!data) return;
       setAuthHeader(data?.access_token || '');

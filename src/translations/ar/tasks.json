@@ -27,5 +27,11 @@
   "enterDescription": "Ingrese la descripción/comentarios de la tarea realizada",
   "required": "Campo requerido",
   "workOrderName": "Nombre de la OT",
-  "workerAssigned": "Empleado asignado"
+  "workerAssigned": "Empleado asignado",
+  "enterThe": "Ingresa el {{field}}",
+  "generalManagment": "Tareas generales",
+  "harvestTime": "Recolección de la uva",
+  "warehouseMaintainance": "Mantenimiento de la bodega",
+  "preparationForWineExportation": "Preparación del vino para la exportación",
+  "seasonMoment": "Temporada actual"
 }

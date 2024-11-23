@@ -110,7 +110,7 @@ export default function GenerateWorkOrderContent({
       </section>
       <div className="mt-8 flex w-full justify-end">
         <Button
-          status={status === 'pending' ? 'loading' : 'enabled'}
+          status={status === 'pending' ? 'pending' : 'enabled'}
           className="px-12"
           onClick={() => {
             suggestAssingnments({

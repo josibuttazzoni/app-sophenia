@@ -6,5 +6,11 @@
     "progress": "En proceso",
     "review": "En revisión",
     "completed": "Finalizadas"
-  }
+  },
+  "addComment": "Agregar comentario",
+  "addRating": "Agregar calificación",
+  "rating": "Calificación",
+  "ratingComment": "Comentario",
+  "requiredRating": "La calificación es requerida",
+  "viewRating": "Ver calificación"
 }
