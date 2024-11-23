@@ -1,5 +1,4 @@
 import useTranslation from 'next-translate/useTranslation';
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { Backlog } from 'src/types/tasks';
 
@@ -16,10 +15,6 @@ import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useBacklog } from '#lib/api/tasks/useBacklog';
 import { TasksProvider } from '#lib/providers/TasksContext';
 import { formatHoursTime } from '#utils/date/index';
-
-const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
-  ssr: false
-});
 
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);

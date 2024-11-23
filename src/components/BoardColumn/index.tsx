@@ -17,7 +17,7 @@ export function BoardColumn({ status, tasks }: BoardColumnProps) {
 
   return (
     <div className="flex w-full flex-col gap-y-3 rounded-xl bg-white p-2">
-      <div className="flex items-center justify-between text-sm lg:text-base">
+      <div className="flex items-center justify-between text-sm">
         <div className={`w-fit rounded-lg lg:max-w-32 ${STATUS_COLORS[status].bg} p-1 lg:px-2`}>
           {getStatusTitle(t)[status]}
         </div>
