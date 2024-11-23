@@ -21,3 +21,9 @@ export interface GetWorkOrderResponse {
   name: string;
   tasks: GetTaskByIdResponse[];
 }
+
+export interface SuggestWorkOrderVariables {
+  taskIds: string[];
+  workersIds: string[];
+}
+export type SuggestWorkOrderResponse = { taskId: string; workerId: string }[];

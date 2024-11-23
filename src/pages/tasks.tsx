@@ -6,6 +6,7 @@ import { Backlog } from 'src/types/tasks';
 import emptyTasks from '#assets/emptyTasks.png';
 import EmptyState from '#components/EmptyState';
 import GenerateTasksModal from '#components/GenerateTasksModal';
+import { GenerateWorkOrderModal } from '#components/GenerateWorkOrderModal';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import PaginatedTableWrapper from '#components/Table';
 import Layout from '#components/layout';
@@ -14,6 +15,7 @@ import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useBacklog } from '#lib/api/tasks/useBacklog';
+import { useWorkers } from '#lib/api/users/useWorkers';
 import { TasksProvider } from '#lib/providers/TasksContext';
 import { formatHoursTime } from '#utils/date/index';
 
@@ -25,6 +27,7 @@ export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
   const { data: tasks } = useBacklog();
+  const { data: workers } = useWorkers();
 
   const renderTaskRow = (task: Backlog) => {
     const { title, requiresTaskReport, estimatedHoursToComplete } = task;
@@ -57,21 +60,28 @@ export default function Tasks() {
               </DialogContent>
             </Dialog>
 
-            <Button className="px-8" variant="primary">
-              {t('generateOT')}
-            </Button>
+            <Dialog>
+              <DialogTrigger>
+                <Button className="px-8" variant="primary">
+                  {t('generateOT')}
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="h-[600px] w-[850px] rounded-xl bg-white p-8">
+                {tasks && workers && <GenerateWorkOrderModal tasks={tasks} workers={workers} />}
+              </DialogContent>
+            </Dialog>
           </div>
-        </div>
-        <div className="h-full w-full rounded-lg bg-white p-6">
-          {!!tasks && tasks.length > 0 ? (
-            <PaginatedTableWrapper
-              data={tasks}
-              columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}
-              row={renderTaskRow}
-            />
-          ) : (
-            <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
-          )}
+          <div className="h-full w-full rounded-lg bg-white p-6">
+            {!!tasks && tasks.length > 0 ? (
+              <PaginatedTableWrapper
+                data={tasks}
+                columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}
+                row={renderTaskRow}
+              />
+            ) : (
+              <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
+            )}
+          </div>
         </div>
       </Layout>
     </TasksProvider>
