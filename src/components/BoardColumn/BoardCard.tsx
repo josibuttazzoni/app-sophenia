@@ -53,8 +53,7 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
           <div className="flex flex-col gap-y-2">
             <span className="text-sm font-semibold">{title}</span>
             <span className="text-xs font-medium text-gray-700">
-              {/* {t('workerAssigned')} <span className="font-normal">{data?.workerAssigned.fullname}</span> */}
-              {t('workerAssigned')} <span className="font-normal">Cristian</span>
+              {t('workerAssigned')} <span className="font-normal">{data?.workerAssigned.fullname}</span>
             </span>
             <span className="text-xs text-gray-500">
               {getTruncatedDescription(description)}{' '}
