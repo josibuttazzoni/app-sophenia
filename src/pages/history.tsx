@@ -12,6 +12,7 @@ import { Button } from '#components/ui/button';
 import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
+import { ExportWorkOrderModal } from '#components/ExportWorkOrderModal';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -113,10 +114,13 @@ export default function History() {
                 {t('exportReport')}
               </Button>
             </DialogTrigger>
+            <DialogContent className="h-[200px] w-[400px] rounded-xl bg-white p-8">
+              <ExportWorkOrderModal />
+            </DialogContent>
           </Dialog>
         </div>
       </div>
-      <div className="h-full w-full rounded-lg bg-white p-6">
+      {/* <div className="h-full w-full rounded-lg bg-white p-6">
         {history.length > 0 ? (
           <PaginatedTableWrapper
             data={history}
@@ -126,7 +130,7 @@ export default function History() {
         ) : (
           <EmptyState title={t('emptyHistory')} icon={emptyEmployees} />
         )}
-      </div>
+      </div> */}
     </Layout>
   );
 }
