@@ -14,7 +14,7 @@ import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useBacklog } from '#lib/api/tasks/useBacklog';
-import { useUsers } from '#lib/api/users/useUsers';
+import { useWorkers } from '#lib/api/users/useWorkers';
 import { formatHoursTime } from '#utils/date/index';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
@@ -25,7 +25,7 @@ export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
   const { data: tasks } = useBacklog();
-  const { data: users } = useUsers(); // TODO -> useWorkers
+  const { data: workers } = useWorkers();
 
   const renderTaskRow = (task: Backlog) => {
     const { title, requiresTaskReport, estimatedHoursToComplete } = task;
@@ -61,7 +61,7 @@ export default function Tasks() {
               </Button>
             </DialogTrigger>
             <DialogContent className="h-[600px] w-[850px] rounded-xl bg-white p-8">
-              <GenerateWorkOrderModal tasks={tasks} workers={users?.filter(u => u.role == 'WORKER')} />
+              {tasks && workers && <GenerateWorkOrderModal tasks={tasks} workers={workers} />}
             </DialogContent>
           </Dialog>
         </div>

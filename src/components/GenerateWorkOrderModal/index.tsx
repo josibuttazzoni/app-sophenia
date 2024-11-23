@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Task } from 'src/types/tasks';
+import { Backlog } from 'src/types/tasks';
 import { User } from 'src/types/users';
 
 import { WorkOrderSuggestionProvider } from '#lib/providers/WorkOrderSuggestionContext';
@@ -7,7 +7,7 @@ import { WorkOrderSuggestionProvider } from '#lib/providers/WorkOrderSuggestionC
 import { EditWorkOrderSuggestion } from './EditWorkOrderSuggestion';
 import GenerateWorkOrderContent from './GenerateWorkOrderContent';
 
-export const GenerateWorkOrderModal = ({ tasks, workers }: { tasks: Task[]; workers: User[] }) => {
+export const GenerateWorkOrderModal = ({ tasks, workers }: { tasks: Backlog[]; workers: User[] }) => {
   const [suggestionsDone, setSuggestionsDone] = useState(false);
   const [availableWorkers, setAvailableWorkers] = useState<User[]>([]);
 

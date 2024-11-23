@@ -2,6 +2,7 @@ import {
   DeleteUserRequestVariables,
   GetUser,
   GetUserProfileResponse,
+  GetWorker,
   UpdateUserRequestVariables
 } from 'src/types/users';
 
@@ -29,3 +30,11 @@ export const deleteUser = async ({ id }: DeleteUserRequestVariables) => api.dele
 
 export const updateUser = async ({ id, data }: { id: string; data: UpdateUserRequestVariables }) =>
   api.patch(`/user/${id}`, data);
+
+export const getWorkers = async () => {
+  const response = await api.get<GetWorker[]>('/user/workers');
+  if (!response.data) {
+    throw new Error('Failed to fetch workers');
+  }
+  return mapUsers(response.data);
+};

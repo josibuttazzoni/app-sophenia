@@ -1,6 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 import { useEffect, useState } from 'react';
-import { Task } from 'src/types/tasks';
+import { Backlog, Task } from 'src/types/tasks';
 import { User } from 'src/types/users';
 
 import CrossIcon from '#assets/cross.svg';
@@ -17,12 +17,12 @@ export default function GenerateWorkOrderContent({
 }: {
   setSuggestionsDone: (done: boolean) => void;
   setAvailableWorkers: (workers: User[]) => void;
-  tasks: Task[];
+  tasks: Backlog[];
   workers: User[];
 }) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const [availableEmployees, setAvailableEmployees] = useState<User[]>([]);
-  const [selectedTasks, setSelectedTasks] = useState<Task[]>([]);
+  const [selectedTasks, setSelectedTasks] = useState<Backlog[]>([]);
 
   const { setSuggestions } = useWorkOrderSuggestionContext(({ setSuggestions }) => ({
     setSuggestions

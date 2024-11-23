@@ -31,3 +31,8 @@ export interface UpdateUserRequestVariables {
   status?: string;
   availability?: boolean;
 }
+
+export interface GetWorker extends UserDto {
+  _id: string;
+  roles: RoleDto[];
+}
