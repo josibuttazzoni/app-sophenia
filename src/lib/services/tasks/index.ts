@@ -29,6 +29,11 @@ export const getTaskById = async (id: string) => {
   return mapTask(task);
 };
 
+export const getTasksByIds = async (ids: string[]) => {
+  const tasks = await Promise.all(ids.map(id => getTaskById(id)));
+  return tasks;
+};
+
 export const updateTaskStatus = async ({ id, status }: UpdateTaskRequestVariables) =>
   api.patch<Task>(`/tasks/${id}/status`, {
     status

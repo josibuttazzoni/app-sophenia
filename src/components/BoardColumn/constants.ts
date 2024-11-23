@@ -31,3 +31,5 @@ export const STATUS_COLORS = {
     bg: 'bg-willow-grove'
   }
 };
+
+export const MAX_LENGTH = 50;

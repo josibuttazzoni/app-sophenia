@@ -11,7 +11,7 @@ export const useUpdateTask = () => {
     mutationFn: (variables: UpdateTaskRequestVariables) =>
       updateTaskStatus(variables).then(handleServerResponse),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['/tasks'] });
+      queryClient.invalidateQueries({ queryKey: ['/tasks/status'] });
     }
   })();
 };

@@ -10,7 +10,7 @@ import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useTask } from '#lib/api/tasks';
 import { TaskStatusDto } from '#lib/enums/tasks';
 
-import { STATUS_COLORS } from './constants';
+import { MAX_LENGTH, STATUS_COLORS } from './constants';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -26,10 +26,20 @@ export type BoardCardProps = {
 
 export function BoardCard({ id, status, title, description, index }: BoardCardProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
+  const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
 
   const [commentModalOpen, setCommentModalOpen] = useState(false);
 
   const { data } = useTask({ variables: { id } });
+
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  const getTruncatedDescription = (text: string) => {
+    if (text.length > MAX_LENGTH && !isDescriptionExpanded) {
+      return text.substring(0, MAX_LENGTH) + '...';
+    }
+    return text;
+  };
 
   return (
     <Draggable key={id} draggableId={id} index={index} isDragDisabled={status === TaskStatusDto.DONE}>
@@ -41,8 +51,21 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
           className={`flex h-fit min-h-28 w-full flex-col items-start justify-between rounded-lg border-l-4 bg-athens-gray ${STATUS_COLORS[status].stroke} p-2`}
         >
           <div className="flex flex-col gap-y-2">
-            <span className="text-sm font-medium">{title}</span>
-            <span className="text-xs text-gray-500">{description}</span>
+            <span className="text-sm font-semibold">{title}</span>
+            <span className="text-xs font-medium text-gray-700">
+              {t('workerAssigned')} <span className="font-normal">{data?.workerAssigned.fullname}</span>
+            </span>
+            <span className="text-xs text-gray-500">
+              {getTruncatedDescription(description)}{' '}
+              {description.length > MAX_LENGTH && (
+                <button
+                  onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                  className="text-[0.7rem] font-medium text-gray-600 hover:underline"
+                >
+                  {isDescriptionExpanded ? tCommon('readLess') : tCommon('readMore')}
+                </button>
+              )}
+            </span>
           </div>
           {(status === TaskStatusDto.REVIEW || status === TaskStatusDto.DONE) && (
             <Dialog
