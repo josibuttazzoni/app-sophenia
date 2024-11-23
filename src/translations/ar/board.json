@@ -1,5 +1,5 @@
 {
-  "board": "Tablero semanal de tareas",
+  "board": "Tablero diario de tareas",
   "emptyTasks": "No se encontraron nuevas tareas\ngeneradas",
   "status": {
     "pending": "Pendientes",
@@ -12,5 +12,6 @@
   "rating": "Calificación",
   "ratingComment": "Comentario",
   "requiredRating": "La calificación es requerida",
-  "viewRating": "Ver calificación"
+  "viewRating": "Ver calificación",
+  "workerAssigned": "Empleado asignado:"
 }

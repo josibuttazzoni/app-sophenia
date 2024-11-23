@@ -3,15 +3,25 @@ import { WorkOrder } from 'src/types/workOrders';
 
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 
-export default function WorkOrderModal({ startDate, endDate }: WorkOrder) {
+export default function WorkOrderModal({ name, startDate, tasks }: WorkOrder) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.HISTORY);
 
   return (
-    <div className="flex flex-col items-center gap-y-5">
-      <div className="text-md text-center font-semibold text-ebony-clay">{t('week')}</div>
-      <div className="flex w-full justify-between gap-x-3">
-        <span>{startDate.toLocaleDateString()}</span>
-        <span>{endDate.toLocaleDateString()}</span>
+    <div className="flex flex-col gap-y-5">
+      <div className="mb-4 text-center text-xl font-semibold">{name}</div>
+      <div className="flex w-full justify-between">
+        <div className="text-md text-center font-semibold text-disco">{t('date')}</div>
+        <span>{startDate}</span>
+      </div>
+      <div className="text-md font-semibold text-disco">{t('tasksDone')}</div>
+      <div className="flex w-full flex-col rounded-lg bg-oxford-blue bg-opacity-5 p-2">
+        <ul className="list-disc pl-5">
+          {tasks.map(task => (
+            <li className="my-1 text-sm font-medium text-black/70" key={task.id}>
+              {task.title}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

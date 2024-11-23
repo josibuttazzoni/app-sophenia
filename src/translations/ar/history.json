@@ -1,10 +1,10 @@
 {
   "history": "Historial de OTs",
   "ID": "ID",
-  "startDate": "Fecha de inicio",
-  "endDate": "Fecha de finalización",
+  "date": "Fecha",
   "name": "Nombre",
   "emptyHistory": "No hay órdenes de trabajo",
   "exportReport": "Exportar reporte",
-  "week": "Semana"
+  "tasksDone": "Tareas realizadas",
+  "viewDetail": "Ver detalle"
 }

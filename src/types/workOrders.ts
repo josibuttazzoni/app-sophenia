@@ -2,16 +2,18 @@ import { GetTaskByIdResponse, Task } from 'tasks';
 
 export interface WorkOrder {
   id: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   name: string;
   tasks: Task[];
 }
 
 export interface GetWorkOrdersResponse {
   id: string;
+  startDate: string;
+  endDate: string;
+  name: string;
   tasksIds: string[];
-  date: string;
 }
 
 export interface GetWorkOrderResponse {

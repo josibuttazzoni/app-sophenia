@@ -19,7 +19,7 @@ export const useProfile = () => {
     return response.data;
   };
   return createQuery({
-    queryKey: [`/work-orders`],
+    queryKey: [`/user/profile`],
     fetcher: () => getCurrentProfile().then(handleServerResponse)
   })();
 };
