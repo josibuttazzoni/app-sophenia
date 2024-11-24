@@ -1,47 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import useTranslation from 'next-translate/useTranslation';
-import { useForm } from 'react-hook-form';
-import { Backlog } from 'src/types/tasks';
+import { UseFormReturn, useForm } from 'react-hook-form';
+import { Backlog, SuggestTasksVariables } from 'src/types/tasks';
 
+import Stars from '#assets/stars.svg';
 import CustomSelect from '#components/CustomSelect';
 import { Button } from '#components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '#components/ui/form';
 import { TextArea } from '#components/ui/textarea';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import { useSuggestTasks } from '#lib/api/tasks';
 import { SeasonMoment } from '#lib/enums/tasks';
-import { useTasksContext } from '#lib/providers/TasksContext';
 
 import { WEATHER_ICONS, WEATHER_MOCK } from './mocks';
 
 type GenerateTasksContentProps = {
-  setIsEditing: (editing: boolean) => void;
+  form: UseFormReturn<SuggestTasksVariables, any, undefined>;
+  onSubmit: (data: SuggestTasksVariables) => void;
+  suggestLoading: boolean;
 };
 
-export default function GenerateTasksContent({ setIsEditing }: GenerateTasksContentProps) {
+export default function GenerateTasksContent({ form, onSubmit, suggestLoading }: GenerateTasksContentProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
-  const form = useForm({
-    defaultValues: {
-      weeklyGoal: '',
-      seasonMoment: ''
-    }
-  });
-
-  const { setSuggestedTasks } = useTasksContext(({ setSuggestedTasks }) => ({
-    setSuggestedTasks
-  }));
 
   const { control, handleSubmit } = form;
-
-  const handleSuccess = (tasks: Backlog[]) => {
-    setSuggestedTasks(tasks);
-    setIsEditing(true);
-  };
-  const { mutate: suggestTasks, status } = useSuggestTasks(handleSuccess);
-
-  const onSubmit = (data: { weeklyGoal: string; seasonMoment: string }) => {
-    suggestTasks({ objective: data.weeklyGoal, seasonMoment: data.seasonMoment });
-  };
 
   return (
     <Form {...form}>
@@ -72,8 +53,7 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
             <FormField
               control={control}
               name="seasonMoment"
-              rules={{ required: t('validation.required', { field: t('role') }) }}
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <CustomSelect
                   className="pt-3"
                   label={t('seasonMoment')}
@@ -87,8 +67,8 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
             <FormField
               control={control}
               rules={{ required: t('required') }}
-              name="weeklyGoal"
-              render={({ field, fieldState }) => (
+              name="objective"
+              render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <TextArea
@@ -103,8 +83,13 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
             />
           </div>
           <div className="flex w-full justify-end">
-            <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="px-12">
+            <Button
+              status={suggestLoading ? 'pending' : 'enabled'}
+              type="submit"
+              className="flex gap-x-3 px-12"
+            >
               {t('generate')}
+              <Stars />
             </Button>
           </div>
         </div>
