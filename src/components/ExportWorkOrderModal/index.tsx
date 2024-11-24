@@ -12,6 +12,7 @@ export const ExportWorkOrderModal = () => {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.HISTORY);
 
   const [date, setDate] = React.useState<DateRange | undefined>();
+  const [errorDate, setErrorDate] = React.useState(false);
 
   const handleExport = async () => {
     if (date?.from && date?.to) {
@@ -19,12 +20,13 @@ export const ExportWorkOrderModal = () => {
       const url = window.URL.createObjectURL(new Blob([response as BlobPart]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `report-work-order.csv`);
+      link.setAttribute('download', `report-work-order-${new Date().toISOString()}.csv`);
       document.body.appendChild(link);
       link.click();
       link.parentNode?.removeChild(link);
+      setErrorDate(false);
     } else {
-      console.error('Date range is not fully defined');
+      setErrorDate(true);
     }
   };
 
@@ -35,6 +37,7 @@ export const ExportWorkOrderModal = () => {
       <Button className="w-4/5 px-8" variant="primary" onClick={handleExport}>
         {t('export')}
       </Button>
+      {errorDate && <p className="mt-2 text-xs text-red-600">{t('pickADate')}</p>}
     </div>
   );
 };

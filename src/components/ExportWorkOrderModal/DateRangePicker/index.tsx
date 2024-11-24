@@ -4,7 +4,8 @@ import * as React from 'react';
 
 import { Calendar } from '#components/ui/calendar';
 
-export function DateRangePicker({ className, date, setDate }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function DateRangePicker({ className, date, setDate }: any) {
   return (
     <div className={cx('grid h-96 gap-2', className)}>
       <Calendar
