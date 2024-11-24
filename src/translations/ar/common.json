@@ -12,7 +12,7 @@
   "yes": "Sí",
   "no": "No",
   "seeMore": "Ver más",
-  "toastMutationError": "No se pudo completar la acción. Detalles: {{error}}",
+  "toastMutationError": "Ocurrió un error {{error}}. Por favor inténtalo de nuevo mas tarde.",
   "toastMutationSuccess": "Acción completada exitosamente.",
   "save": "Guardar",
   "readMore": "Leer más",

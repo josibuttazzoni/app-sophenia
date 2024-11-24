@@ -10,12 +10,13 @@ import { handleServerResponse } from '../handleServerResponse';
 
 export const useCreateWorkOrder = (onSuccess: VoidFunction) => {
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
+  const { t: tBoard } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
   return createMutation({
     mutationFn: (assignedTasks: {
       workOrderTasks: { taskId: string; workerAssignedId: string }[];
       name: string;
     }) => createWorkOrder(assignedTasks).then(handleServerResponse),
-    ...mapQueryOptions(tCommon),
+    ...mapQueryOptions(tCommon, tBoard('createWorkOrderError')),
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['/board', '/work-orders'] });
     },

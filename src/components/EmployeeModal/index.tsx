@@ -45,9 +45,9 @@ export default function EmployeeModal({
 
   const { control, handleSubmit } = form;
 
-  const { mutate: editMutate } = useUpdateUser(onSuccess);
+  const { mutate: editMutate, status: editStatus } = useUpdateUser(onSuccess);
 
-  const { mutate: createMutate } = useRegister(onSuccess);
+  const { mutate: createMutate, status: createStatus } = useRegister(onSuccess);
 
   const onSubmit = (data: UpdateUserRequestVariables) => {
     if (!id) {
@@ -56,6 +56,8 @@ export default function EmployeeModal({
       return editMutate({ id, data });
     }
   };
+
+  const status = id ? editStatus : createStatus;
 
   return (
     <Form {...form}>
@@ -115,7 +117,7 @@ export default function EmployeeModal({
             </div>
           )}
         />
-        <Button className="mt-10" type="submit">
+        <Button status={status === 'pending' ? 'pending' : 'enabled'} className="mt-10" type="submit">
           {t('save')}
         </Button>
       </form>

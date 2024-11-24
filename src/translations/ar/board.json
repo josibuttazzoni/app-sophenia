@@ -13,5 +13,7 @@
   "ratingComment": "Comentario",
   "requiredRating": "La calificación es requerida",
   "viewRating": "Ver calificación",
-  "workerAssigned": "Empleado asignado:"
+  "workerAssigned": "Empleado asignado:",
+  "createWorkOrderError": "al crear la orden de trabajo",
+  "suggestWorkOrderError": "al sugerir la orden de trabajo"
 }

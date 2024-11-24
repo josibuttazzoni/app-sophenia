@@ -8,6 +8,7 @@ import { LoginRequestVariables } from 'src/types/auth';
 import { COOKIES } from '#constants/cookies';
 import { REDIRECT_TO } from '#constants/login';
 import { PAGES_PATHS } from '#constants/pages';
+import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { RoleDto } from '#lib/enums/employees';
 import { login } from '#lib/services/auth';
 import { setAuthHeader } from '#utils/api';
@@ -17,7 +18,8 @@ import { queryClient } from '..';
 import { handleServerResponse } from '../handleServerResponse';
 
 export const useLogin = () => {
-  const { t: tCommon } = useTranslation('common');
+  const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
+  const { t: tLogin } = useTranslation(TRANSLATIONS_NAMESPACES.LOGIN);
   const searchParams = useSearchParams();
   const redirectParam = searchParams.get(REDIRECT_TO);
   const redirectTo = redirectParam ? redirectParam : PAGES_PATHS.TASKS;
@@ -33,6 +35,6 @@ export const useLogin = () => {
       queryClient.clear();
       router.push(redirectTo);
     },
-    ...mapQueryOptions(tCommon)
+    ...mapQueryOptions(tCommon, tLogin('loginError'))
   })();
 };
