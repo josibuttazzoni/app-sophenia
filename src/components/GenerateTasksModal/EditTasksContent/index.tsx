@@ -153,7 +153,7 @@ export default function EditTasksContent({
                 onSubmit(suggestForm.getValues());
               }}
               status={suggestLoading ? 'pending' : 'enabled'}
-              className="flex gap-x-2 px-12"
+              className="flex w-44 gap-x-2"
             >
               {t('regenerate')}
               <Stars className="[&>path]:stroke-disco" />

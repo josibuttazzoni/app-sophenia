@@ -53,7 +53,6 @@ export default function GenerateTasksContent({ form, onSubmit, suggestLoading }:
             <FormField
               control={control}
               name="seasonMoment"
-              rules={{ required: t('validation.required', { field: t('role') }) }}
               render={({ field }) => (
                 <CustomSelect
                   className="pt-3"
