@@ -56,7 +56,7 @@ export default function History() {
                 {t('exportReport')}
               </Button>
             </DialogTrigger>
-            <DialogContent className="h-[200px] w-[400px] rounded-xl bg-white p-8">
+            <DialogContent className="rounded-xl bg-white p-8">
               <ExportWorkOrderModal />
             </DialogContent>
           </Dialog>

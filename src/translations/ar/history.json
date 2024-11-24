@@ -5,6 +5,8 @@
   "name": "Nombre",
   "emptyHistory": "No hay órdenes de trabajo",
   "exportReport": "Exportar reporte",
+  "export": "Exportar",
   "tasksDone": "Tareas realizadas",
-  "viewDetail": "Ver detalle"
+  "viewDetail": "Ver detalle",
+  "pickADate": "Seleccionar una fecha"
 }
