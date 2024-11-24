@@ -14,13 +14,13 @@ export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const { data } = useBoard();
   return (
-    <>
+    <div className="min-h-screen">
       <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
         <div className="text-lg font-medium text-disco">{data?.[0]?.workerAssigned.fullname}</div>
         {/* TODO: Add logout logic */}
         <Logout className="[&>path]:stroke-[#821744]" />
       </div>
-      <div className="flex h-full w-full flex-col gap-y-3 px-4">
+      <div className="flex h-full w-full flex-col gap-y-3 px-4 pt-3">
         <div className="text-md">
           {t('tasks')} al {formatDateES(new Date())}
         </div>
@@ -45,6 +45,6 @@ export default function Tasks() {
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 }
