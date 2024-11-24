@@ -1,4 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
+import Image from 'next/image';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '#components/ui/button';
@@ -14,6 +16,8 @@ type CommentModalProps = {
   rating?: number;
   ratingComment?: string;
   title?: string;
+  photoUrl?: string;
+  detail?: string;
   setCommentModalOpen: (open: boolean) => void;
 };
 
@@ -22,6 +26,8 @@ export default function CommentModal({
   rating,
   ratingComment,
   title,
+  photoUrl,
+  detail,
   setCommentModalOpen
 }: CommentModalProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
@@ -40,6 +46,8 @@ export default function CommentModal({
 
   const currentRating = watch('rating');
 
+  const [isImageZoomed, setIsImageZoomed] = useState(false);
+
   const { mutate: editMutate, status } = useRating(() => setCommentModalOpen(false));
 
   const onSubmit = ({ rating, ratingComment }: { rating?: number; ratingComment?: string }) => {
@@ -48,8 +56,22 @@ export default function CommentModal({
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-1">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-2">
         <div className="text-xl font-semibold">{title}</div>
+        <div className="text-sm">
+          <FormLabel>{t('workerDetail')}</FormLabel>
+          <div className="text-gray-700">{detail}</div>
+        </div>
+        {photoUrl && (
+          <div
+            className={`relative mt-3 cursor-pointer transition-all duration-300 ${
+              isImageZoomed ? 'h-[480px] w-full' : 'h-32 w-32'
+            }`}
+            onClick={() => setIsImageZoomed(!isImageZoomed)}
+          >
+            <Image alt="photo" src={photoUrl} fill style={{ objectFit: 'contain' }} />
+          </div>
+        )}
         <FormField
           control={control}
           name="rating"

@@ -96,6 +96,8 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
               <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
                 <CommentModal
                   id={id}
+                  photoUrl={`${process.env.NEXT_PUBLIC_API_BASE_URL}images/${data?.taskReport?.photoUrl}`}
+                  detail={data?.taskReport?.detail}
                   rating={data?.rating}
                   ratingComment={data?.ratingComment}
                   title={title}

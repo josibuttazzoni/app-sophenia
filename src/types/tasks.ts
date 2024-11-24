@@ -23,6 +23,10 @@ interface TaskDto {
   };
   rating: number;
   ratingComment?: string;
+  taskReport?: {
+    photoUrl?: string;
+    detail?: string;
+  };
 }
 
 export interface UpdateTaskRequestVariables {
@@ -46,8 +50,8 @@ interface BacklogDto {
 }
 
 export interface CompleteTaskVariables {
-  photoUrl: string;
-  detail: string;
+  photoUrl?: string;
+  detail?: string;
 }
 
 export type TaskCompleteDto = TaskDto & CompleteTaskVariables;
