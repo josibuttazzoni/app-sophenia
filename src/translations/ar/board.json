@@ -13,5 +13,7 @@
   "ratingComment": "Comentario",
   "requiredRating": "La calificación es requerida",
   "viewRating": "Ver calificación",
-  "workerAssigned": "Empleado asignado:"
+  "workerAssigned": "Empleado asignado:",
+  "workerDetail": "Detalle mencionado por el empleado",
+  "review": "Revisar tarea"
 }
