@@ -15,5 +15,7 @@
   "viewRating": "Ver calificación",
   "workerAssigned": "Empleado asignado:",
   "createWorkOrderError": "al crear la orden de trabajo",
-  "suggestWorkOrderError": "al sugerir la orden de trabajo"
+  "suggestWorkOrderError": "al sugerir la orden de trabajo",
+  "workerDetail": "Detalle mencionado por el empleado",
+  "review": "Revisar tarea"
 }
