@@ -34,5 +34,6 @@
   "pending": "Pendientes",
   "in_progress": "En proceso",
   "in_review": "En revisión",
-  "completed": "Finalizadas"
+  "completed": "Finalizadas",
+  "regenerate": "Regenerar"
 }
