@@ -54,6 +54,8 @@ export default function CommentModal({
     editMutate({ id, rating: rating || 0, ratingComment });
   };
 
+  const fullPhotoUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}images/${photoUrl}`;
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-2">
@@ -74,7 +76,7 @@ export default function CommentModal({
               <Image
                 alt="photo"
                 className="object-left"
-                src={photoUrl}
+                src={fullPhotoUrl}
                 fill
                 style={{ objectFit: 'contain' }}
               />

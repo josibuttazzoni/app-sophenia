@@ -14,7 +14,7 @@ export const useRating = (onSubmit: VoidFunction) => {
   return createMutation({
     mutationFn: (variables: AddRatingRequestVariables) => addRating(variables).then(handleServerResponse),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['/tasks'] });
+      queryClient.invalidateQueries({ queryKey: ['/board'] });
       getCurrentWorkOrder();
       onSubmit();
     },
