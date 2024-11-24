@@ -54,22 +54,21 @@ export default function GenerateWorkOrderContent({
 
   return (
     <div className="flex flex-col justify-between overflow-scroll">
-      <div className="mb-4 text-xl font-semibold">{t('generateOT')}</div>
+      <div className="text-xl font-semibold">{t('generateOT')}</div>
       <section>
-        <div className="mb-2 flex flex-row items-center gap-x-4">
-          {t('tasks')}
-          <div className="rounded-full bg-disco px-4 text-white">
-            {selectedTasks.reduce((total, task) => total + task.estimatedHoursToComplete, 0)}hs
-          </div>
+        <div className="mb-2 flex flex-row items-center gap-x-1">
+          {t('tasks')} -
+          <span className="font-semibold">
+            {selectedTasks.reduce((total, task) => total + task.estimatedHoursToComplete, 0)}
+            {t('totalHours')}
+          </span>
         </div>
         <div className="flex h-[200px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
           {selectedTasks.map(({ title, id, estimatedHoursToComplete }) => (
-            <div key={id} className="justify-betweenpy-2 flex w-full flex-row items-center">
+            <div key={id} className="justify-betweenpy-2 flex w-full flex-row items-center text-sm">
               <div className="flex w-full items-center gap-x-2">
-                <div>{title}</div>
-                <div className="rounded-full bg-claret bg-opacity-15 px-2 py-1 text-oxford-blue">
-                  {estimatedHoursToComplete}hs
-                </div>
+                <div>{title} -</div>
+                <span className="font-medium">{estimatedHoursToComplete}hs</span>
               </div>
               <div className="flex gap-x-2">
                 <CrossIcon
@@ -82,16 +81,13 @@ export default function GenerateWorkOrderContent({
             </div>
           ))}
         </div>
-        <div className="mt-8 flex flex-col gap-y-4">
-          <div className="flex flex-row items-center gap-x-4">
-            {t('availableEmployees')}
-            <div className="rounded-full bg-disco px-4 text-white">{availableEmployees.length}</div>
-          </div>
+        <div className="mt-8 flex flex-col gap-y-2">
+          {t('availableEmployees')}
           <div className="flex max-h-[100px] flex-wrap gap-2 rounded-lg border border-slate-200 p-2">
             {availableEmployees.map(empl => (
               <div
                 key={empl.id}
-                className="flex items-center gap-2 rounded-md bg-claret bg-opacity-15 px-2 py-1 text-oxford-blue"
+                className="flex items-center gap-2 rounded-md bg-claret bg-opacity-15 px-2 py-1 text-sm text-oxford-blue"
               >
                 {empl.fullname}
                 <div

@@ -27,5 +27,8 @@
   "roleDto": {
     "worker": "Operativo",
     "admin": "Gerencial"
-  }
+  },
+  "deleteUserError": "al eliminar al operario",
+  "deleteUserSuccess": "Operario eliminado exitosamente",
+  "updateUserError": "al actualizar al operario"
 }

@@ -34,5 +34,11 @@
   "pending": "Pendientes",
   "in_progress": "En proceso",
   "in_review": "En revisión",
-  "completed": "Finalizadas"
+  "completed": "Finalizadas",
+  "regenerate": "Regenerar",
+  "uploadImageError": "al subir la imagen",
+  "createTasksError": "al crear las tareas",
+  "addRatingError": "al agregar la calificación",
+  "suggestTasksError": "al sugerir las tareas",
+  "totalHours": "hs totales"
 }

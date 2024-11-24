@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CompleteTaskVariables, TaskCompleteDto } from 'src/types/tasks';
+import { CompleteTaskVariables } from 'src/types/tasks';
 
 import BackArrow from '#assets/back-arrow.svg';
 import Tick from '#assets/tick.svg';

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { Backlog } from 'src/types/tasks';
 
-import { FormControl, FormField, FormItem } from '#components/ui/form';
+import { FormField } from '#components/ui/form';
 import { Switch } from '#components/ui/switch';
 
 type SwitchFieldProps = {

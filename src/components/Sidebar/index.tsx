@@ -32,7 +32,7 @@ export function Sidebar({ selectedTab }: SidebarProps) {
   };
 
   return (
-    <div className="flex min-h-screen w-80 flex-col items-start justify-between bg-disco pb-4 pt-10 text-white">
+    <div className="fixed flex h-full w-1/6 flex-col items-start justify-between bg-disco pb-4 pt-10 text-white">
       <div className="flex w-full flex-col items-start">
         <Image className="mx-4 mb-12" src={glassIcon} alt="Sophenia Logo" width={40} height={40} />
         <div className="flex w-full flex-col">

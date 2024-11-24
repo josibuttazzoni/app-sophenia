@@ -1,4 +1,4 @@
-import { Backlog, Task } from 'src/types/tasks';
+import { Backlog } from 'src/types/tasks';
 import type { StateCreator } from 'zustand';
 import { devtools } from 'zustand/middleware';
 

@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { Montserrat } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 
+import { PageHead } from '#components/PageHead';
 import { queryClient } from '#lib/api';
 import { usePersistedQueryClient } from '#lib/hooks/query/usePersistedQueryClient';
 import { getHealth } from '#lib/services/health';
@@ -28,7 +29,8 @@ function App({ Component, pageProps }: AppProps) {
               font-family: ${montserrat.style.fontFamily};
             }
           `}</style>
-          <main className="flex min-h-screen w-full flex-col items-center gap-4 bg-neutral-200 text-oxford-blue">
+          <main className="flex h-full w-full flex-col items-center justify-center bg-neutral-100 font-normal text-neutral-600">
+            <PageHead />
             <Component {...pageProps} />
           </main>
         </SessionProvider>
