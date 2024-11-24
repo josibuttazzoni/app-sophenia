@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
-import AddComment from '#assets/add.svg';
+import DocumentCheck from '#assets/document-check.svg';
 import CommentModal from '#components/CommentModal';
 import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
@@ -84,11 +84,10 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
                   </span>
                 ) : (
                   status !== TaskStatusDto.DONE && (
-                    <>
-                      <span className="cursor-pointer text-left text-[0.65rem] font-medium">
-                        {t('review')}
-                      </span>
-                    </>
+                    <div className="flex cursor-pointer items-center gap-x-1 text-left text-[0.65rem] font-medium">
+                      <DocumentCheck />
+                      {t('review')}
+                    </div>
                   )
                 )}
               </DialogTrigger>
