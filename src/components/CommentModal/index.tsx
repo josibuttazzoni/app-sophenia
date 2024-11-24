@@ -58,20 +58,30 @@ export default function CommentModal({
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-2">
         <div className="text-xl font-semibold">{title}</div>
-        <div className="text-sm">
-          <FormLabel>{t('workerDetail')}</FormLabel>
-          <div className="text-gray-700">{detail}</div>
-        </div>
-        {photoUrl && (
-          <div
-            className={`relative mt-3 cursor-pointer transition-all duration-300 ${
-              isImageZoomed ? 'h-[480px] w-full' : 'h-32 w-32'
-            }`}
-            onClick={() => setIsImageZoomed(!isImageZoomed)}
-          >
-            <Image alt="photo" src={photoUrl} fill style={{ objectFit: 'contain' }} />
+        <div className="rounded-lg bg-oxford-blue bg-opacity-5 p-2">
+          <div className="text-sm">
+            <FormLabel>{t('workerDetail')}</FormLabel>
+            {': '}
+            {detail}
           </div>
-        )}
+          {photoUrl && (
+            <div
+              className={`relative mt-3 cursor-pointer transition-all duration-300 ${
+                isImageZoomed ? 'h-[480px] w-full' : 'h-32 w-32'
+              }`}
+              onClick={() => setIsImageZoomed(!isImageZoomed)}
+            >
+              <Image
+                alt="photo"
+                className="object-left"
+                src={photoUrl}
+                fill
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
+          )}
+        </div>
+
         <FormField
           control={control}
           name="rating"
@@ -99,7 +109,7 @@ export default function CommentModal({
                   ))}
                 </div>
               </FormControl>
-              {fieldState.error && <FormMessage className="!mt-4">{fieldState.error.message}</FormMessage>}
+              {fieldState.error && <FormMessage className="!mt-2">{fieldState.error.message}</FormMessage>}
             </FormItem>
           )}
         />
@@ -116,7 +126,7 @@ export default function CommentModal({
           )}
         />
         {isEditable && (
-          <Button status={status === 'pending' ? 'pending' : 'enabled'} className="mt-6" type="submit">
+          <Button status={status === 'pending' ? 'pending' : 'enabled'} className="mt-4" type="submit">
             {tCommon('save')}
           </Button>
         )}

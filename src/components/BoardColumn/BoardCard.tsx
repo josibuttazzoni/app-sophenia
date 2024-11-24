@@ -85,9 +85,8 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
                 ) : (
                   status !== TaskStatusDto.DONE && (
                     <>
-                      <AddComment />
                       <span className="cursor-pointer text-left text-[0.65rem] font-medium">
-                        {t('addRating')}
+                        {t('review')}
                       </span>
                     </>
                   )
