@@ -3,6 +3,7 @@ import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import Edit from 'src/assets/edit.svg';
+import Export from 'src/assets/export.svg';
 import Trash from 'src/assets/trash.svg';
 import { User } from 'src/types/users';
 
@@ -25,6 +26,7 @@ import { useUpdateUser } from '#lib/api/users/useUpdateUser';
 import { useUsers } from '#lib/api/users/useUsers';
 import { RoleDto } from '#lib/enums/employees';
 import { useProfile } from '#lib/hooks/user/useProfile';
+import { getReportByWorker } from '#lib/services/reports';
 import { sortBy } from '#utils/list';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
@@ -80,6 +82,17 @@ export default function Employees() {
   const handleSort = () => {
     setEmployees(sortBy(employees, sortDirection, 'fullname'));
     setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+  };
+
+  const handleExport = async (id: string) => {
+    const response = await getReportByWorker(id);
+    const url = window.URL.createObjectURL(new Blob([response as BlobPart]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `report_${id}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode?.removeChild(link);
   };
 
   const renderEmployeeRow = (employee: User) => {
@@ -146,6 +159,9 @@ export default function Employees() {
               </WarningModal>
             </DialogContent>
           </Dialog>
+          <div className="ml-4 cursor-pointer" onClick={() => handleExport(id)}>
+            <Export />
+          </div>
         </TableCell>
       </>
     );

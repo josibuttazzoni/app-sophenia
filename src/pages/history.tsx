@@ -4,6 +4,7 @@ import { WorkOrder } from 'src/types/workOrders';
 
 import emptyEmployees from '#assets/emptyTasks.png';
 import EmptyState from '#components/EmptyState';
+import { ExportWorkOrderModal } from '#components/ExportWorkOrderModal';
 import LoadingWrapper from '#components/LoadingWrapper';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import PaginatedTableWrapper from '#components/Table';
@@ -55,6 +56,9 @@ export default function History() {
                 {t('exportReport')}
               </Button>
             </DialogTrigger>
+            <DialogContent className="rounded-xl bg-white p-8">
+              <ExportWorkOrderModal />
+            </DialogContent>
           </Dialog>
         </div>
       </div>
