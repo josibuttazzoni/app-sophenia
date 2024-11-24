@@ -3,58 +3,26 @@ import Rainy from '#assets/rainy.svg';
 import SunCloudy from '#assets/sunCloudy.svg';
 import Sunny from '#assets/sunny.svg';
 
-export const EMPLOYEES_MOCK = [
-  'Santiago Benedetti',
-  'Juan Ontiveros',
-  'Maria Jose Buttazzoni',
-  'Martina Mattioli',
-  'Matias Puyol',
-  'Eugenia de Aramburu'
-];
-
 const WEATHER_TYPES = {
-  SUNNY: 'sunny',
-  RAINY: 'rainy',
-  SUN_CLOUDY: 'sunCloudy',
-  CLOUDY: 'cloudy'
+  SNOW: 'snow',
+  RAIN: 'rain',
+  FOG: 'fog',
+  WIND: 'wind',
+  CLOUDY: 'cloudy',
+  PARTLY_CLOUDY_DAY: 'partly-cloudy-day',
+  PARTLY_CLOUDY_NIGHT: 'partly-cloudy-night',
+  CLEAR_DAY: 'clear-day',
+  CLEAR_NIGHT: 'clear-night'
 };
 
 export const WEATHER_ICONS = {
-  [WEATHER_TYPES.SUNNY]: Sunny,
-  [WEATHER_TYPES.SUN_CLOUDY]: SunCloudy,
-  [WEATHER_TYPES.RAINY]: Rainy,
-  [WEATHER_TYPES.CLOUDY]: Cloudy
+  [WEATHER_TYPES.SNOW]: Rainy,
+  [WEATHER_TYPES.RAIN]: Rainy,
+  [WEATHER_TYPES.FOG]: Cloudy,
+  [WEATHER_TYPES.WIND]: Cloudy,
+  [WEATHER_TYPES.CLOUDY]: Cloudy,
+  [WEATHER_TYPES.PARTLY_CLOUDY_DAY]: SunCloudy,
+  [WEATHER_TYPES.PARTLY_CLOUDY_NIGHT]: SunCloudy,
+  [WEATHER_TYPES.CLEAR_DAY]: Sunny,
+  [WEATHER_TYPES.CLEAR_NIGHT]: Sunny
 };
-
-export const WEATHER_MOCK = [
-  {
-    day: 'lunes',
-    min: 9,
-    max: 22,
-    weather: WEATHER_TYPES.SUNNY
-  },
-  {
-    day: 'martes',
-    min: 4,
-    max: 18,
-    weather: WEATHER_TYPES.SUNNY
-  },
-  {
-    day: 'miercoles',
-    min: 6,
-    max: 24,
-    weather: WEATHER_TYPES.CLOUDY
-  },
-  {
-    day: 'jueves',
-    min: 9,
-    max: 23,
-    weather: WEATHER_TYPES.SUN_CLOUDY
-  },
-  {
-    day: 'viernes',
-    min: 8,
-    max: 20,
-    weather: WEATHER_TYPES.RAINY
-  }
-];
