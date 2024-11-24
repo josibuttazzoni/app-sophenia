@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { CompleteTaskVariables, TaskCompleteDto } from 'src/types/tasks';
 
 import BackArrow from '#assets/back-arrow.svg';
 import Tick from '#assets/tick.svg';
@@ -17,6 +18,7 @@ import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useUploadImage } from '#lib/api/images/useUploadImage';
 import { useTask } from '#lib/api/tasks';
+import { useCompleteTask } from '#lib/api/tasks/useCompleteTask';
 
 export default function WorkerTask() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
@@ -28,23 +30,29 @@ export default function WorkerTask() {
   const { data } = useTask({ variables: { id } });
 
   const form = useForm({
-    defaultValues: data
+    defaultValues: {
+      detail: '',
+      photoUrl: ''
+    }
   });
 
   const { control, handleSubmit } = form;
 
-  const onSubmit = (data: { detail: string; photoUrl: File | null }) => {
-    console.log('Formulario enviado:', data);
+  const { mutate: completeTask } = useCompleteTask();
+
+  const onSubmit = (data: CompleteTaskVariables) => {
+    completeTask({ photoUrl: data.photoUrl, detail: data.detail, id });
   };
 
   const [image, setImage] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const handleUploadPhoto = () => {
-    form.setValue('photoUrl', file);
+  const handleUploadPhoto = (fileUrl: string) => {
+    form.setValue('photoUrl', fileUrl);
+    setImage(fileUrl);
   };
 
-  const { mutate: uploadImage } = useUploadImage(setImage);
+  const { mutate: uploadImage } = useUploadImage(handleUploadPhoto);
 
   return (
     data && (
