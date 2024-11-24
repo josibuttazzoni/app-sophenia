@@ -45,6 +45,13 @@ interface BacklogDto {
   estimatedHoursToComplete: number;
 }
 
+export interface CompleteTaskVariables {
+  photoUrl: string;
+  detail: string;
+}
+
+export type TaskCompleteDto = TaskDto & CompleteTaskVariables;
+
 export interface SuggestTasksVariables {
   objective: string;
   seasonMoment?: string;
@@ -54,3 +61,7 @@ export interface AddRatingRequestVariables {
   rating: number;
   ratingComment?: string;
 }
+
+export type CompleteTaskRequestVariables = CompleteTaskVariables & {
+  id: string;
+};

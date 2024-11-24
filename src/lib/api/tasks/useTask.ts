@@ -6,6 +6,6 @@ import { getTaskById } from '#lib/services/tasks';
 type Variables = { id: string };
 
 export const useTask = createQuery({
-  queryKey: [`/tasks`],
+  queryKey: [`/tasks/id`],
   fetcher: (variables: Variables): Promise<Task> => getTaskById(variables.id)
 });

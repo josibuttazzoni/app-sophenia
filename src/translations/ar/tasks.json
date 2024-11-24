@@ -20,9 +20,6 @@
   "yes": "Sí",
   "no": "No",
   "description": "Descripción",
-  "pending": "Pendiente",
-  "completed": "Completa",
-  "review": "En revisión",
   "markAsSolved": "Marcar como completada",
   "enterDescription": "Ingrese la descripción/comentarios de la tarea realizada",
   "required": "Campo requerido",
@@ -33,5 +30,9 @@
   "harvestTime": "Recolección de la uva",
   "warehouseMaintainance": "Mantenimiento de la bodega",
   "preparationForWineExportation": "Preparación del vino para la exportación",
-  "seasonMoment": "Temporada actual"
+  "seasonMoment": "Temporada actual",
+  "pending": "Pendientes",
+  "in_progress": "En proceso",
+  "in_review": "En revisión",
+  "completed": "Finalizadas"
 }

@@ -2,10 +2,12 @@ import { ApiResponse } from 'apisauce';
 import {
   AddRatingRequestVariables,
   Backlog,
+  CompleteTaskRequestVariables,
   GetBacklogResponse,
   GetTaskByIdResponse,
   SuggestTasksVariables,
   Task,
+  TaskCompleteDto,
   UpdateTaskRequestVariables
 } from 'src/types/tasks';
 
@@ -59,3 +61,7 @@ export const addRating = async ({ id, rating, ratingComment }: AddRatingRequestV
     rating,
     ratingComment
   });
+
+export const completeTask = async ({ photoUrl, detail, id }: CompleteTaskRequestVariables) => {
+  return await api.post<TaskCompleteDto>(`/tasks/${id}/complete`, { photoUrl, detail });
+};
