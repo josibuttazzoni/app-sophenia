@@ -3,9 +3,7 @@ import dynamic from 'next/dynamic';
 import { WorkOrder } from 'src/types/workOrders';
 
 import emptyEmployees from '#assets/emptyTasks.png';
-import EmptyState from '#components/EmptyState';
 import { ExportWorkOrderModal } from '#components/ExportWorkOrderModal';
-import LoadingWrapper from '#components/LoadingWrapper';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import PaginatedTableWrapper from '#components/Table';
 import WorkOrderModal from '#components/WorkOrderModal';
@@ -46,7 +44,7 @@ export default function History() {
   };
 
   return (
-    <Layout selectedTab={SIDEBAR_TABS.HISTORY} withProfileWrapper={false}>
+    <Layout selectedTab={SIDEBAR_TABS.HISTORY}>
       <div className="flex items-center justify-between">
         <div className="text-2xl font-semibold">{t('history')}</div>
         <div className="flex gap-x-4">
@@ -62,14 +60,15 @@ export default function History() {
           </Dialog>
         </div>
       </div>
-      <div className="h-full w-full rounded-lg bg-white p-6">
-        <LoadingWrapper loading={loading}>
-          {!!data && data.length > 0 ? (
-            <PaginatedTableWrapper data={data} columns={[t('name'), t('date')]} row={renderRow} />
-          ) : (
-            <EmptyState title={t('emptyHistory')} icon={emptyEmployees} />
-          )}
-        </LoadingWrapper>
+      <div className="h-full w-full rounded-lg bg-white px-8 pb-6 pt-4">
+        <PaginatedTableWrapper
+          emptyStateIcon={emptyEmployees}
+          loading={loading}
+          emptyStateTitle={t('emptyHistory')}
+          data={data}
+          columns={[t('name'), t('date')]}
+          row={renderRow}
+        />
       </div>
     </Layout>
   );

@@ -13,7 +13,7 @@ export const useCreateTasks = (onSubmit: VoidFunction) => {
   return createMutation({
     mutationFn: (tasks: Backlog[]) => createTasks(tasks).then(handleServerResponse<Task[]>),
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      queryClient.invalidateQueries({ queryKey: ['/tasks/backlog'] });
       getBacklog();
       onSubmit();
     },

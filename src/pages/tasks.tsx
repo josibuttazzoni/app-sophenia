@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Backlog } from 'src/types/tasks';
 
 import emptyTasks from '#assets/emptyTasks.png';
-import EmptyState from '#components/EmptyState';
 import GenerateTasksModal from '#components/GenerateTasksModal';
 import { GenerateWorkOrderModal } from '#components/GenerateWorkOrderModal';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
@@ -16,6 +15,7 @@ import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useBacklog } from '#lib/api/tasks/useBacklog';
 import { useWorkers } from '#lib/api/users/useWorkers';
+import { useProfile } from '#lib/hooks/user/useProfile';
 import { TasksProvider } from '#lib/providers/TasksContext';
 import { formatHoursTime } from '#utils/date/index';
 
@@ -26,8 +26,10 @@ const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => 
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
   const { t: tCommon } = useTranslation(TRANSLATIONS_NAMESPACES.COMMON);
-  const { data: tasks } = useBacklog();
+  const { data: tasks, isFetching } = useBacklog();
   const { data: workers } = useWorkers();
+
+  const loading = useProfile(tasks, isFetching);
 
   const renderTaskRow = (task: Backlog) => {
     const { title, requiresTaskReport, estimatedHoursToComplete } = task;
@@ -72,16 +74,15 @@ export default function Tasks() {
             </Dialog>
           </div>
         </div>
-        <div className="h-full w-full rounded-lg bg-white p-6">
-          {!!tasks && tasks.length > 0 ? (
-            <PaginatedTableWrapper
-              data={tasks}
-              columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}
-              row={renderTaskRow}
-            />
-          ) : (
-            <EmptyState title={t('emptyTasks')} icon={emptyTasks} />
-          )}
+        <div className="h-full w-full rounded-lg bg-white px-8 pb-6 pt-4">
+          <PaginatedTableWrapper
+            data={tasks}
+            loading={loading}
+            columns={[t('task'), t('requiresDetail'), t('estimatedTime')]}
+            row={renderTaskRow}
+            emptyStateIcon={emptyTasks}
+            emptyStateTitle={t('emptyTasks')}
+          />
         </div>
       </Layout>
     </TasksProvider>
