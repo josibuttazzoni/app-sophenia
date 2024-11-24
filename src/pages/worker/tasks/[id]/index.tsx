@@ -100,7 +100,7 @@ export default function WorkerTask() {
               />
             </div>
             {image && (
-              <div className="flex flex-row justify-between rounded-md border border-slate-200 p-3">
+              <div className="flex flex-row items-center justify-between rounded-md border border-slate-200 p-3">
                 <Image
                   alt="upload-image"
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}images/${image}`}
