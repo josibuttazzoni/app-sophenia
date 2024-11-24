@@ -10,8 +10,6 @@ import { User } from 'src/types/users';
 import emptyEmployees from '#assets/emptyTasks.png';
 import EmployeeModal from '#components/EmployeeModal';
 import { getRoleTitle } from '#components/EmployeeModal/constants';
-import EmptyState from '#components/EmptyState';
-import LoadingWrapper from '#components/LoadingWrapper';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import PaginatedTableWrapper from '#components/Table';
 import WarningModal from '#components/WarningModal';
@@ -159,7 +157,8 @@ export default function Employees() {
               </WarningModal>
             </DialogContent>
           </Dialog>
-          <div className="ml-4 cursor-pointer" onClick={() => handleExport(id)}>
+          <div className="h-auto w-px bg-black" />
+          <div className="cursor-pointer" onClick={() => handleExport(id)}>
             <Export />
           </div>
         </TableCell>
@@ -168,7 +167,7 @@ export default function Employees() {
   };
 
   return (
-    <Layout selectedTab={SIDEBAR_TABS.EMPLOYEES} withProfileWrapper={false}>
+    <Layout selectedTab={SIDEBAR_TABS.EMPLOYEES}>
       <div className="flex items-center justify-between">
         <div className="text-2xl font-semibold">{t('employees')}</div>
         <div className="flex gap-x-4">
@@ -184,22 +183,19 @@ export default function Employees() {
           </Dialog>
         </div>
       </div>
-      <div className="h-full w-full rounded-lg bg-white p-6">
-        <LoadingWrapper loading={loading}>
-          {!!employees && employees.length > 0 ? (
-            <PaginatedTableWrapper
-              data={employees}
-              columns={[t('employee'), t('isAvailable'), t('role'), t('actions')]}
-              row={renderEmployeeRow}
-              onSort={handleSort}
-              sortColumn={t('employee')}
-              sortDirection={sortDirection}
-              className="w-[10%]"
-            />
-          ) : (
-            <EmptyState title={t('emptyEmployees')} icon={emptyEmployees} />
-          )}
-        </LoadingWrapper>
+      <div className="h-full w-full rounded-lg bg-white px-8 pb-6 pt-4">
+        <PaginatedTableWrapper
+          data={employees}
+          columns={[t('employee'), t('isAvailable'), t('role'), t('actions')]}
+          row={renderEmployeeRow}
+          onSort={handleSort}
+          sortColumn={t('employee')}
+          sortDirection={sortDirection}
+          className="w-[10%]"
+          loading={loading}
+          emptyStateIcon={emptyEmployees}
+          emptyStateTitle={t('emptyEmployees')}
+        />
       </div>
     </Layout>
   );

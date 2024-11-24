@@ -61,7 +61,7 @@ export default function Board() {
   };
 
   return (
-    <Layout selectedTab={SIDEBAR_TABS.BOARD} withProfileWrapper={false}>
+    <Layout selectedTab={SIDEBAR_TABS.BOARD}>
       <div className="flex items-center justify-between">
         <div className="text-2xl font-semibold">{t('board')}</div>
       </div>
