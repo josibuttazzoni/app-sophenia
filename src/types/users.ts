@@ -1,6 +1,5 @@
-import { ErrorApiResponse } from 'api/errors';
-
 import { RoleDto } from '../lib/enums/employees';
+import { ErrorApiResponse } from './api/errors';
 
 export interface User extends UserDto {
   id: string;

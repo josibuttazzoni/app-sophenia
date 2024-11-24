@@ -1,4 +1,4 @@
-import { GetTaskByIdResponse, Task } from 'tasks';
+import { GetTaskByIdResponse, Task } from './tasks';
 
 export interface WorkOrder {
   id: string;

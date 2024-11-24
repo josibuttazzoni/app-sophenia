@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import useTranslation from 'next-translate/useTranslation';
 import { useForm } from 'react-hook-form';
 import { Backlog } from 'src/types/tasks';
@@ -78,7 +79,7 @@ export default function GenerateTasksContent({ setIsEditing }: GenerateTasksCont
                   label={t('seasonMoment')}
                   items={Object.values(SeasonMoment).map(value => ({ label: t(value), value }))}
                   placeholder={t('seasonMoment')}
-                  value={field.value}
+                  value={field.value as any}
                   onChange={field.onChange}
                 />
               )}
