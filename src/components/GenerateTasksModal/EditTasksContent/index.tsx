@@ -1,10 +1,11 @@
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Backlog } from 'src/types/tasks';
+import { UseFormReturn, useForm } from 'react-hook-form';
+import { Backlog, SuggestTasksVariables } from 'src/types/tasks';
 
 import CrossIcon from '#assets/cross.svg';
 import EditIcon from '#assets/edit.svg';
+import Stars from '#assets/stars.svg';
 import TickIcon from '#assets/tick.svg';
 import DeleteIcon from '#assets/trash.svg';
 import { Button } from '#components/ui/button';
@@ -17,11 +18,19 @@ import InputField from './InputField';
 import SwitchField from './SwitchField';
 import TextAreaField from './TextAreaField';
 
-export default function EditTasksContent({
-  setTasksModalOpen
-}: {
+type EditTasksContentProps = {
+  suggestForm: UseFormReturn<SuggestTasksVariables, any, undefined>;
+  onSubmit: (data: SuggestTasksVariables) => void;
   setTasksModalOpen: (open: boolean) => void;
-}) {
+  suggestLoading: boolean;
+};
+
+export default function EditTasksContent({
+  setTasksModalOpen,
+  onSubmit,
+  suggestForm,
+  suggestLoading
+}: EditTasksContentProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
 
   const { suggestedTasks, setSuggestedTasks } = useTasksContext(({ suggestedTasks, setSuggestedTasks }) => ({
@@ -67,7 +76,7 @@ export default function EditTasksContent({
     setEditing({ ...editing, [taskIndex]: false });
   };
 
-  const onSubmit = () => {
+  const onCreateSubmit = () => {
     createTasks(suggestedTasks);
   };
 
@@ -75,64 +84,80 @@ export default function EditTasksContent({
     <div className="flex flex-col gap-y-3">
       <div className="text-xl font-semibold">{t('editTasks')}</div>
       <Form {...form}>
-        <form className="flex h-full flex-col justify-between" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex max-h-[530px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
-            {suggestedTasks.map(
-              ({ title, description, estimatedHoursToComplete, requiresTaskReport }, taskIndex) => {
-                const isEditing = editing?.[taskIndex];
-                return (
-                  <div key={title} className="flex w-full flex-row items-center justify-between gap-x-4">
-                    <div className="flex w-full flex-col gap-y-1">
-                      <div className="font-semibold">{title}</div>
-                      <TextAreaField
-                        name={`${taskIndex}.description`}
-                        isEditing={isEditing}
-                        title={t('description')}
-                        content={description}
-                        control={control}
-                      />
-                      <InputField
-                        name={`${taskIndex}.estimatedHoursToComplete`}
-                        title={t('estimatedTime')}
-                        isEditing={isEditing}
-                        content={estimatedHoursToComplete}
-                        control={control}
-                      />
-                      <SwitchField
-                        name={`${taskIndex}.requiresTaskReport`}
-                        isEditing={isEditing}
-                        setValue={setValue}
-                        title={t('requiresDetail')}
-                        content={requiresTaskReport}
-                        control={control}
-                      />
-                    </div>
-                    <div className="flex gap-x-2">
-                      {isEditing ? (
-                        <TickIcon onClick={() => handleConfirm(taskIndex)} className="cursor-pointer" />
-                      ) : (
-                        <EditIcon
-                          onClick={() => setEditing({ ...editing, [taskIndex]: true })}
-                          className="cursor-pointer"
+        <form className="flex h-full flex-col justify-between" onSubmit={handleSubmit(onCreateSubmit)}>
+          <div
+            className={`flex max-h-[530px] flex-col gap-y-3 overflow-auto rounded-md border-mischka p-4 ${!suggestLoading && 'border'}`}
+          >
+            {!suggestLoading &&
+              suggestedTasks.map(
+                ({ title, description, estimatedHoursToComplete, requiresTaskReport }, taskIndex) => {
+                  const isEditing = editing?.[taskIndex];
+                  return (
+                    <div key={title} className="flex w-full flex-row items-center justify-between gap-x-4">
+                      <div className="flex w-full flex-col gap-y-1">
+                        <div className="font-semibold">{title}</div>
+                        <TextAreaField
+                          name={`${taskIndex}.description`}
+                          isEditing={isEditing}
+                          title={t('description')}
+                          content={description}
+                          control={control}
                         />
-                      )}
-                      {isEditing ? (
-                        <CrossIcon onClick={() => setEditing({ ...editing, [taskIndex]: false })} />
-                      ) : (
-                        <DeleteIcon
-                          onClick={() =>
-                            setSuggestedTasks(suggestedTasks.filter(task => task.title !== title))
-                          }
-                          className="cursor-pointer"
+                        <InputField
+                          name={`${taskIndex}.estimatedHoursToComplete`}
+                          title={t('estimatedTime')}
+                          isEditing={isEditing}
+                          content={estimatedHoursToComplete}
+                          control={control}
                         />
-                      )}
+                        <SwitchField
+                          name={`${taskIndex}.requiresTaskReport`}
+                          isEditing={isEditing}
+                          setValue={setValue}
+                          title={t('requiresDetail')}
+                          content={requiresTaskReport}
+                          control={control}
+                        />
+                      </div>
+                      <div className="flex gap-x-2">
+                        {isEditing ? (
+                          <TickIcon onClick={() => handleConfirm(taskIndex)} className="cursor-pointer" />
+                        ) : (
+                          <EditIcon
+                            onClick={() => setEditing({ ...editing, [taskIndex]: true })}
+                            className="cursor-pointer"
+                          />
+                        )}
+                        {isEditing ? (
+                          <CrossIcon onClick={() => setEditing({ ...editing, [taskIndex]: false })} />
+                        ) : (
+                          <DeleteIcon
+                            onClick={() =>
+                              setSuggestedTasks(suggestedTasks.filter(task => task.title !== title))
+                            }
+                            className="cursor-pointer"
+                          />
+                        )}
+                      </div>
                     </div>
-                  </div>
-                );
-              }
-            )}
+                  );
+                }
+              )}
           </div>
-          <div className="flex w-full justify-end">
+          <div className="flex w-full justify-end gap-x-4">
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={e => {
+                e.preventDefault();
+                onSubmit(suggestForm.getValues());
+              }}
+              status={suggestLoading ? 'pending' : 'enabled'}
+              className="flex w-44 gap-x-2"
+            >
+              {t('regenerate')}
+              <Stars className="[&>path]:stroke-disco" />
+            </Button>
             <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="px-12">
               {t('confirm')}
             </Button>
