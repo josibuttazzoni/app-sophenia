@@ -9,5 +9,8 @@
     "required": "{{field}} es requerido.",
     "invalidEmail": "El correo electrónico no es válido.",
     "minLength": "{{field}} debe tener al menos {{count}} caracteres."
-  }
+  },
+  "loginError": "al iniciar sesión",
+  "registerError": "al agregar un nuevo operario",
+  "registerSuccess": "Operario agregado exitosamente"
 }

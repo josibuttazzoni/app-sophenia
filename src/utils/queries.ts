@@ -1,13 +1,15 @@
 import { Translate } from 'next-translate';
 import { toast } from 'react-toastify';
 
-export const mapQueryOptions = (tCommon: Translate) => {
+export const mapQueryOptions = (tCommon: Translate, errorMessage: string, successMessage?: string) => {
   return {
-    onError: (error: Error) => {
-      toast.error(tCommon('toastMutationError', { error: error.message }) as string);
+    onError: () => {
+      toast.error(tCommon('toastMutationError', { error: errorMessage }) as string);
     },
-    onSuccess: () => {
-      toast.success(tCommon('toastMutationSuccess') as string);
-    }
+    ...(successMessage && {
+      onSuccess: () => {
+        toast.success(successMessage);
+      }
+    })
   };
 };

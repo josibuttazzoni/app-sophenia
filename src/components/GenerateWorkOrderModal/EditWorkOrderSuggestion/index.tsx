@@ -47,11 +47,11 @@ export const EditWorkOrderSuggestion = ({ workers }: { workers: User[] }) => {
           label={t('workOrderName')}
           className={nameError ? 'border-red-700' : ''}
         />
-        <div className="flex max-h-[350px] flex-col gap-y-3 overflow-auto rounded-md border border-mischka p-4">
+        <div className="flex max-h-[350px] flex-col gap-y-5 overflow-auto rounded-md border border-mischka p-4">
           {suggestions.map(({ task, worker }) => {
             return (
               <div key={task.id} className="flex w-full flex-row items-center justify-between gap-x-4">
-                <div className="flex w-full flex-col gap-y-0">
+                <div className="flex w-full flex-col gap-y-1">
                   <div className="font-semibold">{task.title}</div>
                   <div className="text-sm text-pale-sky">{task.description}</div>
                   <div className="text-sm text-pale-sky">
