@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { Montserrat } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 
+import { PageHead } from '#components/PageHead';
 import { queryClient } from '#lib/api';
 import { usePersistedQueryClient } from '#lib/hooks/query/usePersistedQueryClient';
 import { getHealth } from '#lib/services/health';
@@ -29,6 +30,7 @@ function App({ Component, pageProps }: AppProps) {
             }
           `}</style>
           <main className="flex h-full w-full flex-col items-center justify-center bg-neutral-100 font-normal text-neutral-600">
+            <PageHead />
             <Component {...pageProps} />
           </main>
         </SessionProvider>
