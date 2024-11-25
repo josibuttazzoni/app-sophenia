@@ -1,6 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import Add from 'src/assets/plus.svg';
 import { Backlog } from 'src/types/tasks';
 
 import emptyTasks from '#assets/emptyTasks.png';
@@ -51,7 +52,8 @@ export default function Tasks() {
           <div className="text-2xl font-semibold">{t('tasks')}</div>
           <div className="flex gap-x-4">
             <Dialog open={tasksModalOpen}>
-              <Button onClick={() => setTasksModalOpen(true)} className="px-8" variant="secondary">
+              <Button onClick={() => setTasksModalOpen(true)} className="w-36 md:w-44" variant="secondary">
+                <Add className="mr-2 h-4 w-4 text-disco" />
                 {t('generateTasks')}
               </Button>
               <DialogContent
@@ -64,7 +66,8 @@ export default function Tasks() {
 
             <Dialog>
               <DialogTrigger>
-                <Button className="px-8" variant="primary">
+                <Button className="w-36 md:w-44" variant="primary">
+                  <Add className="mr-2 h-4 w-4 text-white" />
                   {t('generateOT')}
                 </Button>
               </DialogTrigger>

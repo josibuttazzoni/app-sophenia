@@ -1,5 +1,5 @@
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import { useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
 import { Button } from '#components/ui/button';
@@ -11,8 +11,8 @@ import { DateRangePicker } from './DateRangePicker';
 export const ExportWorkOrderModal = () => {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.HISTORY);
 
-  const [date, setDate] = React.useState<DateRange | undefined>();
-  const [errorDate, setErrorDate] = React.useState(false);
+  const [date, setDate] = useState<DateRange | undefined>();
+  const [errorDate, setErrorDate] = useState(false);
 
   const handleExport = async () => {
     if (date?.from && date?.to) {
@@ -32,7 +32,7 @@ export const ExportWorkOrderModal = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="mb-4 text-center text-xl font-semibold">{t('exportReport')}</div>
+      <div className="mb-6 text-center text-xl font-semibold">{t('exportReport')}</div>
       <DateRangePicker className="w-full" date={date} setDate={setDate} />
       <Button className="w-4/5 px-8" variant="primary" onClick={handleExport}>
         {t('export')}

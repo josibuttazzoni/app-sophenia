@@ -125,7 +125,7 @@ export default function EditTasksContent({
                         ) : (
                           <EditIcon
                             onClick={() => setEditing({ ...editing, [taskIndex]: true })}
-                            className="cursor-pointer"
+                            className="cursor-pointer text-pale-sky hover:text-disco"
                           />
                         )}
                         {isEditing ? (
@@ -135,7 +135,7 @@ export default function EditTasksContent({
                             onClick={() =>
                               setSuggestedTasks(suggestedTasks.filter(task => task.title !== title))
                             }
-                            className="cursor-pointer"
+                            className="cursor-pointer text-pale-sky hover:text-disco"
                           />
                         )}
                       </div>
@@ -158,7 +158,7 @@ export default function EditTasksContent({
               {t('regenerate')}
               <Stars className="[&>path]:stroke-disco" />
             </Button>
-            <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="px-12">
+            <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="w-44">
               {t('confirm')}
             </Button>
           </div>

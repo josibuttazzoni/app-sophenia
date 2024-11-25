@@ -83,7 +83,7 @@ export default function GenerateWorkOrderContent({
         </div>
         <div className="mt-8 flex flex-col gap-y-2">
           {t('availableEmployees')}
-          <div className="flex max-h-[100px] flex-wrap gap-2 rounded-lg border border-slate-200 p-2">
+          <div className="flex flex-wrap max-h-[100px] overflow-y-auto rounded-lg border border-slate-200 p-2 gap-2">
             {availableEmployees.map(empl => (
               <div
                 key={empl.id}
@@ -107,7 +107,7 @@ export default function GenerateWorkOrderContent({
       <div className="mt-8 flex w-full justify-end">
         <Button
           status={status === 'pending' ? 'pending' : 'enabled'}
-          className="px-12"
+          className="w-44"
           onClick={() => {
             suggestAssingnments({
               taskIds: selectedTasks.map(t => t.id),
