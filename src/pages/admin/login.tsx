@@ -1,6 +1,6 @@
 import Login from '#components/Login';
 import { RoleDto } from '#lib/enums/employees';
 
-export default function LoginPage() {
-  return <Login role={RoleDto.WORKER} />;
+export default function AdminLoginPage() {
+  return <Login role={RoleDto.ADMIN} />;
 }

@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import React from 'react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
-import image from '#assets/sophenia.png';
+import { PAGES_PATHS } from '#constants/pages';
 
-export default function Landing() {
-  return (
-    <div className="flex h-screen w-full items-center justify-center">
-      <div className="max-h-xs relative h-full w-full max-w-xs">
-        <Image src={image} alt="Description of image" fill style={{ objectFit: 'contain' }} />
-      </div>
-    </div>
-  );
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push(PAGES_PATHS.LOGIN);
+  }, [router]);
+
+  return null;
 }

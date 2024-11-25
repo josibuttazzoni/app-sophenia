@@ -15,6 +15,9 @@ export const getWorkOrders = async () =>
 
 export const getCurrentWorkOrder = async () => api.get<GetWorkOrderResponse>('/work-orders/current');
 
+export const getCurrentWorkOrderByWorker = async ({ workerId }: { workerId: string }) =>
+  api.get<GetWorkOrderResponse>(`/work-orders/current/worker/${workerId}`);
+
 export const getSuggestionsForWorkOrder = async ({ taskIds, workersIds }: SuggestWorkOrderVariables) => {
   return api.post<SuggestWorkOrderResponse>('/work-orders/suggest', {
     taskIds: taskIds,

@@ -1,24 +1,38 @@
 import { cx } from 'class-variance-authority';
+import { deleteCookie } from 'cookies-next';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Clock from '#assets/clock.svg';
 import Logout from '#assets/logout.svg';
 import { STATUS_COLORS } from '#components/BoardColumn/constants';
+import { COOKIES } from '#constants/cookies';
+import { PAGES_PATHS } from '#constants/pages';
 import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
-import { useBoard } from '#lib/api/workOrders/useBoard';
+import { queryClient } from '#lib/api';
+import { useProfile } from '#lib/api/auth';
+import { useWorkerBoard } from '#lib/api/workOrders/useWorkerBoard';
 import { formatDateES } from '#utils/date';
 
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
-  const { data } = useBoard();
+  const { data: user } = useProfile();
+  const workerBoard = useWorkerBoard({ variables: { id: user?._id } });
+  const data = workerBoard?.data;
+  const router = useRouter();
+  const handleLogout = () => {
+    deleteCookie(COOKIES.AUTH_TOKEN);
+    deleteCookie(COOKIES.AUTH_ROLE);
+    queryClient.clear();
+    router.replace(PAGES_PATHS.LOGIN);
+  };
   return (
     <div className="min-h-screen">
       <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
         <div className="text-lg font-medium text-disco">{data?.[0]?.workerAssigned.fullname}</div>
-        {/* TODO: Add logout logic */}
-        <Logout className="[&>path]:stroke-[#821744]" />
+        <Logout onClick={handleLogout} className="cursor-pointer [&>path]:stroke-[#821744]" />
       </div>
       <div className="flex h-full w-full flex-col gap-y-3 px-4 pt-3">
         <div className="text-md">

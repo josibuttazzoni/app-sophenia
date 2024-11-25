@@ -17,7 +17,7 @@ export interface UserDto {
   fullname: string;
 }
 
-export type GetUserProfileResponse = User & ErrorApiResponse;
+export type GetUserProfileResponse = GetUser & ErrorApiResponse;
 
 export interface DeleteUserRequestVariables {
   id: string;

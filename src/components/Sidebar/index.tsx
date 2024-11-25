@@ -26,6 +26,7 @@ export function Sidebar({ selectedTab }: SidebarProps) {
 
   const handleLogout = () => {
     deleteCookie(COOKIES.AUTH_TOKEN);
+    deleteCookie(COOKIES.AUTH_ROLE);
     queryClient.clear();
     router.replace(PAGES_PATHS.LOGIN);
   };
