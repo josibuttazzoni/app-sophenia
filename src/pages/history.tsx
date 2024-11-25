@@ -1,5 +1,6 @@
 import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
+import Export from 'src/assets/export.svg';
 import { WorkOrder } from 'src/types/workOrders';
 
 import emptyEmployees from '#assets/emptyTasks.png';
@@ -51,6 +52,7 @@ export default function History() {
           <Dialog>
             <DialogTrigger>
               <Button className="px-8" variant="primary">
+                <Export className="mr-2 h-4 w-4 text-white" />
                 {t('exportReport')}
               </Button>
             </DialogTrigger>

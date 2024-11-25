@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import Edit from 'src/assets/edit.svg';
 import Export from 'src/assets/export.svg';
+import Add from 'src/assets/plus.svg';
 import Trash from 'src/assets/trash.svg';
 import { User } from 'src/types/users';
 
@@ -117,7 +118,7 @@ export default function Employees() {
             }}
           >
             <DialogTrigger>
-              <Edit />
+              <Edit className="text-pale-sky hover:text-disco" />
             </DialogTrigger>
             <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
               <EmployeeModal setEmployeeModalOpen={setEditModalOpen} {...selectedEmployee} />
@@ -131,7 +132,7 @@ export default function Employees() {
             }}
           >
             <DialogTrigger>
-              <Trash />
+              <Trash className="text-pale-sky hover:text-disco" />
             </DialogTrigger>
             <DialogContent className="w-full max-w-sm rounded-xl bg-white p-8">
               <WarningModal>
@@ -159,7 +160,7 @@ export default function Employees() {
           </Dialog>
           <div className="h-auto w-px bg-black" />
           <div className="cursor-pointer" onClick={() => handleExport(id)}>
-            <Export />
+            <Export className="text-pale-sky hover:text-disco" />
           </div>
         </TableCell>
       </>
@@ -174,6 +175,7 @@ export default function Employees() {
           <Dialog open={createModalOpen} onOpenChange={setCreateModalOpen}>
             <DialogTrigger>
               <Button className="px-8" variant="primary">
+                <Add className="mr-2 h-4 w-4 text-white" />
                 {t('addEmployee')}
               </Button>
             </DialogTrigger>
