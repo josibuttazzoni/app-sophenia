@@ -12,12 +12,15 @@ import { PAGES_PATHS } from '#constants/pages';
 import { ROUTES } from '#constants/routes';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { queryClient } from '#lib/api';
-import { useBoard } from '#lib/api/workOrders/useBoard';
+import { useProfile } from '#lib/api/auth';
+import { useWorkerBoard } from '#lib/api/workOrders/useWorkerBoard';
 import { formatDateES } from '#utils/date';
 
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
-  const { data } = useBoard();
+  const { data: user } = useProfile();
+  const workerBoard = useWorkerBoard({ variables: { id: user?._id } });
+  const data = workerBoard?.data;
   const router = useRouter();
   const handleLogout = () => {
     deleteCookie(COOKIES.AUTH_TOKEN);
@@ -29,7 +32,7 @@ export default function Tasks() {
     <div className="min-h-screen">
       <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
         <div className="text-lg font-medium text-disco">{data?.[0]?.workerAssigned.fullname}</div>
-        <Logout onClick={handleLogout} className="[&>path]:stroke-[#821744]" />
+        <Logout onClick={handleLogout} className="cursor-pointer [&>path]:stroke-[#821744]" />
       </div>
       <div className="flex h-full w-full flex-col gap-y-3 px-4 pt-3">
         <div className="text-md">
