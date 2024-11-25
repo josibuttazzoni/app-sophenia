@@ -43,10 +43,8 @@ export default function Login({ role }: { role: RoleDto }) {
   useEffect(() => {
     if (token && authRole) {
       router.push(getRedirectPageByRole(authRole));
-      setLoading(false);
-    } else {
-      setLoading(false);
     }
+    setLoading(false);
   }, [token, router, authRole]);
 
   return (
