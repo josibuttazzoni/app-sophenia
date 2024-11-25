@@ -39,11 +39,8 @@ export const useLogin = (role: RoleDto) => {
   })();
 };
 
-export const getRedirectPageByRole = (role: RoleDto) => {
-  switch (role) {
-    case RoleDto.ADMIN:
-      return PAGES_PATHS.BOARD;
-    case RoleDto.WORKER:
-      return PAGES_PATHS.WORKERS_TASKS;
-  }
-};
+export const getRedirectPageByRole = (role: RoleDto) =>
+  ({
+    [RoleDto.ADMIN]: PAGES_PATHS.BOARD,
+    [RoleDto.WORKER]: PAGES_PATHS.WORKERS_TASKS
+  })[role];
