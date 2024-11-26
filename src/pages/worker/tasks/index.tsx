@@ -29,7 +29,7 @@ export default function Tasks() {
     router.replace(PAGES_PATHS.LOGIN);
   };
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full">
       <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
         <div className="text-lg font-medium text-disco">{user?.fullname}</div>
         <Logout onClick={handleLogout} className="cursor-pointer [&>path]:stroke-[#821744]" />
