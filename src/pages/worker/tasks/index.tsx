@@ -36,6 +36,7 @@ export default function Tasks() {
 
   return (
     <div className="min-h-screen w-full">
+        <LoadingWrapper className='h-screen' loading={loading}>
       <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
         <div className="text-lg font-medium text-disco">{user?.fullname}</div>
         <Logout onClick={handleLogout} className="cursor-pointer [&>path]:stroke-[#821744]" />
@@ -44,7 +45,6 @@ export default function Tasks() {
         <div className="text-base font-medium">
           {t('tasks')} al {formatDateES(new Date())}
         </div>
-        <LoadingWrapper loading={loading}>
           {!!data && data.length > 0 ? (
             data.map(task => (
               <Link
@@ -71,8 +71,8 @@ export default function Tasks() {
           ) : (
             <EmptyState title={t('workerEmptyTasks')} icon={emptyTasks} />
           )}
-        </LoadingWrapper>
       </div>
+      </LoadingWrapper>
     </div>
   );
 }
