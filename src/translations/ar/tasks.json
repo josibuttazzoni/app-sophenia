@@ -40,5 +40,6 @@
   "createTasksError": "al crear las tareas",
   "addRatingError": "al agregar la calificación",
   "suggestTasksError": "al sugerir las tareas",
-  "totalHours": "hs totales"
+  "totalHours": "hs totales",
+  "workerEmptyTasks": "No tienes tareas asignadas"
 }
