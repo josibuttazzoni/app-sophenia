@@ -3,20 +3,14 @@ import { useState } from 'react';
 import { UseFormReturn, useForm } from 'react-hook-form';
 import { Backlog, SuggestTasksVariables } from 'src/types/tasks';
 
-import CrossIcon from '#assets/cross.svg';
-import EditIcon from '#assets/edit.svg';
 import Stars from '#assets/stars.svg';
-import TickIcon from '#assets/tick.svg';
-import DeleteIcon from '#assets/trash.svg';
 import { Button } from '#components/ui/button';
 import { Form } from '#components/ui/form';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useCreateTasks } from '#lib/api/tasks/useCreateTasks';
 import { useTasksContext } from '#lib/providers/TasksContext';
 
-import InputField from './InputField';
-import SwitchField from './SwitchField';
-import TextAreaField from './TextAreaField';
+import Task from './Task';
 
 type EditTasksContentProps = {
   suggestForm: UseFormReturn<SuggestTasksVariables, any, undefined>;
@@ -77,7 +71,7 @@ export default function EditTasksContent({
   };
 
   const onCreateSubmit = () => {
-    createTasks(suggestedTasks);
+    createTasks(suggestedTasks.filter(task => !task.title));
   };
 
   return (
@@ -86,63 +80,45 @@ export default function EditTasksContent({
       <Form {...form}>
         <form className="flex h-full flex-col justify-between" onSubmit={handleSubmit(onCreateSubmit)}>
           <div
-            className={`flex max-h-[530px] flex-col gap-y-3 overflow-auto rounded-md border-mischka p-4 ${!suggestLoading && 'border'}`}
+            className={`flex max-h-[530px] flex-col gap-y-3 divide-y overflow-auto rounded-md border-mischka p-4 ${!suggestLoading && 'border'}`}
           >
             {!suggestLoading &&
-              suggestedTasks.map(
-                ({ title, description, estimatedHoursToComplete, requiresTaskReport }, taskIndex) => {
-                  const isEditing = editing?.[taskIndex];
-                  return (
-                    <div key={title} className="flex w-full flex-row items-center justify-between gap-x-4">
-                      <div className="flex w-full flex-col gap-y-1">
-                        <div className="font-semibold">{title}</div>
-                        <TextAreaField
-                          name={`${taskIndex}.description`}
-                          isEditing={isEditing}
-                          title={t('description')}
-                          content={description}
-                          control={control}
-                        />
-                        <InputField
-                          name={`${taskIndex}.estimatedHoursToComplete`}
-                          title={t('estimatedTime')}
-                          isEditing={isEditing}
-                          content={estimatedHoursToComplete}
-                          control={control}
-                        />
-                        <SwitchField
-                          name={`${taskIndex}.requiresTaskReport`}
-                          isEditing={isEditing}
-                          setValue={setValue}
-                          title={t('requiresDetail')}
-                          content={requiresTaskReport}
-                          control={control}
-                        />
-                      </div>
-                      <div className="flex gap-x-2">
-                        {isEditing ? (
-                          <TickIcon onClick={() => handleConfirm(taskIndex)} className="cursor-pointer" />
-                        ) : (
-                          <EditIcon
-                            onClick={() => setEditing({ ...editing, [taskIndex]: true })}
-                            className="cursor-pointer text-pale-sky hover:text-disco"
-                          />
-                        )}
-                        {isEditing ? (
-                          <CrossIcon onClick={() => setEditing({ ...editing, [taskIndex]: false })} />
-                        ) : (
-                          <DeleteIcon
-                            onClick={() =>
-                              setSuggestedTasks(suggestedTasks.filter(task => task.title !== title))
-                            }
-                            className="cursor-pointer text-pale-sky hover:text-disco"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  );
-                }
-              )}
+              suggestedTasks.map((task, taskIndex) => {
+                const isEditing = editing?.[taskIndex];
+                return (
+                  <Task
+                    {...task}
+                    isEditing={isEditing}
+                    handleConfirm={handleConfirm}
+                    setValue={setValue}
+                    control={control}
+                    index={taskIndex}
+                    setEditing={setEditing}
+                    editing={editing}
+                  />
+                );
+              })}
+            <div className="flex w-full justify-end pt-2">
+              <Button
+                variant="ghost"
+                className="w-fit"
+                onClick={e => {
+                  e.preventDefault();
+                  setSuggestedTasks([
+                    ...suggestedTasks,
+                    {
+                      title: '',
+                      description: '',
+                      requiresTaskReport: false,
+                      estimatedHoursToComplete: 0
+                    }
+                  ]);
+                  setEditing({ ...editing, [suggestedTasks.length]: true });
+                }}
+              >
+                + {t('addTask')}
+              </Button>
+            </div>
           </div>
           <div className="flex w-full justify-end gap-x-4">
             <Button

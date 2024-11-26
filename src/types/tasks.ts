@@ -35,7 +35,7 @@ export interface UpdateTaskRequestVariables {
 }
 
 export interface Backlog extends BacklogDto {
-  id: string;
+  id?: string;
 }
 
 export interface GetBacklogResponse extends BacklogDto {
@@ -44,8 +44,8 @@ export interface GetBacklogResponse extends BacklogDto {
 interface BacklogDto {
   title: string;
   description: string;
-  status: TaskStatusDto;
-  requiresTaskReport: boolean;
+  status?: TaskStatusDto;
+  requiresTaskReport?: boolean;
   estimatedHoursToComplete: number;
 }
 

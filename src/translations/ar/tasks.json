@@ -26,6 +26,8 @@
   "workOrderName": "Nombre de la OT",
   "workerAssigned": "Empleado asignado",
   "enterThe": "Ingresa el {{field}}",
+  "selectThe": "Selecciona {{field}}",
+  "theSeason": "la temporada",
   "generalManagment": "Tareas generales",
   "harvestTime": "Recolección de la uva",
   "warehouseMaintainance": "Mantenimiento de la bodega",
@@ -43,5 +45,6 @@
   "suggestTasksError": "al sugerir las tareas",
   "totalHours": "hs totales",
   "readyForReview": "Lista para revisar",
-  "requiresTaskReport": "* Requiere detalle"
+  "requiresTaskReport": "* Requiere detalle",
+  "title": "Título"
 }
