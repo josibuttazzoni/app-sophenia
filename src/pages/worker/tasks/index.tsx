@@ -31,7 +31,7 @@ export default function Tasks() {
   return (
     <div className="min-h-screen">
       <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
-        <div className="text-lg font-medium text-disco">{data?.[0]?.workerAssigned.fullname}</div>
+        <div className="text-lg font-medium text-disco">{user?.fullname}</div>
         <Logout onClick={handleLogout} className="cursor-pointer [&>path]:stroke-[#821744]" />
       </div>
       <div className="flex h-full w-full flex-col gap-y-3 px-4 pt-3">
