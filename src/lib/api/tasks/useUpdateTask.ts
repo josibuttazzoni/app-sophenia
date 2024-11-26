@@ -12,6 +12,7 @@ export const useUpdateTask = () => {
       updateTaskStatus(variables).then(handleServerResponse),
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['/tasks/status'] });
+      queryClient.invalidateQueries({ queryKey: ['/worker/board'] });
     }
   })();
 };
