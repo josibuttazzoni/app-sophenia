@@ -12,9 +12,10 @@ type Value<T extends SelectData> = {
 };
 
 type CustomSelectProps<T extends SelectData> = {
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
   value?: Value<T>;
+  defaultValue?: Value<T>;
   items: Value<T>[];
   className?: string;
   onChange?: (value: T) => void;
@@ -26,12 +27,17 @@ export default function CustomSelect<T extends SelectData>({
   placeholder,
   value,
   onChange,
-  className
+  className,
+  defaultValue
 }: CustomSelectProps<T>) {
   return (
     <div>
       {label && <FormLabel>{label}</FormLabel>}
-      <Select value={value?.value} onValueChange={val => onChange?.(val as T)}>
+      <Select
+        defaultValue={defaultValue?.value}
+        value={value?.value}
+        onValueChange={val => onChange?.(val as T)}
+      >
         <SelectTrigger className={className}>
           <SelectValue placeholder={value?.label ?? placeholder} />
         </SelectTrigger>

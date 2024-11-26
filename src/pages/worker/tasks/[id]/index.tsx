@@ -38,7 +38,7 @@ export default function WorkerTask() {
 
   const { control, handleSubmit } = form;
 
-  const { mutate: completeTask } = useCompleteTask();
+  const { mutate: completeTask, status } = useCompleteTask();
 
   const onSubmit = (data: CompleteTaskVariables) => {
     completeTask({ photoUrl: data.photoUrl, detail: data.detail, id });
@@ -114,7 +114,9 @@ export default function WorkerTask() {
               </div>
             )}
 
-            <Button type="submit">{t('markAsSolved')}</Button>
+            <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit">
+              {t('markAsSolved')}
+            </Button>
           </form>
         </Form>
       </div>
