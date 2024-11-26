@@ -16,8 +16,8 @@ export function BoardColumn({ status, tasks }: BoardColumnProps) {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
 
   return (
-    <div className="flex w-full flex-col gap-y-3 rounded-xl bg-white p-2">
-      <div className="flex items-center justify-between text-sm">
+    <div className="flex max-h-[750px] w-full flex-col gap-y-3 overflow-auto rounded-xl bg-white px-3">
+      <div className="sticky top-0 flex items-center justify-between bg-white py-2 text-sm">
         <div className={`w-fit rounded-lg lg:max-w-32 ${STATUS_COLORS[status].bg} p-1 lg:px-2`}>
           {getStatusTitle(t)[status]}
         </div>
