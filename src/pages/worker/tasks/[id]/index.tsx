@@ -69,35 +69,44 @@ export default function WorkerTask() {
           <div className="rounded-md border px-2">{data.estimatedHoursToComplete} hs</div>
         </div>
         <Form {...form}>
-          <form className="flex flex-col gap-y-5" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex w-full gap-x-1">
-              <FormField
-                control={control}
-                name="detail"
-                {...(data.requiresTaskReport && {
-                  rules: { required: t('required', { field: t('role') }) }
-                })}
-                render={({ field, fieldState }) => (
-                  <FormItem className="w-full py-0">
-                    <FormControl>
-                      <TextArea rows={4} placeholder={t('enterDescription')} {...field} />
-                    </FormControl>
-                    {fieldState.error && <FormMessage>{t('required')}</FormMessage>}
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="photoUrl"
-                control={control}
-                render={() => (
-                  <ImageUploadButton
-                    onFileSelect={(file: File) => {
-                      uploadImage(file);
-                      setImageFile(file);
-                    }}
-                  />
-                )}
-              />
+          <form
+            className="flex h-full flex-grow flex-col justify-between gap-y-5"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className="flex w-full flex-col gap-y-3">
+              <div className="flex w-full gap-x-1">
+                <FormField
+                  control={control}
+                  name="detail"
+                  {...(data.requiresTaskReport && {
+                    rules: { required: t('required', { field: t('role') }) }
+                  })}
+                  render={({ field, fieldState }) => (
+                    <FormItem className="w-full py-0">
+                      <FormControl>
+                        <TextArea rows={4} placeholder={t('enterDescription')} {...field} />
+                      </FormControl>
+                      {data.requiresTaskReport && (
+                        <div className={`text-sm ${fieldState.error && 'text-red-700'}`}>
+                          {t('requiresTaskReport')}{' '}
+                        </div>
+                      )}
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="photoUrl"
+                  control={control}
+                  render={() => (
+                    <ImageUploadButton
+                      onFileSelect={(file: File) => {
+                        uploadImage(file);
+                        setImageFile(file);
+                      }}
+                    />
+                  )}
+                />
+              </div>
             </div>
             {image && (
               <div className="flex flex-row items-center justify-between rounded-md border border-slate-200 p-3">
@@ -115,7 +124,7 @@ export default function WorkerTask() {
             )}
 
             <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit">
-              {t('markAsSolved')}
+              {t('readyForReview')}
             </Button>
           </form>
         </Form>

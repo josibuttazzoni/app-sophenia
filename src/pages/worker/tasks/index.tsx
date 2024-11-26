@@ -67,7 +67,9 @@ export default function Tasks() {
                       className={cx('rounded-md px-2', STATUS_COLORS[task.status]?.bg)}
                       defaultValue={STATUS.find(status => status.value === task.status)}
                       onChange={status => editMutate({ status, id: task.id })}
-                      items={STATUS}
+                      items={STATUS.filter(status =>
+                        [TaskStatusDto.PENDING, TaskStatusDto.PROGRESS].includes(status.value)
+                      )}
                     />
                   ) : (
                     <div
