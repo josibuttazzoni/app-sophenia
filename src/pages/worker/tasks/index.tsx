@@ -17,8 +17,8 @@ import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { queryClient } from '#lib/api';
 import { useProfile } from '#lib/api/auth';
 import { useWorkerBoard } from '#lib/api/workOrders/useWorkerBoard';
-import { formatDateES } from '#utils/date';
 import { useLoading } from '#lib/hooks/user/useLoading';
+import { formatDateES } from '#utils/date';
 
 export default function Tasks() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.TASKS);
@@ -36,15 +36,15 @@ export default function Tasks() {
 
   return (
     <div className="min-h-screen w-full">
-        <LoadingWrapper className='h-screen' loading={loading}>
-      <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
-        <div className="text-lg font-medium text-disco">{user?.fullname}</div>
-        <Logout onClick={handleLogout} className="cursor-pointer [&>path]:stroke-[#821744]" />
-      </div>
-      <div className="flex h-screen w-full flex-col gap-y-3 px-4 pt-3">
-        <div className="text-base font-medium">
-          {t('tasks')} al {formatDateES(new Date())}
+      <LoadingWrapper className="h-screen" loading={loading}>
+        <div className="sticky top-0 flex w-full justify-between border-b border-claret bg-white p-3">
+          <div className="text-lg font-medium text-disco">{user?.fullname}</div>
+          <Logout onClick={handleLogout} className="cursor-pointer [&>path]:stroke-[#821744]" />
         </div>
+        <div className="flex h-screen w-full flex-col gap-y-3 px-4 pt-3">
+          <div className="text-base font-medium">
+            {t('tasks')} al {formatDateES(new Date())}
+          </div>
           {!!data && data.length > 0 ? (
             data.map(task => (
               <Link
@@ -56,7 +56,7 @@ export default function Tasks() {
                 <div className="flex flex-col gap-y-2 p-2 px-3 text-sm">
                   {task.description}
                   <div className="w-full border-b border-gray-200" />
-                  <div className="flex justify-between items-center text-xs">
+                  <div className="flex items-center justify-between text-xs">
                     <div className="flex gap-x-1">
                       <Clock />
                       {task.estimatedHoursToComplete}
@@ -71,7 +71,7 @@ export default function Tasks() {
           ) : (
             <EmptyState title={t('workerEmptyTasks')} icon={emptyTasks} />
           )}
-      </div>
+        </div>
       </LoadingWrapper>
     </div>
   );
