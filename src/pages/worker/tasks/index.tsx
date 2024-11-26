@@ -60,7 +60,7 @@ export default function Tasks() {
                 <div className="flex justify-between text-xs">
                   <div className="flex gap-x-1">
                     <Clock />
-                    {task.estimatedHoursToComplete}
+                    {task.estimatedHoursToComplete} hs
                   </div>
                   {task.status === TaskStatusDto.PENDING ? (
                     <CustomSelect
