@@ -98,7 +98,7 @@ export default function GenerateTasksContent({ form, onSubmit, suggestLoading }:
               <Button
                 status={suggestLoading ? 'pending' : 'enabled'}
                 type="submit"
-                className="flex gap-x-3 px-12"
+                className="flex w-44 gap-x-3"
               >
                 {t('generate')}
                 <Stars />

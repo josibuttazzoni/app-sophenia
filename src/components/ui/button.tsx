@@ -52,7 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp className={cn(buttonVariants({ variant, size, className, status }))} ref={ref} {...props}>
         {status === 'pending' ? (
-          <Loading white={variant !== 'secondary'} className="z-10 [&>div>svg]:h-5 [&>div>svg]:w-5" />
+          <Loading small white={variant !== 'secondary'} className="z-10 [&>div>svg]:h-5 [&>div>svg]:w-5" />
         ) : (
           children
         )}
