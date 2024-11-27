@@ -16,7 +16,7 @@ import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useBacklog } from '#lib/api/tasks/useBacklog';
 import { useWorkers } from '#lib/api/users/useWorkers';
-import { useProfile } from '#lib/hooks/user/useProfile';
+import { useLoading } from '#lib/hooks/user/useLoading';
 import { TasksProvider } from '#lib/providers/TasksContext';
 import { formatHoursTime } from '#utils/date/index';
 
@@ -30,7 +30,7 @@ export default function Tasks() {
   const { data: tasks, isFetching } = useBacklog();
   const { data: workers } = useWorkers();
 
-  const loading = useProfile(tasks, isFetching);
+  const loading = useLoading(tasks, isFetching);
 
   const renderTaskRow = (task: Backlog) => {
     const { title, requiresTaskReport, estimatedHoursToComplete } = task;

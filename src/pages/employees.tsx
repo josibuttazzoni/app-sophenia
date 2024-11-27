@@ -24,7 +24,7 @@ import { useDeleteUser } from '#lib/api/users/useDeleteUser';
 import { useUpdateUser } from '#lib/api/users/useUpdateUser';
 import { useUsers } from '#lib/api/users/useUsers';
 import { RoleDto } from '#lib/enums/employees';
-import { useProfile } from '#lib/hooks/user/useProfile';
+import { useLoading } from '#lib/hooks/user/useLoading';
 import { getReportByWorker } from '#lib/services/reports';
 import { sortBy } from '#utils/list';
 
@@ -49,7 +49,7 @@ export default function Employees() {
 
   const [employees, setEmployees] = useState(sortBy(data, sortDirection, 'fullname'));
 
-  const loading = useProfile(employees);
+  const loading = useLoading(employees);
 
   useEffect(() => {
     setEmployees(sortBy(data, sortDirection, 'fullname'));
