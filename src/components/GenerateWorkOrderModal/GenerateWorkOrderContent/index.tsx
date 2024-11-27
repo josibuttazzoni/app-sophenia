@@ -110,7 +110,7 @@ export default function GenerateWorkOrderContent({
           className="w-44"
           onClick={() => {
             suggestAssingnments({
-              taskIds: selectedTasks.map(t => t.id),
+              taskIds: selectedTasks.map(t => t.id as string),
               workersIds: availableEmployees.map(e => e.id)
             });
           }}
