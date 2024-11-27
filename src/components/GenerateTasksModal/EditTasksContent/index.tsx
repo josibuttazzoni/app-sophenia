@@ -71,7 +71,8 @@ export default function EditTasksContent({
   };
 
   const onCreateSubmit = () => {
-    createTasks(suggestedTasks.filter(task => !task.title));
+    console.log(suggestedTasks);
+    createTasks(suggestedTasks.filter(task => !!task.title));
   };
 
   return (
