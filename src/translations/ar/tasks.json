@@ -46,5 +46,6 @@
   "totalHours": "hs totales",
   "readyForReview": "Lista para revisar",
   "requiresTaskReport": "* Requiere detalle",
-  "title": "Título"
+  "title": "Título",
+  "workerEmptyTasks": "No tienes tareas asignadas"
 }

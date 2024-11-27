@@ -14,7 +14,7 @@ import { Dialog, DialogContent } from '#components/ui/dialog';
 import { TableCell } from '#components/ui/table';
 import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useWorkOrders } from '#lib/api/workOrders';
-import { useProfile } from '#lib/hooks/user/useProfile';
+import { useLoading } from '#lib/hooks/user/useLoading';
 
 const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => mod.DialogTrigger), {
   ssr: false
@@ -25,7 +25,7 @@ export default function History() {
 
   const { data, isFetching } = useWorkOrders();
 
-  const loading = useProfile(data, isFetching);
+  const loading = useLoading(data, isFetching);
 
   const renderRow = (workOrder: WorkOrder) => {
     return (

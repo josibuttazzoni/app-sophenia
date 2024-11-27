@@ -60,30 +60,31 @@ export default function CommentModal({
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-2">
         <div className="text-xl font-semibold">{title}</div>
-        <div className="rounded-lg bg-oxford-blue bg-opacity-5 p-2">
-          <div className="text-sm">
-            <FormLabel>{t('workerDetail')}</FormLabel>
-            {': '}
-            {detail}
-          </div>
-          {photoUrl && (
-            <div
-              className={`relative mt-3 cursor-pointer transition-all duration-300 ${
-                isImageZoomed ? 'h-[480px] w-full' : 'h-32 w-32'
-              }`}
-              onClick={() => setIsImageZoomed(!isImageZoomed)}
-            >
-              <Image
-                alt="photo"
-                className="object-left"
-                src={fullPhotoUrl}
-                fill
-                style={{ objectFit: 'contain' }}
-              />
+        {detail && (
+          <div className="rounded-lg bg-oxford-blue bg-opacity-5 p-2">
+            <div className="text-sm">
+              <FormLabel>{t('workerDetail')}</FormLabel>
+              {': '}
+              {detail}
             </div>
-          )}
-        </div>
-
+            {photoUrl && (
+              <div
+                className={`relative mt-3 cursor-pointer transition-all duration-300 ${
+                  isImageZoomed ? 'h-[480px] w-full' : 'h-32 w-32'
+                }`}
+                onClick={() => setIsImageZoomed(!isImageZoomed)}
+              >
+                <Image
+                  alt="photo"
+                  className="object-left"
+                  src={fullPhotoUrl}
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
+            )}
+          </div>
+        )}
         <FormField
           control={control}
           name="rating"

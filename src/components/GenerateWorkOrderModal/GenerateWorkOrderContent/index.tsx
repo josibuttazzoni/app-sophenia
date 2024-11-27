@@ -83,7 +83,7 @@ export default function GenerateWorkOrderContent({
         </div>
         <div className="mt-8 flex flex-col gap-y-2">
           {t('availableEmployees')}
-          <div className="flex flex-wrap max-h-[100px] overflow-y-auto rounded-lg border border-slate-200 p-2 gap-2">
+          <div className="flex max-h-[100px] flex-wrap gap-2 overflow-y-auto rounded-lg border border-slate-200 p-2">
             {availableEmployees.map(empl => (
               <div
                 key={empl.id}

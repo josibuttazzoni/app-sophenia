@@ -13,7 +13,7 @@ import { TRANSLATIONS_NAMESPACES } from '#constants/translations';
 import { useUpdateTask } from '#lib/api/tasks/useUpdateTask';
 import { useBoard } from '#lib/api/workOrders/useBoard';
 import { TaskStatusDto } from '#lib/enums/tasks';
-import { useProfile } from '#lib/hooks/user/useProfile';
+import { useLoading } from '#lib/hooks/user/useLoading';
 
 export default function Board() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.BOARD);
@@ -29,7 +29,7 @@ export default function Board() {
 
   const [tasks, setTasks] = useState<Task[] | undefined>(data);
 
-  const loading = useProfile(data, isFetching);
+  const loading = useLoading(data, isFetching);
 
   useEffect(() => {
     setTasks(data);
