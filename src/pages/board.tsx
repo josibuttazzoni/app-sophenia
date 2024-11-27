@@ -67,7 +67,7 @@ export default function Board() {
       </div>
 
       {winReady && (
-        <div className="h-full w-full overflow-auto rounded-lg">
+        <div className="h-full w-full rounded-lg">
           <LoadingWrapper loading={loading}>
             {!!tasks && tasks.length > 0 ? (
               <DragDropContext onDragEnd={handleDragEnd}>
