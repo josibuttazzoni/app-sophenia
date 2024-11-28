@@ -15,14 +15,15 @@ export default function WorkOrderModal({ name, startDate, tasks }: WorkOrder) {
       </div>
       <div className="text-md font-semibold text-disco">{t('tasksDone')}</div>
       <div className="flex w-full flex-col rounded-lg bg-oxford-blue bg-opacity-5 p-2">
-        <ul className="list-disc pl-5">
-          {tasks.map(task => (
-            <li className="my-1 text-sm font-medium text-black/70" key={task.id}>
-              {task.title}
-            </li>
-          ))}
-        </ul>
-      </div>
+  <ul className="list-disc max-h-80 overflow-y-auto pl-5">
+    {tasks.map(task => (
+      <li className="my-1 text-sm font-medium text-black/70" key={task.id}>
+        {task.title}
+      </li>
+    ))}
+  </ul>
+</div>
+
     </div>
   );
 }

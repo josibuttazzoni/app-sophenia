@@ -10,6 +10,7 @@ import { CompleteTaskVariables } from 'src/types/tasks';
 import BackArrow from '#assets/back-arrow.svg';
 import Tick from '#assets/tick.svg';
 import { STATUS_COLORS } from '#components/BoardColumn/constants';
+import Loading from '#components/LoadingWrapper/components/Loading';
 import ImageUploadButton from '#components/UploadFile';
 import { Button } from '#components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '#components/ui/form';
@@ -52,7 +53,7 @@ export default function WorkerTask() {
     setImage(fileUrl);
   };
 
-  const { mutate: uploadImage } = useUploadImage(handleUploadPhoto);
+  const { mutate: uploadImage, isPending } = useUploadImage(handleUploadPhoto);
 
   return (
     data && (
@@ -99,21 +100,26 @@ export default function WorkerTask() {
                 )}
               />
             </div>
-            {image && (
+            {(image || isPending) && (
               <div className="flex flex-row items-center justify-between rounded-md border border-slate-200 p-3">
-                <Image
-                  alt="upload-image"
-                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}images/${image}`}
-                  width={20}
-                  height={20}
-                />
-                {imageFile?.name}
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-200">
-                  <Tick />
-                </div>
+                {isPending ? (
+                  <Loading small className="z-10 [&>div>svg]:h-5 [&>div>svg]:w-5" />
+                ) : (
+                  <>
+                    <Image
+                      alt="upload-image"
+                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}images/${image}`}
+                      width={20}
+                      height={20}
+                    />
+                    {imageFile?.name}
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-200">
+                      <Tick />
+                    </div>
+                  </>
+                )}
               </div>
             )}
-
             <Button type="submit">{t('markAsSolved')}</Button>
           </form>
         </Form>
