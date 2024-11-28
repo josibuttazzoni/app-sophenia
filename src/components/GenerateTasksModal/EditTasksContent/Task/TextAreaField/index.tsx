@@ -14,7 +14,7 @@ type TextAreaFieldProps = {
 
 export default function TextAreaField({ title, content, isEditing, name, control }: TextAreaFieldProps) {
   return (
-    <div className="flex w-full flex-col gap-y-2 text-sm text-pale-sky">
+    <div className="flex w-full flex-col text-sm text-pale-sky">
       <div className="font-medium">{title}</div>
       <div className={isEditing ? 'block' : 'hidden'}>
         <FormField

@@ -61,7 +61,7 @@ export default function Board() {
   };
 
   return (
-    <Layout selectedTab={SIDEBAR_TABS.BOARD}>
+    <Layout className="overflow-hidden" selectedTab={SIDEBAR_TABS.BOARD}>
       <div className="flex items-center justify-between">
         <div className="text-2xl font-semibold">{t('board')}</div>
       </div>
@@ -71,7 +71,7 @@ export default function Board() {
           <LoadingWrapper loading={loading}>
             {!!tasks && tasks.length > 0 ? (
               <DragDropContext onDragEnd={handleDragEnd}>
-                <div className="flex h-fit min-h-full w-full justify-between gap-x-2">
+                <div className="flex h-full w-full justify-between gap-x-2">
                   {Object.values(TaskStatusDto).map(status => (
                     <Droppable droppableId={status} key={status}>
                       {provided => (

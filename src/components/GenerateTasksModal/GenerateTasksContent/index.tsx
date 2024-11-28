@@ -70,7 +70,7 @@ export default function GenerateTasksContent({ form, onSubmit, suggestLoading }:
                     className="pt-3"
                     label={t('seasonMoment')}
                     items={Object.values(SeasonMoment).map(value => ({ label: t(value), value }))}
-                    placeholder={t('seasonMoment')}
+                    placeholder={t('selectThe', { field: t('seasonMoment').toLowerCase() })}
                     value={field.value as any}
                     onChange={field.onChange}
                   />
@@ -86,7 +86,7 @@ export default function GenerateTasksContent({ form, onSubmit, suggestLoading }:
                       <TextArea
                         className="pt-3"
                         label={t('weeklyGoal')}
-                        placeholder={t('enterThe', { field: t('weeklyGoal').toLowerCase() })}
+                        placeholder={t('enterThe', { field: t('theSeason').toLowerCase() })}
                         {...field}
                       />
                     </FormControl>
