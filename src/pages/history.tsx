@@ -1,10 +1,11 @@
 import useTranslation from 'next-translate/useTranslation';
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import Export from 'src/assets/export.svg';
 import { WorkOrder } from 'src/types/workOrders';
 
 import emptyEmployees from '#assets/emptyTasks.png';
-import { ExportWorkOrderModal } from '#components/ExportWorkOrderModal';
+import ExportWorkOrderModal from '#components/ExportWorkOrderModal';
 import { SIDEBAR_TABS } from '#components/Sidebar/constants';
 import PaginatedTableWrapper from '#components/Table';
 import WorkOrderModal from '#components/WorkOrderModal';
@@ -22,6 +23,7 @@ const DialogTrigger = dynamic(() => import('#components/ui/dialog').then(mod => 
 
 export default function History() {
   const { t } = useTranslation(TRANSLATIONS_NAMESPACES.HISTORY);
+  const [exportModalOpen, setExportModalOpen] = useState(false);
 
   const { data, isFetching } = useWorkOrders();
 
@@ -49,7 +51,7 @@ export default function History() {
       <div className="flex items-center justify-between">
         <div className="text-2xl font-semibold">{t('history')}</div>
         <div className="flex gap-x-4">
-          <Dialog>
+          <Dialog open={exportModalOpen} onOpenChange={setExportModalOpen}>
             <DialogTrigger>
               <Button className="px-8" variant="primary">
                 <Export className="mr-2 h-4 w-4 text-white" />
@@ -57,7 +59,7 @@ export default function History() {
               </Button>
             </DialogTrigger>
             <DialogContent className="rounded-xl bg-white p-8">
-              <ExportWorkOrderModal />
+              <ExportWorkOrderModal onSuccess={setExportModalOpen} />
             </DialogContent>
           </Dialog>
         </div>
