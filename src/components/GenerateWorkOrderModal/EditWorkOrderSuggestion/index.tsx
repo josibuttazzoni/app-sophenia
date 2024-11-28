@@ -94,7 +94,7 @@ export const EditWorkOrderSuggestion = ({ workers }: { workers: User[] }) => {
         <div className="flex w-full justify-end pt-2">
           <Button
             status={status === 'pending' ? 'pending' : 'enabled'}
-            className="px-12"
+            className="w-44"
             onClick={() => {
               if (workOrderName === '') {
                 setNameError(true);
