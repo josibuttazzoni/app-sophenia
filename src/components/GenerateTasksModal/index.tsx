@@ -39,14 +39,18 @@ export default function GenerateTasksModal({
 
   const suggestLoading = status === 'pending';
 
-  return isEditing ? (
-    <EditTasksContent
-      suggestLoading={suggestLoading}
-      suggestForm={form}
-      onSubmit={onSubmit}
-      setTasksModalOpen={setTasksModalOpen}
-    />
-  ) : (
-    <GenerateTasksContent suggestLoading={suggestLoading} form={form} onSubmit={onSubmit} />
+  return (
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-auto sm:overflow-visible">
+      {isEditing ? (
+        <EditTasksContent
+          suggestLoading={suggestLoading}
+          suggestForm={form}
+          onSubmit={onSubmit}
+          setTasksModalOpen={setTasksModalOpen}
+        />
+      ) : (
+        <GenerateTasksContent suggestLoading={suggestLoading} form={form} onSubmit={onSubmit} />
+      )}
+    </div>
   );
 }

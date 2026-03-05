@@ -61,7 +61,7 @@ export default function EmployeeModal({
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:justify-between gap-y-4">
         <div className="mb-2 text-xl font-semibold">{email ? t('editEmployee') : t('addEmployee')}</div>
         <FormField
           control={control}

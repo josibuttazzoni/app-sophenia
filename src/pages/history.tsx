@@ -37,7 +37,7 @@ export default function History() {
         <TableCell className="font-medium">
           <Dialog>
             <DialogTrigger className="hover:underline">{t('viewDetail')}</DialogTrigger>
-            <DialogContent className="w-full max-w-sm rounded-xl bg-white p-8">
+            <DialogContent fullScreenOnMobile className="w-full bg-white p-4 sm:max-w-sm sm:rounded-xl sm:p-8">
               <WorkOrderModal {...workOrder} />
             </DialogContent>
           </Dialog>
@@ -48,23 +48,23 @@ export default function History() {
 
   return (
     <Layout selectedTab={SIDEBAR_TABS.HISTORY}>
-      <div className="flex items-center justify-between">
-        <div className="text-2xl font-semibold">{t('history')}</div>
-        <div className="flex gap-x-4">
+      <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-xl font-semibold sm:text-2xl">{t('history')}</div>
+        <div className="w-full min-w-0 sm:w-auto">
           <Dialog open={exportModalOpen} onOpenChange={setExportModalOpen}>
-            <DialogTrigger>
-              <Button className="px-8" variant="primary">
-                <Export className="mr-2 h-4 w-4 text-white" />
+            <DialogTrigger className="w-full sm:w-auto">
+              <Button className="w-full px-4 sm:px-8" variant="primary">
+                <Export className="mr-2 h-4 w-4 shrink-0 text-white" />
                 {t('exportReport')}
               </Button>
             </DialogTrigger>
-            <DialogContent className="rounded-xl bg-white p-8">
+            <DialogContent fullScreenOnMobile className="rounded-xl bg-white p-4 sm:p-8">
               <ExportWorkOrderModal onSuccess={setExportModalOpen} />
             </DialogContent>
           </Dialog>
         </div>
       </div>
-      <div className="h-full w-full rounded-lg bg-white px-8 pb-6 pt-4">
+      <div className="h-full min-w-0 w-full overflow-hidden rounded-lg bg-white px-2 pb-4 pt-4 sm:px-4 md:px-8 md:pb-6">
         <PaginatedTableWrapper
           emptyStateIcon={emptyEmployees}
           loading={loading}

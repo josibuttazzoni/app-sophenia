@@ -103,13 +103,13 @@ export default function Employees() {
         <TableCell>
           <Switch
             checked={availability}
-            className="ml-4"
+            className="ml-0 sm:ml-4"
             id={`switch-${id}`}
             onCheckedChange={() => handleToggle(id)}
           />
         </TableCell>
         <TableCell className="font-medium">{employeeRole}</TableCell>
-        <TableCell className="ml-1 flex gap-x-2">
+        <TableCell className="ml-0 flex min-w-0 flex-wrap gap-1 sm:ml-1 sm:gap-x-2">
           <Dialog
             open={editModalOpen}
             onOpenChange={isOpen => {
@@ -120,7 +120,7 @@ export default function Employees() {
             <DialogTrigger>
               <Edit className="text-pale-sky hover:text-disco" />
             </DialogTrigger>
-            <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
+            <DialogContent fullScreenOnMobile className="w-full bg-white p-4 sm:max-w-lg sm:rounded-xl sm:p-8">
               <EmployeeModal setEmployeeModalOpen={setEditModalOpen} {...selectedEmployee} />
             </DialogContent>
           </Dialog>
@@ -134,21 +134,21 @@ export default function Employees() {
             <DialogTrigger>
               <Trash className="text-pale-sky hover:text-disco" />
             </DialogTrigger>
-            <DialogContent className="w-full max-w-sm rounded-xl bg-white p-8">
+            <DialogContent fullScreenOnMobile className="w-full bg-white p-4 sm:max-w-sm sm:rounded-xl sm:p-8">
               <WarningModal>
                 <>
                   <div className="text-md text-center font-semibold text-ebony-clay">
                     {t('wantToDeleteEmployee', { employee: selectedEmployee?.fullname })}
                   </div>
-                  <div className="flex w-full justify-between gap-x-3">
-                    <DialogClose className="w-1/2">
+                  <div className="flex w-full flex-col gap-3 sm:flex-row sm:justify-between sm:gap-x-3">
+                    <DialogClose className="w-full sm:w-1/2">
                       <Button className="w-full" variant="secondary">
                         {t('cancel')}
                       </Button>
                     </DialogClose>
                     <Button
                       onClick={() => handleDeleteWorker(selectedEmployee?.id)}
-                      className="w-1/2"
+                      className="w-full sm:w-1/2"
                       disabled={isPending}
                     >
                       {t('delete')}
@@ -169,23 +169,23 @@ export default function Employees() {
 
   return (
     <Layout selectedTab={SIDEBAR_TABS.EMPLOYEES}>
-      <div className="flex items-center justify-between">
-        <div className="text-2xl font-semibold">{t('employees')}</div>
-        <div className="flex gap-x-4">
+      <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-xl font-semibold sm:text-2xl">{t('employees')}</div>
+        <div className="w-full min-w-0 sm:w-auto">
           <Dialog open={createModalOpen} onOpenChange={setCreateModalOpen}>
-            <DialogTrigger>
-              <Button className="px-8" variant="primary">
-                <Add className="mr-2 h-4 w-4 text-white" />
+            <DialogTrigger className="w-full sm:w-auto">
+              <Button className="w-full px-4 sm:px-8" variant="primary">
+                <Add className="mr-2 h-4 w-4 shrink-0 text-white" />
                 {t('addEmployee')}
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
+            <DialogContent fullScreenOnMobile className="w-full bg-white p-4 sm:max-w-lg sm:rounded-xl sm:p-8">
               <EmployeeModal setEmployeeModalOpen={setCreateModalOpen} />
             </DialogContent>
           </Dialog>
         </div>
       </div>
-      <div className="h-full w-full rounded-lg bg-white px-8 pb-6 pt-4">
+      <div className="h-full min-w-0 w-full overflow-hidden rounded-lg bg-white px-2 pb-4 pt-4 sm:px-4 md:px-8 md:pb-6">
         <PaginatedTableWrapper
           data={employees}
           columns={[t('employee'), t('isAvailable'), t('role'), t('actions')]}

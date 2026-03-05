@@ -81,7 +81,7 @@ export default function EditTasksContent({
       <Form {...form}>
         <form className="flex h-full flex-col justify-between" onSubmit={handleSubmit(onCreateSubmit)}>
           <div
-            className={`flex max-h-[530px] flex-col gap-y-3 divide-y overflow-auto rounded-md border-mischka p-4 ${!suggestLoading && 'border'}`}
+            className={`flex max-h-[50vh] flex-col gap-y-3 divide-y overflow-auto rounded-md border-mischka p-4 sm:max-h-[530px] ${!suggestLoading && 'border'}`}
           >
             {!suggestLoading &&
               suggestedTasks.map((task, taskIndex) => {
@@ -121,7 +121,7 @@ export default function EditTasksContent({
               </Button>
             </div>
           </div>
-          <div className="flex w-full justify-end gap-x-4">
+          <div className="flex w-full flex-col gap-3 sm:flex-row sm:justify-end sm:gap-x-4">
             <Button
               variant="secondary"
               type="button"
@@ -130,12 +130,12 @@ export default function EditTasksContent({
                 onSubmit(suggestForm.getValues());
               }}
               status={suggestLoading ? 'pending' : 'enabled'}
-              className="flex w-44 gap-x-2"
+              className="flex w-full gap-x-2 sm:w-44"
             >
               {t('regenerate')}
               <Stars className="[&>path]:stroke-disco" />
             </Button>
-            <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="w-44">
+            <Button status={status === 'pending' ? 'pending' : 'enabled'} type="submit" className="w-full sm:w-44">
               {t('confirm')}
             </Button>
           </div>

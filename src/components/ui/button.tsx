@@ -51,7 +51,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, status, children, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
-      <Comp className={cn(buttonVariants({ variant, size, className, status }))} ref={ref} {...props}>
+      <Comp className={cn(buttonVariants({ variant, size, status }), className)} ref={ref} {...props}>
         {status === 'pending' ? (
           <Loading small white={variant !== 'secondary'} className="z-10 [&>div>svg]:h-5 [&>div>svg]:w-5" />
         ) : (

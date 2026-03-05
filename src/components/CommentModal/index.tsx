@@ -58,7 +58,7 @@ export default function CommentModal({
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between gap-y-2">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex min-w-0 flex-col gap-y-2 md:justify-between">
         <div className="text-xl font-semibold">{title}</div>
         {detail && (
           <div className="rounded-lg bg-oxford-blue bg-opacity-5 p-2">
@@ -96,14 +96,14 @@ export default function CommentModal({
             <FormItem>
               <FormLabel>{isEditable ? t('addRating') : t('rating')}</FormLabel>
               <FormControl>
-                <div className="flex w-full flex-row justify-between">
+                <div className="flex min-w-0 flex-nowrap gap-2 overflow-x-auto overflow-y-hidden pb-1 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value: number) => (
                     <div
                       key={value}
                       onClick={() =>
                         isEditable ? setValue('rating', value, { shouldValidate: true }) : null
                       }
-                      className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-opacity-60 
+                      className={`flex h-8 w-8 flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-opacity-60 
                       p-2 ${RATING_COLORS[value].bg}
                         ${currentRating === value ? `${RATING_COLORS[value].ring} font-medium ring-2` : ''}`}
                     >
@@ -123,13 +123,13 @@ export default function CommentModal({
             <FormItem>
               <FormLabel>{isEditable ? t('addComment') : t('ratingComment')}</FormLabel>
               <FormControl>
-                <TextArea disabled={!isEditable} placeholder={t('ratingComment')} {...field} />
+                <TextArea className="min-w-0" disabled={!isEditable} placeholder={t('ratingComment')} {...field} />
               </FormControl>
             </FormItem>
           )}
         />
         {isEditable && (
-          <Button status={status === 'pending' ? 'pending' : 'enabled'} className="mt-4" type="submit">
+          <Button status={status === 'pending' ? 'pending' : 'enabled'} className="mt-4 w-full min-w-0 sm:w-auto" type="submit">
             {tCommon('save')}
           </Button>
         )}

@@ -25,7 +25,7 @@
   "required": "Campo requerido",
   "workOrderName": "Nombre de la OT",
   "workerAssigned": "Empleado asignado",
-  "enterThe": "Ingresa el {{field}}",
+  "enterThe": "Ingresa {{field}}",
   "selectThe": "Selecciona {{field}}",
   "theSeason": "la temporada",
   "generalManagment": "Tareas generales",

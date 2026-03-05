@@ -53,7 +53,7 @@ export default function GenerateWorkOrderContent({
   const { mutate: suggestAssingnments, status } = useSuggestWorkOrder(handleSuccessSuggestions);
 
   return (
-    <div className="flex flex-col justify-between overflow-scroll">
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-auto sm:overflow-visible">
       <div className="text-xl font-semibold">{t('generateOT')}</div>
       <section>
         <div className="mb-2 flex flex-row items-center gap-x-1">
@@ -83,7 +83,7 @@ export default function GenerateWorkOrderContent({
         </div>
         <div className="mt-8 flex flex-col gap-y-2">
           {t('availableEmployees')}
-          <div className="flex max-h-[100px] flex-wrap gap-2 overflow-y-auto rounded-lg border border-slate-200 p-2">
+          <div className="flex max-h-[220px] flex-wrap gap-2 overflow-y-auto rounded-lg border border-slate-200 p-2 sm:max-h-[100px]">
             {availableEmployees.map(empl => (
               <div
                 key={empl.id}

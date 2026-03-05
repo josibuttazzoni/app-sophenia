@@ -48,36 +48,40 @@ export default function Tasks() {
   return (
     <TasksProvider>
       <Layout selectedTab={SIDEBAR_TABS.TASKS}>
-        <div className="flex items-center justify-between">
-          <div className="text-2xl font-semibold">{t('tasks')}</div>
-          <div className="flex gap-x-4">
+        <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-xl font-semibold sm:text-2xl">{t('tasks')}</div>
+          <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:gap-x-4">
             <Dialog open={tasksModalOpen}>
-              <Button onClick={() => setTasksModalOpen(true)} className="w-36 md:w-44" variant="secondary">
-                <Add className="mr-2 h-4 w-4 text-disco" />
+              <Button onClick={() => setTasksModalOpen(true)} className="w-full sm:w-36 md:w-44" variant="secondary">
+                <Add className="mr-2 h-4 w-4 shrink-0 text-disco" />
                 {t('generateTasks')}
               </Button>
               <DialogContent
                 setOpen={setTasksModalOpen}
-                className="h-[700px] w-[850px] rounded-xl bg-white p-8"
+                fullScreenOnMobile
+                className="w-full bg-white p-4 sm:max-h-[90vh] sm:max-w-[850px] sm:min-h-[500px] sm:rounded-xl sm:p-8"
               >
                 <GenerateTasksModal setTasksModalOpen={setTasksModalOpen} />
               </DialogContent>
             </Dialog>
 
             <Dialog>
-              <DialogTrigger>
-                <Button className="w-36 md:w-44" variant="primary">
-                  <Add className="mr-2 h-4 w-4 text-white" />
+              <DialogTrigger className="w-full sm:w-auto">
+                <Button className="w-full sm:w-36 md:w-44" variant="primary">
+                  <Add className="mr-2 h-4 w-4 shrink-0 text-white" />
                   {t('generateOT')}
                 </Button>
               </DialogTrigger>
-              <DialogContent className="h-[600px] w-[850px] rounded-xl bg-white p-8">
+              <DialogContent
+                fullScreenOnMobile
+                className="w-full bg-white p-4 sm:max-h-[90vh] sm:max-w-[850px] sm:min-h-[400px] sm:rounded-xl sm:p-8"
+              >
                 {tasks && workers && <GenerateWorkOrderModal tasks={tasks} workers={workers} />}
               </DialogContent>
             </Dialog>
           </div>
         </div>
-        <div className="h-full w-full rounded-lg bg-white px-8 pb-6 pt-4">
+        <div className="h-full min-w-0 w-full overflow-hidden rounded-lg bg-white px-2 pb-4 pt-4 sm:px-4 md:px-8 md:pb-6">
           <PaginatedTableWrapper
             data={tasks}
             loading={loading}

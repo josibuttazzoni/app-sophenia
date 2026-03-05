@@ -44,13 +44,13 @@ export default function GenerateTasksContent({ form, onSubmit, suggestLoading }:
             <div className="flex h-full flex-col gap-y-6">
               <div>
                 <FormLabel>{t('weekWeather')}</FormLabel>
-                <div className="flex gap-x-3 pt-3">
+                <div className="flex min-w-0 gap-2 overflow-x-auto pb-1 pt-3 sm:gap-x-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch]">
                   {data?.days.map(({ datetime, tempmax, tempmin, icon }) => {
                     const Icon = WEATHER_ICONS[icon];
                     return (
                       <div
                         key={datetime}
-                        className="flex w-14 flex-col items-center rounded-full bg-claret bg-opacity-15 py-3 text-disco shadow-md"
+                        className="flex w-14 flex-shrink-0 flex-col items-center rounded-full bg-claret bg-opacity-15 py-3 text-disco shadow-md"
                       >
                         {getDayName(datetime).slice(0, 1).toUpperCase()}
                         <div className="flex h-10 items-center">
@@ -86,7 +86,7 @@ export default function GenerateTasksContent({ form, onSubmit, suggestLoading }:
                       <TextArea
                         className="pt-3"
                         label={t('weeklyGoal')}
-                        placeholder={t('enterThe', { field: t('theSeason').toLowerCase() })}
+                        placeholder={t('enterThe', { field: t('weeklyGoal').toLowerCase() })}
                         {...field}
                       />
                     </FormControl>
@@ -98,7 +98,7 @@ export default function GenerateTasksContent({ form, onSubmit, suggestLoading }:
               <Button
                 status={suggestLoading ? 'pending' : 'enabled'}
                 type="submit"
-                className="flex w-44 gap-x-3"
+                className="flex w-full gap-x-3 sm:w-44"
               >
                 {t('generate')}
                 <Stars />

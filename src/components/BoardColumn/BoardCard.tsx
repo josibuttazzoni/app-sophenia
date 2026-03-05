@@ -91,7 +91,7 @@ export function BoardCard({ id, status, title, description, index }: BoardCardPr
                   )
                 )}
               </DialogTrigger>
-              <DialogContent className="w-full max-w-lg rounded-xl bg-white p-8">
+              <DialogContent fullScreenOnMobile className="rounded-xl bg-white sm:p-8">
                 <CommentModal
                   id={id}
                   photoUrl={data?.taskReport?.photoUrl}
